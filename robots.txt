@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block nothing — let search engines crawl the whole site
+Disallow:
+
+# Point crawlers to the sitemap
+Sitemap: https://rockitx.com/sitemap.xml
