@@ -615,7 +615,36 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.75rem 
 .cmp-fill.them{background:linear-gradient(90deg,#71717A,#52525B);}
 .cmp-fill.us{background:linear-gradient(90deg,var(--deal),var(--deal-bri));}
 .cmp-val{font-size:.92rem;font-weight:900;color:var(--text);text-align:right;}
+.cmp-row.us-row{position:relative;padding:.65rem .85rem;margin-left:-.85rem;margin-right:-.85rem;border-radius:13px;
+  border:1px solid var(--deal-b);background:var(--deal-bg);animation:rowPulse 1.5s ease-in-out infinite;}
+@keyframes rowPulse{
+  0%,100%{background:var(--deal-bg);border-color:var(--deal-b);box-shadow:0 0 0 0 transparent;transform:scale(1);}
+  50%{background:rgba(251,191,36,.20);border-color:var(--deal-bri);box-shadow:0 0 26px -2px var(--deal);transform:scale(1.018);}
+}
+.cmp-row.us-row .cmp-name,.cmp-row.us-row .cmp-val{animation:textGlow 1.5s ease-in-out infinite;}
 .cmp-row.us-row .cmp-val{color:var(--deal);}
+@keyframes textGlow{0%,100%{text-shadow:none;}50%{text-shadow:0 0 12px var(--deal);}}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--deal);margin-right:6px;vertical-align:baseline;animation:liveBlink 1.4s ease-in-out infinite;}
+@keyframes liveBlink{0%{opacity:1;}50%{opacity:.25;}100%{opacity:1;}}
+
+/* ---- TEMPLATE SHOWCASE ---- */
+.tpl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:3rem;}
+@media(max-width:1080px){.tpl-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.tpl-grid{grid-template-columns:1fr;}}
+.tpl-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:transform .32s,box-shadow .32s,border-color .32s;display:flex;flex-direction:column;cursor:pointer;}
+.tpl-card:hover{transform:translateY(-7px);border-color:var(--border2);box-shadow:var(--sh);}
+.tpl-prev{height:150px;position:relative;display:grid;place-items:center;overflow:hidden;}
+.tpl-prev .tbar{position:absolute;top:0;left:0;right:0;height:22px;background:rgba(0,0,0,.28);display:flex;align-items:center;gap:5px;padding:0 10px;z-index:1;}
+.tpl-prev .tbar i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.55);}
+.tpl-prev .glyph{font-size:3.6rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,.4));}
+.tpl-prev::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.25),transparent 55%);pointer-events:none;}
+.tpl-prev>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:0;}
+.tpl-body{padding:1.25rem 1.3rem 1.45rem;display:flex;flex-direction:column;flex:1;}
+.tpl-cat{font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:.45rem;}
+.tpl-body h3{font-size:1.08rem;color:var(--text);margin-bottom:.45rem;font-weight:800;}
+.tpl-body p{font-size:.82rem;color:var(--text2);font-weight:500;line-height:1.55;flex:1;}
+.tpl-link{display:inline-flex;align-items:center;gap:7px;margin-top:1.05rem;font-size:.84rem;font-weight:800;color:var(--deal);transition:gap .25s;}
+.tpl-card:hover .tpl-link{gap:12px;}
 
 /* ---- PORTFOLIO / FAKE SITES ---- */
 .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.25rem;perspective:1600px;}
@@ -1009,6 +1038,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .cd-clock::before,.cd-clock::after,.cd-time i{animation:none!important;}
   .rx-sparks{display:none!important;}
   .rx-stars,.rx-shoot{display:none!important;}
+  .live-dot,.cmp-row.us-row,.cmp-row.us-row .cmp-name,.cmp-row.us-row .cmp-val{animation:none!important;}
   .hw,.hw-g{animation:none!important;opacity:1!important;transform:none!important;}
   #page-home #heroTitle:hover{transform:none!important;}
   .fu,.fl,.fr,.sg>*,.si,.build,.hero-badge,.hero-sub,.hero-actions{transition:none!important;opacity:1!important;transform:none!important;filter:none!important;}
@@ -1195,6 +1225,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <div class="nav-links" id="navLinks">
         <a id="nav-home" onclick="go('home')" class="active">Home</a>
         <a id="nav-pricing" onclick="goSection('pricing')">Pricing</a>
+        <a id="nav-templates" onclick="goSection('templates')">Templates</a>
         <a id="nav-work" onclick="goSection('work')">Why Us</a>
         <a id="nav-faq" onclick="goSection('faq')">FAQ</a>
         <a id="nav-services" onclick="go('services')">Services</a>
@@ -1389,8 +1420,53 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <div class="cmp-row"><div class="cmp-name">Big agency<span>3-month wait</span></div><div class="cmp-bar"><div class="cmp-fill them" data-w="100"></div></div><div class="cmp-val">₹85,000</div></div>
         <div class="cmp-row"><div class="cmp-name">Other studios<span>1-month wait</span></div><div class="cmp-bar"><div class="cmp-fill them" data-w="55"></div></div><div class="cmp-val">₹45,000</div></div>
         <div class="cmp-row"><div class="cmp-name">Freelancer<span>unpredictable</span></div><div class="cmp-bar"><div class="cmp-fill them" data-w="30"></div></div><div class="cmp-val">₹25,000</div></div>
-        <div class="cmp-row us-row"><div class="cmp-name">RockitX<span>live in 7 days</span></div><div class="cmp-bar"><div class="cmp-fill us" data-w="9"></div></div><div class="cmp-val">from ₹200/mo</div></div>
+        <div class="cmp-row us-row"><div class="cmp-name">RockitX<span><i class="live-dot"></i>live in 7 days</span></div><div class="cmp-bar"><div class="cmp-fill us" data-w="9"></div></div><div class="cmp-val">from ₹200/mo</div></div>
       </div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE SHOWCASE -->
+  <section id="templates">
+    <div class="fu" style="text-align:center;"><div class="sl" style="justify-content:center;">Live Templates</div></div>
+    <div class="fu d1" style="text-align:center;"><h2>See your website <span class="g-deal">before you buy</span></h2></div>
+    <div class="fu d2" style="text-align:center;"><p class="ssub" style="margin:.85rem auto 0;">Real, interactive demos — tap any industry to open a full live website in a new tab. Yours can look this good, from ₹200/mo.</p></div>
+    <div class="tpl-grid sg">
+      <a class="tpl-card" href="templates/doctor.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/doc-hero.jpg" alt="Doctors & Clinics website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#22D3EE">Healthcare</div><h3>Doctors &amp; Clinics</h3><p>Online appointments, departments and specialist profiles — built to win patients' trust.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/pharmacy.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/ph-hero.jpg" alt="Online Pharmacy website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#34D399">Pharmacy</div><h3>Online Pharmacy</h3><p>Prescription uploads, product shop and fast delivery — a complete medical store online.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/construction.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/con-hero.jpg" alt="Construction company website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#FB923C">Construction</div><h3>Construction Co.</h3><p>Services, project galleries and quote requests — engineered to win bigger contracts.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/realestate.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/re-hero.jpg" alt="Real estate website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#A78BFA">Real Estate</div><h3>Property &amp; Realty</h3><p>Beautiful listings, smart search and lead capture for buyers and sellers.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/mall.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/mall-hero.jpg" alt="Shopping mall website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#F472B6">Shopping Mall</div><h3>Malls &amp; Retail</h3><p>Stores, events and offers showcased on a vibrant, footfall-driving destination site.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/ecommerce.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/ec-hero.jpg" alt="E-commerce online store website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#818CF8">E-commerce</div><h3>Online Store</h3><p>Product grids, deals and secure checkout — a storefront ready to start selling.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/restaurant.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/rest-hero.jpg" alt="Restaurant website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#FB7185">Restaurant</div><h3>Restaurant &amp; Café</h3><p>Mouth-watering menus, reservations and delivery — designed to fill more tables.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+      <a class="tpl-card" href="templates/fitness.html" target="_blank" rel="noopener">
+        <div class="tpl-prev"><div class="tbar"><i></i><i></i><i></i></div><img src="templates/img/fit-hero.jpg" alt="Gym & fitness website template preview" loading="lazy"></div>
+        <div class="tpl-body"><div class="tpl-cat" style="color:#4ADE80">Gym &amp; Fitness</div><h3>Gym &amp; Studio</h3><p>Programs, trainers and free-trial sign-ups — built to grow your membership.</p><span class="tpl-link">View live demo ↗</span></div>
+      </a>
+    </div>
+    <div class="fu" style="text-align:center;margin-top:2.6rem;">
+      <p class="ssub" style="margin-bottom:1.1rem;">Don't see your industry? We build custom designs for any business.</p>
+      <button class="btn-p" onclick="go('contact')">Get my custom website <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
     </div>
   </section>
 
