@@ -131,6 +131,47 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
   50%{opacity:.95;transform:translateY(-16px) scale(1);}
   82%{opacity:.12;}
 }
+
+/* Cool twinkling starfield (deep-space effect) */
+.rx-stars{position:absolute;inset:0;}
+.rx-stars b{position:absolute;border-radius:50%;background:#fff;box-shadow:0 0 5px 1px rgba(199,210,254,.5);animation:starBlink ease-in-out infinite;}
+.rx-stars b:nth-child(odd){background:#C7D2FE;}
+.rx-stars b:nth-child(3n){background:#BAE6FD;}
+@keyframes starBlink{0%,100%{opacity:.12;}50%{opacity:.95;}}
+.rx-stars b:nth-child(1){left:5%;top:12%;width:2px;height:2px;animation-duration:3.4s;animation-delay:0s;}
+.rx-stars b:nth-child(2){left:12%;top:40%;width:1px;height:1px;animation-duration:4.2s;animation-delay:.6s;}
+.rx-stars b:nth-child(3){left:18%;top:72%;width:2px;height:2px;animation-duration:3s;animation-delay:1.4s;}
+.rx-stars b:nth-child(4){left:24%;top:20%;width:1px;height:1px;animation-duration:5s;animation-delay:.3s;}
+.rx-stars b:nth-child(5){left:30%;top:55%;width:2px;height:2px;animation-duration:3.6s;animation-delay:2.1s;}
+.rx-stars b:nth-child(6){left:36%;top:85%;width:1px;height:1px;animation-duration:4.6s;animation-delay:1s;}
+.rx-stars b:nth-child(7){left:42%;top:30%;width:2px;height:2px;animation-duration:3.2s;animation-delay:2.6s;}
+.rx-stars b:nth-child(8){left:48%;top:66%;width:1px;height:1px;animation-duration:5.4s;animation-delay:.8s;}
+.rx-stars b:nth-child(9){left:54%;top:14%;width:2px;height:2px;animation-duration:3.8s;animation-delay:1.7s;}
+.rx-stars b:nth-child(10){left:60%;top:48%;width:1px;height:1px;animation-duration:4s;animation-delay:3s;}
+.rx-stars b:nth-child(11){left:66%;top:78%;width:2px;height:2px;animation-duration:3.5s;animation-delay:.5s;}
+.rx-stars b:nth-child(12){left:72%;top:24%;width:1px;height:1px;animation-duration:4.8s;animation-delay:2.3s;}
+.rx-stars b:nth-child(13){left:78%;top:58%;width:2px;height:2px;animation-duration:3.1s;animation-delay:1.2s;}
+.rx-stars b:nth-child(14){left:84%;top:88%;width:1px;height:1px;animation-duration:5.2s;animation-delay:3.4s;}
+.rx-stars b:nth-child(15){left:90%;top:18%;width:2px;height:2px;animation-duration:3.7s;animation-delay:.9s;}
+.rx-stars b:nth-child(16){left:95%;top:50%;width:1px;height:1px;animation-duration:4.4s;animation-delay:2s;}
+.rx-stars b:nth-child(17){left:8%;top:60%;width:1px;height:1px;animation-duration:3.3s;animation-delay:1.9s;}
+.rx-stars b:nth-child(18){left:15%;top:28%;width:2px;height:2px;animation-duration:4.1s;animation-delay:.2s;}
+.rx-stars b:nth-child(19){left:27%;top:92%;width:1px;height:1px;animation-duration:3.9s;animation-delay:2.8s;}
+.rx-stars b:nth-child(20){left:45%;top:8%;width:2px;height:2px;animation-duration:4.7s;animation-delay:1.5s;}
+.rx-stars b:nth-child(21){left:57%;top:82%;width:1px;height:1px;animation-duration:3.4s;animation-delay:3.2s;}
+.rx-stars b:nth-child(22){left:69%;top:44%;width:2px;height:2px;animation-duration:5.1s;animation-delay:.7s;}
+.rx-stars b:nth-child(23){left:81%;top:12%;width:1px;height:1px;animation-duration:3.6s;animation-delay:2.5s;}
+.rx-stars b:nth-child(24){left:92%;top:70%;width:2px;height:2px;animation-duration:4.3s;animation-delay:1.1s;}
+
+/* Shooting stars */
+.rx-shoot{position:absolute;width:120px;height:2px;border-radius:2px;opacity:0;
+  background:linear-gradient(90deg,transparent,rgba(199,210,254,.95));
+  filter:drop-shadow(0 0 6px rgba(129,140,248,.85));}
+.rx-shoot::after{content:'';position:absolute;right:0;top:-1.5px;width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 9px 2px rgba(199,210,254,.95);}
+@keyframes shoot{0%{opacity:0;transform:translate(0,0) rotate(20deg);}6%{opacity:1;}38%{opacity:1;}58%{opacity:0;}100%{opacity:0;transform:translate(460px,168px) rotate(20deg);}}
+.rx-shoot.s1{top:12%;left:-12%;animation:shoot 8s ease-in 2.5s infinite;}
+.rx-shoot.s2{top:26%;left:-12%;width:90px;animation:shoot 10.5s ease-in 6s infinite;}
+.rx-shoot.s3{top:7%;left:34%;width:100px;animation:shoot 13s ease-in 9.5s infinite;}
 .rx-sparks i:nth-child(1){left:6%;top:18%;animation-duration:5.4s;animation-delay:0s;}
 .rx-sparks i:nth-child(2){left:14%;top:62%;animation-duration:6.8s;animation-delay:1.2s;width:2px;height:2px;}
 .rx-sparks i:nth-child(3){left:22%;top:34%;animation-duration:4.9s;animation-delay:2.4s;}
@@ -693,15 +734,18 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
 #splash{background:radial-gradient(ellipse 60% 50% at 50% 42%,var(--spot),transparent 60%),var(--bg);}
 .splash-bar{box-shadow:0 0 24px -2px var(--accent-mid);}
 
-/* ── RockitX brand lockup: monogram mark + wordmark ── */
-.brand{display:inline-flex;align-items:center;gap:.62rem;cursor:pointer;user-select:none;}
-.brand-mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;position:relative;overflow:hidden;
-  background:linear-gradient(150deg,rgba(255,255,255,.07),rgba(255,255,255,.012));
-  border:1px solid var(--border);box-shadow:0 7px 20px -9px var(--spot),inset 0 0 14px -8px var(--accent);
-  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s,border-color .35s;}
-.brand-mark::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 8%,rgba(129,140,248,.32),transparent 62%);opacity:.85;}
-.brand-mark svg{width:22px;height:22px;position:relative;z-index:1;display:block;}
-.brand:hover .brand-mark{transform:translateY(-2px);border-color:var(--border2);box-shadow:0 14px 28px -10px var(--spot),inset 0 0 16px -6px var(--accent);}
+/* ── RockitX brand lockup: star emblem + wordmark ── */
+.brand{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;user-select:none;}
+.brand-star{position:relative;width:34px;height:34px;flex-shrink:0;display:grid;place-items:center;
+  transition:transform .4s cubic-bezier(.22,1,.36,1);animation:starTwinkle 3.8s ease-in-out infinite;}
+.brand-star svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 7px rgba(129,140,248,.6));transition:filter .35s;}
+.brand-star .bs-rx{position:absolute;top:53%;left:50%;transform:translate(-50%,-50%);
+  font-family:var(--font);font-weight:900;font-size:.5rem;letter-spacing:-.02em;color:#0b0b12;pointer-events:none;}
+.brand:hover .brand-star{transform:scale(1.07) rotate(8deg);}
+.brand:hover .brand-star svg{filter:drop-shadow(0 0 13px rgba(56,189,248,.9));}
+@keyframes starTwinkle{0%,100%{transform:scale(1) rotate(0);}50%{transform:scale(1.06) rotate(5deg);}}
+.fb .brand-star{width:40px;height:40px;}
+.fb .brand-star .bs-rx{font-size:.58rem;}
 
 .logo{position:relative;}
 .logo span{background-size:220% 220%;animation:logoShimmer 3.2s ease-in-out infinite,logoGlow 2.6s ease-in-out infinite;}
@@ -957,13 +1001,14 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .fire-head{animation:none!important;}
   h1 .gt,h2 .g{animation:none!important;}
   .fire-hero .fire-inner::before,.fire-scroll i::after{animation:none!important;}
-  .logo,.logo span{animation:none!important;}
+  .logo,.logo span,.brand-star{animation:none!important;}
   .fire-embers{display:none!important;}
   .deal-pill::before{animation:none!important;}
   .rx-blob{animation:none!important;}
   .wa-float{animation:none!important;}
   .cd-clock::before,.cd-clock::after,.cd-time i{animation:none!important;}
   .rx-sparks{display:none!important;}
+  .rx-stars,.rx-shoot{display:none!important;}
   .hw,.hw-g{animation:none!important;opacity:1!important;transform:none!important;}
   #page-home #heroTitle:hover{transform:none!important;}
   .fu,.fl,.fr,.sg>*,.si,.build,.hero-badge,.hero-sub,.hero-actions{transition:none!important;opacity:1!important;transform:none!important;filter:none!important;}
@@ -1096,6 +1141,12 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="starG" x1="2" y1="3" x2="22" y2="21" gradientUnits="userSpaceOnUse">
+    <stop stop-color="#C4B5FD"/><stop offset=".45" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/>
+  </linearGradient>
+</defs></svg>
+
 <div class="rx-mesh-wrap" aria-hidden="true">
   <div class="rx-aurora">
     <div class="rx-blob rx-b1"></div>
@@ -1107,6 +1158,13 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
     <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
   </div>
+  <div class="rx-stars" aria-hidden="true">
+    <b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>
+    <b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b>
+  </div>
+  <span class="rx-shoot s1" aria-hidden="true"></span>
+  <span class="rx-shoot s2" aria-hidden="true"></span>
+  <span class="rx-shoot s3" aria-hidden="true"></span>
 </div>
 
 <!-- ════════════════════════════════════════ SPLASH ═ -->
@@ -1130,6 +1188,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 <nav id="navbar">
   <div class="nav-shell">
     <div class="brand" onclick="go('home')" title="RockitX — home">
+      <span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span>
       <span class="logo">Rockit<span>X</span></span>
     </div>
     <div class="nav-r">
@@ -1591,7 +1650,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 
   <footer class="build">
     <div class="fg-grid">
-      <div class="fb"><span class="brand"><span class="logo">Rockit<span>X</span></span></span><p>Premium websites for small &amp; medium businesses — at the lowest prices in India. Find it cheaper anywhere, we build yours free.</p></div>
+      <div class="fb"><span class="brand"><span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span><span class="logo">Rockit<span>X</span></span></span><p>Premium websites for small &amp; medium businesses — at the lowest prices in India. Find it cheaper anywhere, we build yours free.</p></div>
       <div class="fc"><h4>Explore</h4><a onclick="goSection('pricing')">Pricing</a><a onclick="goSection('work')">Why Us</a><a onclick="goSection('faq')">FAQ</a><a onclick="go('services')">Services</a><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a></div>
       <div class="fc"><h4>Plans</h4><a onclick="goSection('pricing')">Monthly · ₹200/mo</a><a onclick="goSection('pricing')">Yearly · ₹2,400/yr</a><a onclick="goSection('pricing')">Forever · ₹12,000</a></div>
       <div class="fc"><h4>Contact</h4><a href="mailto:hellorockitx@gmail.com">hellorockitx@gmail.com</a><a href="https://wa.me/919677015116" target="_blank" rel="noopener">+91 96770 15116</a><a>Chennai, India</a></div>
@@ -1663,7 +1722,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   </div>
   <footer class="build">
     <div class="fg-grid">
-      <div class="fb"><span class="brand"><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
+      <div class="fb"><span class="brand"><span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
       <div class="fc"><h4>Services</h4><a onclick="go('services')">Web Applications</a><a onclick="go('services')">Mobile Apps</a><a onclick="go('services')">Product &amp; UX</a><a onclick="go('services')">SEO Support</a></div>
       <div class="fc"><h4>Company</h4><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a></div>
       <div class="fc"><h4>Contact</h4><a href="mailto:hellorockitx@gmail.com">hellorockitx@gmail.com</a><a href="https://wa.me/919677015116" target="_blank" rel="noopener">+91 96770 15116</a></div>
@@ -1727,7 +1786,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   </div>
   <footer class="build">
     <div class="fg-grid">
-      <div class="fb"><span class="brand"><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
+      <div class="fb"><span class="brand"><span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
       <div class="fc"><h4>Services</h4><a onclick="go('services')">Web Applications</a><a onclick="go('services')">Mobile Apps</a><a onclick="go('services')">Product &amp; UX</a></div>
       <div class="fc"><h4>Company</h4><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a></div>
       <div class="fc"><h4>Contact</h4><a href="mailto:hellorockitx@gmail.com">hellorockitx@gmail.com</a><a href="https://wa.me/919677015116" target="_blank" rel="noopener">+91 96770 15116</a></div>
@@ -1790,7 +1849,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   </div>
   <footer class="build">
     <div class="fg-grid">
-      <div class="fb"><span class="brand"><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
+      <div class="fb"><span class="brand"><span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
       <div class="fc"><h4>Services</h4><a onclick="go('services')">Web Applications</a><a onclick="go('services')">Mobile Apps</a><a onclick="go('services')">Product &amp; UX</a></div>
       <div class="fc"><h4>Company</h4><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a></div>
       <div class="fc"><h4>Contact</h4><a href="mailto:hellorockitx@gmail.com">hellorockitx@gmail.com</a><a href="https://wa.me/919677015116" target="_blank" rel="noopener">+91 96770 15116</a><a>Chennai, India</a></div>

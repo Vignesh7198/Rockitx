@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
   <defs>
-    <linearGradient id="g" x1="10" y1="10" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/>
+    <linearGradient id="g" x1="6" y1="6" x2="42" y2="42" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C4B5FD"/><stop offset=".45" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/>
     </linearGradient>
   </defs>
   <rect width="48" height="48" rx="11" fill="#0b0b12"/>
-  <text x="24" y="25" text-anchor="middle" dominant-baseline="central"
-        font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-weight="800"
-        font-size="22" letter-spacing="-1" fill="url(#g)">RX</text>
+  <g transform="translate(24 24) scale(1.92) translate(-12 -12)">
+    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#g)"/>
+  </g>
+  <text x="24" y="26.5" text-anchor="middle" dominant-baseline="central"
+        font-family="'Segoe UI', Arial, Helvetica, sans-serif" font-weight="900"
+        font-size="10" letter-spacing="-.5" fill="#0b0b12">RX</text>
 </svg>
