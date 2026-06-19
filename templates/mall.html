@@ -5,121 +5,655 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lumina Mall — Shopping Mall Website Template | RockitX Demo</title>
 <meta name="description" content="A premium shopping mall website demo template by RockitX. Get a site like this from ₹200/month.">
-<link rel="stylesheet" href="template.css">
-<style>:root{--accent:#DB2777;--accent2:#7C3AED;--tint:#FDF2F8;--ink:#2A0F2E;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --magenta:#E0218A;
+  --violet:#7C3AED;
+  --grape:#5B1A8F;
+  --sky:#22D3EE;
+  --lime:#C6F135;
+  --tangerine:#FF7A1A;
+  --ink:#240A2C;
+  --ink2:#5A3A66;
+  --cream:#FFF6FB;
+  --white:#ffffff;
+  --line:rgba(91,26,143,.12);
+  --glass:rgba(255,255,255,.62);
+  --shadow-sm:0 4px 14px -6px rgba(91,26,143,.28);
+  --shadow:0 24px 60px -22px rgba(91,26,143,.42);
+  --shadow-lg:0 40px 90px -30px rgba(91,26,143,.55);
+  --r:26px;
+  --maxw:1200px;
+  --grad:linear-gradient(115deg,#E0218A 0%,#7C3AED 55%,#22D3EE 120%);
+  --grad-warm:linear-gradient(120deg,#FF7A1A,#E0218A 70%);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,h5{font-family:'Bricolage Grotesque',sans-serif;line-height:1.04;letter-spacing:-.02em;font-weight:800}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ============ DEMO BAR ============ */
+.demo-bar{
+  background:linear-gradient(90deg,#240A2C,#5B1A8F);
+  color:#fff;text-align:center;font-size:.84rem;font-weight:600;
+  padding:10px 16px;position:relative;z-index:60;
+}
+.demo-bar a{color:var(--lime);font-weight:800;border-bottom:1px solid transparent;transition:border-color .2s}
+.demo-bar a:hover{border-color:var(--lime)}
+.demo-bar .pill{
+  background:rgba(255,255,255,.16);padding:3px 10px;border-radius:999px;font-size:.7rem;
+  letter-spacing:.12em;text-transform:uppercase;margin-right:10px;font-weight:800;
+}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:saturate(160%) blur(18px);
+  -webkit-backdrop-filter:saturate(160%) blur(18px);
+  background:rgba(255,246,251,.78);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow .3s,background .3s;
+}
+.nav.scrolled{box-shadow:0 10px 30px -18px rgba(91,26,143,.4);background:rgba(255,246,251,.92)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{display:flex;align-items:center;gap:11px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:1.32rem}
+.logo .mark{
+  width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;
+  background:var(--grad);box-shadow:var(--shadow-sm);transform:rotate(-6deg);transition:transform .35s;
+}
+.logo:hover .mark{transform:rotate(0) scale(1.06)}
+.logo .mark svg{width:22px;height:22px}
+.nav-links{display:flex;align-items:center;gap:8px}
+.nav-links a:not(.btn){
+  padding:9px 14px;border-radius:999px;font-weight:600;font-size:.95rem;color:var(--ink2);transition:.2s;
+}
+.nav-links a:not(.btn):hover{color:var(--violet);background:rgba(124,58,237,.08)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;font-weight:700;border-radius:999px;cursor:pointer;
+  transition:transform .25s,box-shadow .25s,filter .25s;border:none;font-family:inherit;
+}
+.btn-primary{background:var(--grad);color:#fff;padding:12px 22px;font-size:.95rem;box-shadow:0 14px 30px -12px rgba(224,33,138,.7)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 40px -12px rgba(224,33,138,.8)}
+.btn-ghost{background:rgba(91,26,143,.06);color:var(--grape);padding:12px 22px;font-size:.95rem;border:1px solid var(--line)}
+.btn-ghost:hover{background:rgba(91,26,143,.12);transform:translateY(-3px)}
+.btn-lg{padding:16px 30px;font-size:1.05rem}
+.nav-toggle{display:none}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:72px 0 88px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 55% at 82% 12%, rgba(34,211,238,.30), transparent 60%),
+    radial-gradient(55% 50% at 8% 90%, rgba(255,122,26,.22), transparent 60%),
+    radial-gradient(70% 60% at 50% 0%, rgba(224,33,138,.18), transparent 60%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-2;opacity:.5;
+  background-image:radial-gradient(rgba(124,58,237,.12) 1px,transparent 1px);
+  background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(to bottom,#000,transparent 80%);
+          mask-image:linear-gradient(to bottom,#000,transparent 80%);
+}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.7);border:1px solid var(--line);
+  color:var(--grape);font-weight:700;font-size:.8rem;letter-spacing:.04em;
+  padding:8px 16px;border-radius:999px;box-shadow:var(--shadow-sm);
+  text-transform:uppercase;
+}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--magenta);box-shadow:0 0 0 4px rgba(224,33,138,.22)}
+.hero h1{font-size:clamp(3rem,8vw,5.5rem);margin:22px 0 0;font-weight:800}
+.hero .lead{font-size:1.22rem;color:var(--ink2);max-width:30ch;margin:22px 0 0}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.hero-stats{display:flex;gap:30px;margin-top:42px;flex-wrap:wrap}
+.hero-stats .s b{font-family:'Bricolage Grotesque',sans-serif;font-size:2rem;display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stats .s span{font-size:.86rem;color:var(--ink2);font-weight:600}
+
+/* hero visual — collage */
+.hero-visual{position:relative}
+.hero-card{
+  position:relative;border-radius:34px;overflow:hidden;aspect-ratio:4/5;
+  box-shadow:var(--shadow-lg);border:6px solid #fff;
+  background:
+    linear-gradient(135deg,#E0218A,#7C3AED 55%,#22D3EE);
+}
+.hero-card .glyph{
+  position:absolute;inset:0;display:grid;place-items:center;font-size:7rem;
+  filter:drop-shadow(0 14px 24px rgba(0,0,0,.25));
+}
+.hero-card .shine{
+  position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 20% 0%,rgba(255,255,255,.4),transparent 55%);
+  mix-blend-mode:soft-light;
+}
+.hero-card .arch{
+  position:absolute;left:0;right:0;bottom:0;height:60%;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 2px,transparent 2px 46px);
+  -webkit-mask-image:linear-gradient(to top,#000,transparent);
+          mask-image:linear-gradient(to top,#000,transparent);
+}
+.float-badge{
+  position:absolute;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.7);border-radius:18px;padding:13px 17px;
+  box-shadow:var(--shadow);display:flex;align-items:center;gap:11px;font-size:.9rem;
+}
+.float-badge b{font-family:'Bricolage Grotesque',sans-serif;font-size:.98rem;display:block;letter-spacing:-.01em}
+.float-badge span{color:var(--ink2);font-size:.8rem}
+.float-badge .live{width:11px;height:11px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 4px rgba(198,241,53,.4);animation:pulse 2s infinite}
+.fb-open{left:-26px;top:32px}
+.fb-rate{right:-22px;bottom:60px}
+.fb-rate .em{font-size:1.5rem}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(198,241,53,.4)}50%{box-shadow:0 0 0 8px rgba(198,241,53,.1)}}
+
+/* ============ MARQUEE TRUST ============ */
+.trust{background:var(--ink);color:#fff;overflow:hidden;padding:18px 0}
+.marquee{display:flex;gap:0;white-space:nowrap;width:max-content;animation:scroll 32s linear infinite}
+.trust:hover .marquee{animation-play-state:paused}
+.marquee .mi{display:inline-flex;align-items:center;gap:11px;padding:0 36px;font-weight:600;font-size:1rem;opacity:.92}
+.marquee .mi svg{width:22px;height:22px;color:var(--lime)}
+.marquee .mi .sep{color:var(--magenta);font-size:1.4rem;line-height:0}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+.sec{padding:96px 0;position:relative}
+.sec-head{max-width:620px;margin-bottom:52px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.sec-head h2{font-size:clamp(2.2rem,5vw,3.4rem);margin:16px 0 14px}
+.sec-head p{color:var(--ink2);font-size:1.1rem}
+
+/* ============ DIRECTORY ============ */
+.dir-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:200px;gap:18px}
+.dir{
+  position:relative;border-radius:var(--r);overflow:hidden;padding:24px;color:#fff;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:var(--shadow);isolation:isolate;cursor:pointer;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
+}
+.dir:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.dir::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--bg,var(--grad))}
+.dir::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(20,5,30,.55),transparent 65%)}
+.dir .em{font-size:2.6rem;position:absolute;top:20px;right:22px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));transition:transform .4s}
+.dir:hover .em{transform:scale(1.18) rotate(8deg)}
+.dir h3{font-size:1.45rem;letter-spacing:-.02em}
+.dir p{font-size:.9rem;opacity:.92;margin-top:4px;max-width:24ch}
+.dir .floor{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.85;margin-bottom:6px}
+/* spans */
+.dir.big{grid-column:span 3;grid-row:span 2}
+.dir.wide{grid-column:span 3}
+.dir.std{grid-column:span 2}
+.dir.tall{grid-column:span 2;grid-row:span 2}
+/* palettes */
+.c-fashion{--bg:linear-gradient(140deg,#E0218A,#7C3AED)}
+.c-elec{--bg:linear-gradient(140deg,#5B1A8F,#22D3EE)}
+.c-dine{--bg:linear-gradient(140deg,#FF7A1A,#E0218A)}
+.c-ent{--bg:linear-gradient(140deg,#7C3AED,#22D3EE)}
+.c-beauty{--bg:linear-gradient(140deg,#E0218A,#FF7A1A)}
+.c-hyper{--bg:linear-gradient(140deg,#22D3EE,#5B1A8F)}
+.dir.big .em{font-size:4rem}
+.dir.big h3{font-size:2.1rem}
+
+/* ============ EVENTS ============ */
+.events{background:linear-gradient(180deg,#FFF6FB,#F4E9FF)}
+.event-row{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.ecard{
+  background:#fff;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-sm);
+  border:1px solid var(--line);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;
+}
+.ecard:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.ecard .ph{aspect-ratio:4/3;position:relative;display:grid;place-items:center;background:var(--bg,var(--grad))}
+.ecard .ph .em{font-size:3.4rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,.22))}
+.ecard .ph .chip{
+  position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);color:var(--magenta);
+  font-weight:800;font-size:.74rem;letter-spacing:.04em;padding:5px 11px;border-radius:999px;text-transform:uppercase;
+}
+.ecard .body{padding:18px 18px 20px}
+.ecard h4{font-size:1.2rem}
+.ecard .sub{color:var(--ink2);font-size:.88rem;font-weight:600;margin-top:2px}
+.ecard .meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.ecard .when{font-weight:800;color:var(--grape);font-size:.92rem}
+.ecard .tag{background:rgba(124,58,237,.1);color:var(--violet);font-weight:700;font-size:.74rem;padding:4px 10px;border-radius:999px}
+.e1{--bg:linear-gradient(140deg,#E0218A,#FF7A1A)}
+.e2{--bg:linear-gradient(140deg,#7C3AED,#22D3EE)}
+.e3{--bg:linear-gradient(140deg,#FF7A1A,#E0218A)}
+.e4{--bg:linear-gradient(140deg,#5B1A8F,#E0218A)}
+
+/* ============ DINING ROW ============ */
+.dine-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.dine-scroll{display:flex;gap:18px;overflow-x:auto;padding:6px 4px 22px;scroll-snap-type:x mandatory;-ms-overflow-style:none;scrollbar-width:none}
+.dine-scroll::-webkit-scrollbar{display:none}
+.dish{
+  flex:0 0 230px;scroll-snap-align:start;border-radius:22px;overflow:hidden;background:#fff;
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s;
+}
+.dish:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow)}
+.dish .top{height:150px;display:grid;place-items:center;background:var(--bg);position:relative}
+.dish .top .em{font-size:3.6rem}
+.dish .cui{position:absolute;bottom:10px;left:12px;background:rgba(255,255,255,.92);font-weight:800;font-size:.72rem;padding:4px 10px;border-radius:999px;color:var(--ink)}
+.dish .b{padding:15px 16px 18px}
+.dish h4{font-size:1.12rem}
+.dish .stars{color:var(--tangerine);font-size:.9rem;letter-spacing:1px;margin-top:3px}
+.dish .desc{color:var(--ink2);font-size:.84rem;margin-top:7px}
+.d1{--bg:linear-gradient(140deg,#FF7A1A,#FFD23F)}
+.d2{--bg:linear-gradient(140deg,#E0218A,#7C3AED)}
+.d3{--bg:linear-gradient(140deg,#22D3EE,#7C3AED)}
+.d4{--bg:linear-gradient(140deg,#C6F135,#22D3EE)}
+.d5{--bg:linear-gradient(140deg,#FF7A1A,#E0218A)}
+.d6{--bg:linear-gradient(140deg,#7C3AED,#E0218A)}
+
+/* ============ NOW SHOWING (cinema) ============ */
+.cinema{background:radial-gradient(80% 100% at 50% 0%,#3A0F4A,#240A2C);color:#fff;position:relative;overflow:hidden}
+.cinema::before{
+  content:"";position:absolute;inset:0;opacity:.4;
+  background:radial-gradient(50% 60% at 85% 20%,rgba(34,211,238,.4),transparent 60%),
+             radial-gradient(50% 60% at 10% 90%,rgba(224,33,138,.45),transparent 60%);
+}
+.cinema .wrap{position:relative}
+.cinema .sec-head h2,.cinema .sec-head .eyebrow{color:#fff}
+.cinema .sec-head p{color:rgba(255,255,255,.7)}
+.cinema .eyebrow{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
+.films{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.film{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:2/3;box-shadow:var(--shadow-lg);transition:transform .35s}
+.film:hover{transform:translateY(-8px) rotate(-1deg)}
+.film .poster{position:absolute;inset:0;background:var(--bg);display:grid;place-items:center}
+.film .poster .em{font-size:3.6rem;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+.film .grain{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),transparent 55%)}
+.film .info{position:absolute;left:0;right:0;bottom:0;padding:16px;z-index:2}
+.film h4{font-size:1.1rem}
+.film .row{display:flex;align-items:center;gap:8px;margin-top:6px;font-size:.78rem;color:rgba(255,255,255,.8)}
+.film .cert{background:var(--lime);color:#240A2C;font-weight:800;padding:1px 7px;border-radius:6px;font-size:.72rem}
+.film .rt{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);font-weight:800;font-size:.8rem;padding:5px 9px;border-radius:10px;z-index:2;color:var(--lime)}
+.f1{--bg:linear-gradient(160deg,#7C3AED,#22D3EE)}
+.f2{--bg:linear-gradient(160deg,#E0218A,#FF7A1A)}
+.f3{--bg:linear-gradient(160deg,#5B1A8F,#E0218A)}
+.f4{--bg:linear-gradient(160deg,#22D3EE,#5B1A8F)}
+
+/* ============ EXPERIENCE SPLIT ============ */
+.exp .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.exp-visual{
+  position:relative;border-radius:32px;aspect-ratio:1/1;overflow:hidden;box-shadow:var(--shadow-lg);
+  background:linear-gradient(140deg,#7C3AED,#E0218A 60%,#FF7A1A);border:6px solid #fff;
+}
+.exp-visual .glyph{position:absolute;inset:0;display:grid;place-items:center;font-size:6rem;filter:drop-shadow(0 12px 22px rgba(0,0,0,.25))}
+.exp-visual .ring{position:absolute;width:160%;height:160%;top:-30%;left:-30%;border-radius:50%;border:2px dashed rgba(255,255,255,.3);animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.exp ul{list-style:none;margin-top:26px;display:grid;gap:14px}
+.exp li{display:flex;align-items:center;gap:13px;font-weight:600;font-size:1.05rem}
+.exp li .tick{
+  flex:0 0 30px;width:30px;height:30px;border-radius:10px;display:grid;place-items:center;color:#fff;
+  background:var(--grad);box-shadow:var(--shadow-sm);font-weight:900;font-size:.9rem;
+}
+
+/* ============ HOURS / VISIT INFO ============ */
+.info-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px}
+.info-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:var(--shadow-sm)}
+.hours{display:grid;gap:2px}
+.hrow{display:flex;justify-content:space-between;align-items:center;padding:13px 4px;border-bottom:1px dashed var(--line);font-weight:600}
+.hrow:last-child{border-bottom:none}
+.hrow.today{background:linear-gradient(90deg,rgba(224,33,138,.08),transparent);border-radius:12px;padding:13px 14px;font-weight:800}
+.hrow .open-pill{background:rgba(198,241,53,.28);color:#3d5c00;font-weight:800;font-size:.74rem;padding:3px 10px;border-radius:999px}
+.info-card.map{
+  background:linear-gradient(140deg,#240A2C,#5B1A8F);color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;
+}
+.info-card.map::before{
+  content:"";position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(80% 80% at 60% 40%,#000,transparent);
+          mask-image:radial-gradient(80% 80% at 60% 40%,#000,transparent);
+}
+.info-card.map .pin{position:absolute;top:34%;left:54%;font-size:2.4rem;filter:drop-shadow(0 8px 14px rgba(0,0,0,.4));animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.info-card.map .loc{position:relative;z-index:2}
+.info-card.map h4{font-size:1.3rem;margin-bottom:4px}
+.info-card.map p{color:rgba(255,255,255,.82);font-size:.92rem}
+.info-card.map a{display:inline-flex;margin-top:14px;color:var(--lime);font-weight:800;gap:6px}
+
+/* ============ QUOTE ============ */
+.quote-sec{background:var(--grad);color:#fff;position:relative;overflow:hidden}
+.quote-sec::before{content:"\201C";position:absolute;font-family:'Bricolage Grotesque';font-size:24rem;left:5%;top:-4rem;opacity:.13;line-height:1}
+.quote-box{max-width:760px;margin:0 auto;text-align:center;position:relative}
+.quote-box .stars{font-size:1.4rem;color:var(--lime);letter-spacing:4px}
+.quote-box p{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.5rem,3.6vw,2.4rem);font-weight:600;line-height:1.28;margin:22px 0 26px;letter-spacing:-.01em}
+.quote-box .who{font-weight:800;font-size:1.05rem}
+.quote-box .who span{display:block;font-weight:500;opacity:.85;font-size:.9rem}
+
+/* ============ CTA ============ */
+.cta{padding:96px 0}
+.cta-box{
+  position:relative;overflow:hidden;border-radius:36px;padding:72px 40px;text-align:center;color:#fff;
+  background:radial-gradient(80% 120% at 20% 0%,#E0218A,transparent 55%),radial-gradient(80% 120% at 90% 100%,#22D3EE,transparent 55%),#240A2C;
+  box-shadow:var(--shadow-lg);
+}
+.cta-box::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.16) 1px,transparent 1px);background-size:24px 24px;opacity:.4}
+.cta-box>*{position:relative;z-index:2}
+.cta-box h2{font-size:clamp(2.2rem,5vw,3.4rem)}
+.cta-box p{font-size:1.15rem;opacity:.86;margin:16px auto 30px;max-width:46ch}
+.cta-box .btn-primary{background:#fff;color:var(--grape)}
+.cta-box .btn-primary:hover{background:var(--lime);color:var(--ink)}
+
+/* ============ FOOTER ============ */
+.foot{background:#1A0720;color:#fff;padding:72px 0 32px}
+.foot .top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:36px;padding-bottom:42px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot .desc{color:rgba(255,255,255,.6);margin-top:16px;max-width:30ch;font-size:.95rem}
+.foot h5{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--magenta);margin-bottom:16px;font-family:'Plus Jakarta Sans';font-weight:800}
+.foot .top a{display:block;color:rgba(255,255,255,.7);padding:6px 0;font-size:.95rem;transition:.2s}
+.foot .top a:hover{color:var(--lime);transform:translateX(3px)}
+.foot .logo{color:#fff}
+.foot .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:26px;font-size:.86rem;color:rgba(255,255,255,.5)}
+
+/* ============ RX RIBBON ============ */
+.rx-ribbon{
+  position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:10px;
+  background:#0b0b12;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:11px 16px;
+  box-shadow:0 16px 38px -12px rgba(0,0,0,.6);font-size:.84rem;font-weight:600;transition:transform .3s,box-shadow .3s;
+}
+.rx-ribbon:hover{transform:translateY(-3px);box-shadow:0 22px 44px -12px rgba(0,0,0,.7)}
+.rx-ribbon .star{width:26px;height:26px;flex-shrink:0}
+.rx-ribbon b{font-weight:900;background:linear-gradient(120deg,#C4B5FD,#818CF8,#38BDF8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rx-ribbon .price{color:#FBBF24;font-weight:800}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;gap:48px}
+  .hero-visual{max-width:440px;margin:0 auto;width:100%}
+  .dir-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:180px}
+  .dir.big{grid-column:span 4;grid-row:span 2}
+  .dir.wide{grid-column:span 4}
+  .dir.tall{grid-column:span 2;grid-row:span 1}
+  .dir.std{grid-column:span 2}
+  .event-row{grid-template-columns:repeat(2,1fr)}
+  .films{grid-template-columns:repeat(2,1fr)}
+  .exp .wrap{grid-template-columns:1fr;gap:40px}
+  .exp-visual{max-width:440px}
+  .info-grid{grid-template-columns:1fr}
+  .foot .top{grid-template-columns:1fr 1fr;gap:30px}
+}
+@media(max-width:640px){
+  .nav-links{
+    position:fixed;inset:0 0 0 auto;width:min(78vw,320px);flex-direction:column;align-items:stretch;
+    background:var(--cream);padding:90px 22px 30px;gap:6px;transform:translateX(105%);transition:transform .35s;
+    box-shadow:-20px 0 50px -20px rgba(91,26,143,.4);z-index:55;
+  }
+  .nav-links.open{transform:none}
+  .nav-links a:not(.btn){padding:13px 14px;font-size:1.05rem}
+  .nav-links .btn{margin-top:8px;justify-content:center}
+  .nav-toggle{display:inline-flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:56}
+  .nav-toggle span{width:24px;height:2.5px;background:var(--ink);border-radius:2px;transition:.3s}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .nav-toggle.open span:nth-child(2){opacity:0}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .nav-scrim{position:fixed;inset:0;background:rgba(36,10,44,.4);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:.3s;z-index:54}
+  .nav-scrim.show{opacity:1;pointer-events:auto}
+  .sec{padding:64px 0}
+  .hero{padding:48px 0 64px}
+  .dir-grid{grid-template-columns:1fr;grid-auto-rows:170px}
+  .dir.big,.dir.wide,.dir.std,.dir.tall{grid-column:span 1;grid-row:span 1}
+  .dir.big{grid-row:span 1}
+  .event-row{grid-template-columns:1fr}
+  .films{grid-template-columns:1fr 1fr}
+  .fb-open{left:-8px}
+  .fb-rate{right:-8px}
+  .hero-stats{gap:22px}
+  .foot .top{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
 
 <div class="demo-bar"><span class="pill">Demo</span>Shopping Mall template — like it? <a href="../index.html">Get this site from ₹200/mo →</a></div>
 
-<header class="t-nav"><div class="wrap">
-  <div class="t-logo"><span class="mark"><svg class="lucide lucide-shopping-bag" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 10a4 4 0 0 1-8 0" /> <path d="M3.103 6.034h17.794" /> <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /> </svg></span> Lumina</div>
-  <nav class="t-links">
+<header class="nav" id="nav"><div class="wrap">
+  <a class="logo" href="#top">
+    <span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></span>
+    Lumina
+  </a>
+  <nav class="nav-links" id="navLinks">
     <a href="#stores">Stores</a>
     <a href="#events">Events</a>
     <a href="#dine">Dining</a>
+    <a href="#cinema">Cinema</a>
     <a href="#visit" class="btn btn-primary">Plan Your Visit</a>
   </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></header>
+<div class="nav-scrim" id="navScrim"></div>
 
-<section class="t-hero"><div class="wrap">
+<section class="hero" id="top"><div class="wrap">
   <div>
-    <span class="eyebrow">200+ brands · 40+ restaurants</span>
+    <span class="eyebrow"><span class="dot"></span>200+ brands · 40+ restaurants</span>
     <h1>Shop. Dine.<br><span class="grad">Celebrate.</span></h1>
     <p class="lead">The city's favourite destination for fashion, food and fun — all under one dazzling roof. Something new every weekend.</p>
-    <div class="t-hero-cta">
-      <a href="#visit" class="btn btn-primary">Plan your visit →</a>
-      <a href="#events" class="btn btn-ghost">What's on</a>
+    <div class="hero-cta">
+      <a href="#visit" class="btn btn-primary btn-lg">Plan your visit →</a>
+      <a href="#events" class="btn btn-ghost btn-lg">What's on</a>
     </div>
-    <div class="t-hero-stats">
+    <div class="hero-stats">
       <div class="s"><b>200+</b><span>Brand stores</span></div>
       <div class="s"><b>40+</b><span>Restaurants</span></div>
       <div class="s"><b>9</b><span>Cinema screens</span></div>
     </div>
   </div>
-  <div class="t-hero-visual">
-    <img src="img/mall-hero.jpg" alt="Bright, modern Lumina Mall atrium with shoppers" loading="lazy">
-    <div class="t-hero-badge"><span class="dot"></span><div><b>Open today</b><span>10 AM – 11 PM</span></div></div>
+  <div class="hero-visual reveal">
+    <div class="hero-card">
+      <div class="shine"></div>
+      <div class="glyph">🛍️</div>
+      <div class="arch"></div>
+    </div>
+    <div class="float-badge fb-open"><span class="live"></span><div><b>Open today</b><span>10 AM – 11 PM</span></div></div>
+    <div class="float-badge fb-rate"><span class="em">⭐</span><div><b>4.8 / 5</b><span>12k+ reviews</span></div></div>
   </div>
 </div></section>
 
-<div class="t-trust"><div class="wrap">
-  <div class="ti"><b><svg class="lucide lucide-square-parking" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M9 17V7h4a3 3 0 0 1 0 6H9" /> </svg></b> 2,000 Free Parking</div>
-  <div class="ti"><b><svg class="lucide lucide-film" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M7 3v18" /> <path d="M3 7.5h4" /> <path d="M3 12h18" /> <path d="M3 16.5h4" /> <path d="M17 3v18" /> <path d="M17 7.5h4" /> <path d="M17 16.5h4" /> </svg></b> 9-Screen Cinema</div>
-  <div class="ti"><b><svg class="lucide lucide-ferris-wheel" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="2" /> <path d="M12 2v4" /> <path d="m6.8 15-3.5 2" /> <path d="m20.7 7-3.5 2" /> <path d="M6.8 9 3.3 7" /> <path d="m20.7 17-3.5-2" /> <path d="m9 22 3-8 3 8" /> <path d="M8 22h8" /> <path d="M18 18.7a9 9 0 1 0-12 0" /> </svg></b> Kids' Play Zone</div>
-  <div class="ti"><b><svg class="lucide lucide-utensils" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" /> <path d="M7 2v20" /> <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" /> </svg></b> Giant Food Court</div>
-  <div class="ti"><b><svg class="lucide lucide-accessibility" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="16" cy="4" r="1" /> <path d="m18 19 1-7-6 1" /> <path d="m5 8 3-3 5.5 3-2.36 3.5" /> <path d="M4.24 14.5a5 5 0 0 0 6.88 6" /> <path d="M13.76 17.5a5 5 0 0 0-6.88-6" /> </svg></b> Fully Accessible</div>
-</div></div>
+<div class="trust">
+  <div class="marquee" id="marquee">
+    <span class="mi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>2,000 Free Parking <span class="sep">•</span></span>
+    <span class="mi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>9-Screen Cinema <span class="sep">•</span></span>
+    <span class="mi">🎡 Kids' Play Zone <span class="sep">•</span></span>
+    <span class="mi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>Giant Food Court <span class="sep">•</span></span>
+    <span class="mi">♿ Fully Accessible <span class="sep">•</span></span>
+    <span class="mi">🎉 Events Every Weekend <span class="sep">•</span></span>
+  </div>
+</div>
 
 <section class="sec" id="stores"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">Explore</span>
+  <div class="sec-head reveal">
+    <span class="eyebrow">Explore the floors</span>
     <h2>Everything you love, <span class="grad">in one place</span></h2>
     <p>Discover top brands, dining and entertainment across five vibrant floors.</p>
   </div>
-  <div class="cards">
-    <div class="card"><div class="ic"><svg class="lucide lucide-shirt" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" /> </svg></div><h3>Fashion &amp; Style</h3><p>Flagship stores from the biggest national and global fashion brands.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-smartphone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /> </svg></div><h3>Electronics</h3><p>The latest gadgets, phones and gaming gear with live demos.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-utensils-crossed" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8" /> <path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7" /> <path d="m2.1 21.8 6.4-6.3" /> <path d="m19 5-7 7" /> </svg></div><h3>Dining &amp; Cafés</h3><p>40+ restaurants and cafés serving cuisines from around the world.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-film" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M7 3v18" /> <path d="M3 7.5h4" /> <path d="M3 12h18" /> <path d="M3 16.5h4" /> <path d="M17 3v18" /> <path d="M17 7.5h4" /> <path d="M17 16.5h4" /> </svg></div><h3>Entertainment</h3><p>Premium cinema, arcade and a thrilling indoor play zone for kids.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-sparkles" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /> <path d="M20 2v4" /> <path d="M22 4h-4" /> <circle cx="4" cy="20" r="2" /> </svg></div><h3>Beauty &amp; Wellness</h3><p>Salons, spas and beauty boutiques to look and feel your best.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-shopping-cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /> </svg></div><h3>Hypermarket</h3><p>Your weekly grocery and home essentials run, made easy.</p></div>
+  <div class="dir-grid">
+    <a class="dir big c-fashion reveal">
+      <span class="em">👗</span>
+      <span class="floor">Floors 1–2</span>
+      <h3>Fashion &amp; Style</h3>
+      <p>Flagship stores from the biggest national and global fashion brands.</p>
+    </a>
+    <a class="dir std c-elec reveal">
+      <span class="em">📱</span>
+      <span class="floor">Floor 2</span>
+      <h3>Electronics</h3>
+      <p>The latest gadgets, phones and gaming gear with live demos.</p>
+    </a>
+    <a class="dir std c-beauty reveal">
+      <span class="em">✨</span>
+      <span class="floor">Floor 1</span>
+      <h3>Beauty &amp; Wellness</h3>
+      <p>Salons, spas and beauty boutiques.</p>
+    </a>
+    <a class="dir wide c-dine reveal">
+      <span class="em">🍜</span>
+      <span class="floor">Floor 4 · Food Court</span>
+      <h3>Dining &amp; Cafés</h3>
+      <p>40+ restaurants and cafés serving cuisines from around the world.</p>
+    </a>
+    <a class="dir std c-ent reveal">
+      <span class="em">🎬</span>
+      <span class="floor">Floor 5</span>
+      <h3>Entertainment</h3>
+      <p>Premium cinema, arcade &amp; indoor play zone.</p>
+    </a>
+    <a class="dir std c-hyper reveal">
+      <span class="em">🛒</span>
+      <span class="floor">Lower Ground</span>
+      <h3>Hypermarket</h3>
+      <p>Your weekly grocery and home essentials run, made easy.</p>
+    </a>
   </div>
 </div></section>
 
-<section class="sec tinted" id="events"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">This month</span>
+<section class="sec events" id="events"><div class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">This month at Lumina</span>
     <h2>Events &amp; <span class="grad">offers</span></h2>
     <p>Show off sales, events and seasonal campaigns just like this.</p>
   </div>
-  <div class="tiles">
-    <div class="tile"><div class="ph"><img src="img/mall-1.jpg" alt="Mega weekend sale at Lumina Mall" loading="lazy"></div><div class="body"><h4>Mega Weekend Sale</h4><div class="tag">Up to 60% off</div><div class="meta"><span class="price">This Sat–Sun</span><span class="tag">All floors</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/mall-2.jpg" alt="Live music night on the atrium stage" loading="lazy"></div><div class="body"><h4>Live Music Night</h4><div class="tag">Atrium Stage</div><div class="meta"><span class="price">Fri · 7 PM</span><span class="tag">Free entry</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/mall-3.jpg" alt="Food festival at the Lumina Mall food court" loading="lazy"></div><div class="body"><h4>Food Festival</h4><div class="tag">Food Court</div><div class="meta"><span class="price">All month</span><span class="tag">40+ stalls</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/mall-4.jpg" alt="Shop and win prizes at Lumina Mall" loading="lazy"></div><div class="body"><h4>Shop &amp; Win</h4><div class="tag">Spend ₹2,000+</div><div class="meta"><span class="price">Daily prizes</span><span class="tag">Members</span></div></div></div>
-  </div>
-</div></section>
-
-<section class="sec" id="dine"><div class="wrap">
-  <div class="split">
-    <div class="visual"><img src="img/mall-about.jpg" alt="Families enjoying a day out at Lumina Mall" loading="lazy"></div>
-    <div>
-      <span class="eyebrow">A full day out</span>
-      <h2>More than shopping — <span class="grad">an experience</span></h2>
-      <p>Make a day of it with the family. Great food, blockbuster movies and entertainment for every age.</p>
-      <ul>
-        <li>Free covered parking for 2,000 cars</li>
-        <li>Kids' play zone &amp; family lounges</li>
-        <li>Premium multiplex cinema</li>
-        <li>Loyalty rewards on every visit</li>
-      </ul>
+  <div class="event-row">
+    <div class="ecard reveal">
+      <div class="ph e1"><span class="chip">Up to 60% off</span><span class="em">🏷️</span></div>
+      <div class="body"><h4>Mega Weekend Sale</h4><div class="sub">All floors</div><div class="meta"><span class="when">This Sat–Sun</span><span class="tag">All floors</span></div></div>
+    </div>
+    <div class="ecard reveal">
+      <div class="ph e2"><span class="chip">Atrium Stage</span><span class="em">🎸</span></div>
+      <div class="body"><h4>Live Music Night</h4><div class="sub">Atrium Stage</div><div class="meta"><span class="when">Fri · 7 PM</span><span class="tag">Free entry</span></div></div>
+    </div>
+    <div class="ecard reveal">
+      <div class="ph e3"><span class="chip">40+ stalls</span><span class="em">🍢</span></div>
+      <div class="body"><h4>Food Festival</h4><div class="sub">Food Court</div><div class="meta"><span class="when">All month</span><span class="tag">40+ stalls</span></div></div>
+    </div>
+    <div class="ecard reveal">
+      <div class="ph e4"><span class="chip">Spend ₹2,000+</span><span class="em">🎁</span></div>
+      <div class="body"><h4>Shop &amp; Win</h4><div class="sub">Daily prizes</div><div class="meta"><span class="when">Daily prizes</span><span class="tag">Members</span></div></div>
     </div>
   </div>
 </div></section>
 
-<section class="sec tinted"><div class="wrap">
-  <div class="quote">
+<section class="sec" id="dine"><div class="wrap">
+  <div class="dine-head reveal">
+    <div>
+      <span class="eyebrow">Hungry?</span>
+      <h2 style="font-size:clamp(2.2rem,5vw,3.4rem);margin-top:16px">A world of <span class="grad">flavours</span></h2>
+    </div>
+    <p style="color:var(--ink2);max-width:30ch">Forty kitchens, one giant food court — swipe through the favourites.</p>
+  </div>
+  <div class="dine-scroll">
+    <div class="dish reveal"><div class="top d1"><span class="cui">Street Food</span><span class="em">🌮</span></div><div class="b"><h4>Mirchi &amp; Co.</h4><div class="stars">★★★★★</div><div class="desc">Chaat, rolls &amp; desi street classics.</div></div></div>
+    <div class="dish reveal"><div class="top d2"><span class="cui">Italian</span><span class="em">🍕</span></div><div class="b"><h4>Bella Forno</h4><div class="stars">★★★★★</div><div class="desc">Wood-fired pizza &amp; fresh pasta.</div></div></div>
+    <div class="dish reveal"><div class="top d3"><span class="cui">Asian</span><span class="em">🍜</span></div><div class="b"><h4>Wok Republic</h4><div class="stars">★★★★☆</div><div class="desc">Ramen, bao &amp; sizzling stir-fries.</div></div></div>
+    <div class="dish reveal"><div class="top d4"><span class="cui">Healthy</span><span class="em">🥗</span></div><div class="b"><h4>Green Bowl</h4><div class="stars">★★★★★</div><div class="desc">Bowls, smoothies &amp; cold-press juice.</div></div></div>
+    <div class="dish reveal"><div class="top d5"><span class="cui">Desserts</span><span class="em">🍰</span></div><div class="b"><h4>Sugar Atelier</h4><div class="stars">★★★★★</div><div class="desc">Gelato, pastries &amp; gourmet bakes.</div></div></div>
+    <div class="dish reveal"><div class="top d6"><span class="cui">Café</span><span class="em">☕</span></div><div class="b"><h4>Brew &amp; Bean</h4><div class="stars">★★★★☆</div><div class="desc">Specialty coffee &amp; all-day brunch.</div></div></div>
+  </div>
+</div></section>
+
+<section class="sec cinema" id="cinema"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">🎬 Lumina Cineplex · 9 screens</span>
+    <h2>Now <span class="grad">showing</span></h2>
+    <p>Recliners, Dolby Atmos and the biggest blockbusters — book your seats inside.</p>
+  </div>
+  <div class="films">
+    <div class="film reveal"><div class="poster f1"><span class="em">🚀</span></div><span class="rt">★ 8.9</span><div class="grain"></div><div class="info"><h4>Starbound</h4><div class="row"><span class="cert">U/A</span> Sci-Fi · 2h 18m</div></div></div>
+    <div class="film reveal"><div class="poster f2"><span class="em">🔥</span></div><span class="rt">★ 8.4</span><div class="grain"></div><div class="info"><h4>Wildfire</h4><div class="row"><span class="cert">U/A</span> Action · 2h 06m</div></div></div>
+    <div class="film reveal"><div class="poster f3"><span class="em">💞</span></div><span class="rt">★ 7.9</span><div class="grain"></div><div class="info"><h4>Monsoon Hearts</h4><div class="row"><span class="cert">U</span> Romance · 1h 54m</div></div></div>
+    <div class="film reveal"><div class="poster f4"><span class="em">🦖</span></div><span class="rt">★ 8.1</span><div class="grain"></div><div class="info"><h4>Lost World</h4><div class="row"><span class="cert">U/A</span> Adventure · 2h 22m</div></div></div>
+  </div>
+</div></section>
+
+<section class="sec exp"><div class="wrap">
+  <div class="exp-visual reveal">
+    <div class="ring"></div>
+    <div class="glyph">👨‍👩‍👧‍👦</div>
+  </div>
+  <div class="reveal">
+    <span class="eyebrow">A full day out</span>
+    <h2 style="font-size:clamp(2.2rem,5vw,3.4rem);margin:16px 0 14px">More than shopping — <span class="grad">an experience</span></h2>
+    <p style="color:var(--ink2);font-size:1.12rem">Make a day of it with the family. Great food, blockbuster movies and entertainment for every age.</p>
+    <ul>
+      <li><span class="tick">✓</span>Free covered parking for 2,000 cars</li>
+      <li><span class="tick">✓</span>Kids' play zone &amp; family lounges</li>
+      <li><span class="tick">✓</span>Premium multiplex cinema</li>
+      <li><span class="tick">✓</span>Loyalty rewards on every visit</li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="sec" id="visit-info" style="padding-top:0"><div class="wrap">
+  <div class="sec-head center reveal">
+    <span class="eyebrow">Plan ahead</span>
+    <h2>Hours &amp; <span class="grad">location</span></h2>
+  </div>
+  <div class="info-grid">
+    <div class="info-card reveal">
+      <h3 style="font-size:1.4rem;margin-bottom:16px">Opening hours</h3>
+      <div class="hours">
+        <div class="hrow today"><span>Friday (today)</span><span class="open-pill">Open · 10 AM – 11 PM</span></div>
+        <div class="hrow"><span>Mon – Thu</span><span>10 AM – 10 PM</span></div>
+        <div class="hrow"><span>Sat – Sun</span><span>9 AM – 11 PM</span></div>
+        <div class="hrow"><span>Public holidays</span><span>10 AM – 11 PM</span></div>
+        <div class="hrow"><span>Food court</span><span>Open till 11:30 PM</span></div>
+      </div>
+    </div>
+    <div class="info-card map reveal">
+      <span class="pin">📍</span>
+      <div class="loc">
+        <h4>Find us</h4>
+        <p>Lumina Mall, 1 Boulevard Avenue, City Centre — just off the ring road.</p>
+        <a href="../index.html">Get directions →</a>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec quote-sec"><div class="wrap">
+  <div class="quote-box reveal">
     <div class="stars">★★★★★</div>
     <p>"Our favourite weekend spot. The kids love the play zone, we love the food court, and the sales are unbeatable. A perfect day out."</p>
     <div class="who">The Nair Family<span>Lumina regulars</span></div>
   </div>
 </div></section>
 
-<section class="t-cta" id="visit"><div class="wrap"><div class="box">
-  <h2>Plan your visit to Lumina</h2>
-  <p>Open 7 days a week, 10 AM – 11 PM. Free parking, endless fun.</p>
-  <a href="../index.html" class="btn">Get directions →</a>
-</div></div></section>
+<section class="cta" id="visit"><div class="wrap">
+  <div class="cta-box reveal">
+    <h2>Plan your visit to Lumina</h2>
+    <p>Open 7 days a week, 10 AM – 11 PM. Free parking, endless fun.</p>
+    <a href="../index.html" class="btn btn-primary btn-lg">Get directions →</a>
+  </div>
+</div></section>
 
-<footer class="t-foot"><div class="wrap">
+<footer class="foot"><div class="wrap">
   <div class="top">
     <div>
-      <div class="t-logo"><span class="mark"><svg class="lucide lucide-shopping-bag" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M16 10a4 4 0 0 1-8 0" /> <path d="M3.103 6.034h17.794" /> <path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z" /> </svg></span> Lumina</div>
+      <div class="logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a4 4 0 0 1-8 0"/><path d="M3.103 6.034h17.794"/><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"/></svg></span> Lumina</div>
       <p class="desc">The city's premier shopping, dining and entertainment destination — under one roof.</p>
     </div>
-    <div><h5>Visit</h5><a>Stores</a><a>Dining</a><a>Cinema</a><a>Events</a></div>
-    <div><h5>Info</h5><a>Opening hours</a><a>Parking</a><a>Floor map</a><a>Careers</a></div>
+    <div><h5>Visit</h5><a href="#stores">Stores</a><a href="#dine">Dining</a><a href="#cinema">Cinema</a><a href="#events">Events</a></div>
+    <div><h5>Info</h5><a href="#visit-info">Opening hours</a><a>Parking</a><a>Floor map</a><a>Careers</a></div>
     <div><h5>Contact</h5><a>+91 90000 00000</a><a>hello@lumina.example</a><a>Open 10am – 11pm</a></div>
   </div>
   <div class="bottom"><span>© 2026 Lumina Mall. Demo template.</span><span>Designed &amp; built by RockitX</span></div>
@@ -129,6 +663,27 @@
   <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
   <span>Built with <b>RockitX</b> · <span class="price">from ₹200/mo</span></span>
 </a>
+
+<script>
+// sticky nav shadow
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+
+// mobile menu
+const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks'),scrim=document.getElementById('navScrim');
+function closeMenu(){links.classList.remove('open');toggle.classList.remove('open');scrim.classList.remove('show');toggle.setAttribute('aria-expanded','false');}
+toggle.addEventListener('click',()=>{const o=links.classList.toggle('open');toggle.classList.toggle('open',o);scrim.classList.toggle('show',o);toggle.setAttribute('aria-expanded',o);});
+scrim.addEventListener('click',closeMenu);
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+
+// duplicate marquee content for seamless loop
+const mq=document.getElementById('marquee');
+mq.innerHTML+=mq.innerHTML;
+
+// scroll reveal
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*60)+'ms';io.observe(el);});
+</script>
 
 </body>
 </html>

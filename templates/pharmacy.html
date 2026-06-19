@@ -5,130 +5,490 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WellMed Pharmacy — Pharmacy Website Template | RockitX Demo</title>
 <meta name="description" content="A premium online pharmacy website demo template by RockitX. Get a site like this from ₹200/month.">
-<link rel="stylesheet" href="template.css">
-<style>:root{--accent:#059669;--accent2:#84CC16;--tint:#ECFDF5;--ink:#0B2E22;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET / TOKENS ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --teal:#0FB39B;       /* primary */
+  --teal-d:#0A8F7C;
+  --green:#16C172;
+  --lime:#9BE15D;
+  --mint:#EAFBF5;
+  --mint-2:#F2FBF6;
+  --sky:#E6F7FB;
+  --ink:#0A2A24;
+  --ink-2:#3F5A52;
+  --line:#D7EEE7;
+  --white:#fff;
+  --amber:#FFB02E;
+  --pink:#FF7E8B;
+  --blue:#3FC6E0;
+  --shadow:0 24px 60px -28px rgba(8,90,76,.45);
+  --shadow-sm:0 12px 30px -16px rgba(8,90,76,.35);
+  --r:22px;
+  --r-lg:32px;
+  --maxw:1180px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);background:var(--white);line-height:1.6;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,h5{font-family:'Fraunces',Georgia,serif;line-height:1.08;font-weight:600;letter-spacing:-.01em}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.grad{background:linear-gradient(105deg,var(--teal),var(--green) 55%,var(--lime));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ============ DEMO BAR ============ */
+.demo-bar{background:#062B24;color:#fff;text-align:center;font-size:.84rem;font-weight:600;padding:9px 16px;position:relative;z-index:60}
+.demo-bar a{color:#9BE15D;font-weight:800}
+.demo-bar a:hover{text-decoration:underline}
+.demo-bar .pill{background:rgba(155,225,93,.18);color:#cdf3ad;padding:2px 9px;border-radius:6px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;margin-right:8px}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 10px 30px -22px rgba(8,90,76,.5)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:600;font-size:1.4rem;color:var(--ink)}
+.logo .mark{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--teal),var(--green));box-shadow:0 8px 18px -8px rgba(15,179,155,.7)}
+.logo .mark svg{width:24px;height:24px}
+.nav-links{display:flex;align-items:center;gap:6px}
+.nav-links a{padding:9px 15px;border-radius:11px;font-weight:600;font-size:.95rem;color:var(--ink-2);transition:.2s}
+.nav-links a:hover{color:var(--ink);background:var(--mint)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;border-radius:13px;padding:12px 20px;cursor:pointer;border:none;transition:transform .2s,box-shadow .2s,background .2s;font-family:inherit}
+.btn svg{width:18px;height:18px}
+.btn-primary{background:linear-gradient(135deg,var(--teal),var(--green));color:#fff;box-shadow:0 12px 26px -12px rgba(15,179,155,.85)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(15,179,155,.95)}
+.btn-ghost{background:#fff;color:var(--teal-d);border:1.6px solid var(--line)}
+.btn-ghost:hover{transform:translateY(-2px);border-color:var(--teal);background:var(--mint)}
+.btn-white{background:#fff;color:var(--teal-d)}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(0,0,0,.3)}
+.nav .btn-primary{padding:11px 18px}
+.burger{display:none;background:var(--mint);border:1px solid var(--line);border-radius:11px;width:44px;height:44px;color:var(--ink);place-items:center;cursor:pointer}
+.burger svg{width:22px;height:22px}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:60px 0 50px;background:
+  radial-gradient(900px 520px at 88% -8%, var(--sky) 0%, transparent 60%),
+  radial-gradient(800px 600px at -5% 20%, var(--mint) 0%, transparent 55%),
+  linear-gradient(180deg,#fff 0%, var(--mint-2) 100%);
+  overflow:hidden}
+.hero .blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.5;z-index:0}
+.hero .b1{width:240px;height:240px;background:radial-gradient(circle at 30% 30%,var(--lime),transparent 70%);top:-40px;right:8%}
+.hero .b2{width:180px;height:180px;background:radial-gradient(circle at 30% 30%,var(--blue),transparent 70%);bottom:30px;left:-50px;opacity:.35}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);color:var(--teal-d);
+  font-weight:700;font-size:.8rem;letter-spacing:.02em;padding:7px 14px;border-radius:100px;box-shadow:var(--shadow-sm)}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(22,193,114,.2);animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(22,193,114,0)}}
+.hero h1{font-size:clamp(2.5rem,6vw,4.1rem);margin:20px 0 16px}
+.hero .lead{font-size:1.12rem;color:var(--ink-2);max-width:520px;font-weight:500}
+.hero-cta{display:flex;gap:13px;flex-wrap:wrap;margin:26px 0 26px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.hero-stats .s b{display:block;font-family:'Fraunces',serif;font-size:1.7rem;color:var(--ink);line-height:1}
+.hero-stats .s span{font-size:.85rem;color:var(--ink-2);font-weight:600}
+.hero-stats .s{position:relative;padding-right:28px}
+.hero-stats .s:not(:last-child)::after{content:"";position:absolute;right:0;top:6px;bottom:6px;width:1px;background:var(--line)}
+
+/* hero upload card (replaces image) */
+.hero-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow)}
+.hero-card .hc-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.hero-card .hc-head .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--teal),var(--green))}
+.hero-card .hc-head .ico svg{width:26px;height:26px}
+.hero-card .hc-head b{font-family:'Fraunces',serif;font-size:1.18rem;display:block}
+.hero-card .hc-head span{font-size:.85rem;color:var(--ink-2);font-weight:600}
+.upload-zone{border:2px dashed var(--teal);border-radius:18px;background:linear-gradient(180deg,var(--mint),#fff);
+  padding:26px 18px;text-align:center;transition:.25s;cursor:pointer}
+.upload-zone:hover{background:var(--mint);transform:translateY(-2px)}
+.upload-zone .uic{width:54px;height:54px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;background:#fff;color:var(--teal-d);box-shadow:var(--shadow-sm)}
+.upload-zone .uic svg{width:28px;height:28px}
+.upload-zone p{font-weight:700;color:var(--ink)}
+.upload-zone small{color:var(--ink-2);font-weight:600}
+.hc-row{display:flex;gap:10px;margin-top:16px}
+.hc-row .chip{flex:1;display:flex;align-items:center;gap:9px;background:var(--mint-2);border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:.82rem;font-weight:700;color:var(--ink)}
+.hc-row .chip svg{width:18px;height:18px;color:var(--teal)}
+.float-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:16px;padding:11px 14px;box-shadow:var(--shadow);display:flex;align-items:center;gap:10px;font-size:.82rem}
+.float-badge .d{width:9px;height:9px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.float-badge b{display:block;font-weight:800;color:var(--ink)}
+.float-badge span{color:var(--ink-2);font-weight:600}
+.fb-1{bottom:-22px;left:-22px}
+
+/* ============ OFFERS MARQUEE ============ */
+.offers{background:linear-gradient(90deg,var(--teal),var(--green));color:#fff;overflow:hidden;padding:13px 0}
+.marquee{display:flex;gap:0;white-space:nowrap;width:max-content;animation:scroll 26s linear infinite}
+.offers:hover .marquee{animation-play-state:paused}
+.marquee span{display:inline-flex;align-items:center;font-weight:700;font-size:.92rem;padding:0 26px;opacity:.96}
+.marquee span::before{content:"✦";margin-right:24px;opacity:.6}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+.sec{padding:78px 0}
+.sec.tint{background:var(--mint-2)}
+.sec-head{max-width:640px;margin:0 auto 46px;text-align:center}
+.sec-head .eyebrow{margin-bottom:16px}
+.sec-head h2{font-size:clamp(2rem,4.2vw,2.9rem);margin-bottom:12px}
+.sec-head p{color:var(--ink-2);font-size:1.05rem;font-weight:500}
+
+/* ============ CATEGORY GRID ============ */
+.cats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.cat{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px 14px;text-align:center;transition:.25s;cursor:pointer}
+.cat:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:transparent}
+.cat .ci{width:58px;height:58px;border-radius:17px;margin:0 auto 12px;display:grid;place-items:center;color:#fff}
+.cat .ci svg{width:28px;height:28px}
+.cat h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:0}
+.cat small{color:var(--ink-2);font-weight:600;font-size:.78rem}
+.c1{background:linear-gradient(135deg,#0FB39B,#16C172)}
+.c2{background:linear-gradient(135deg,#FF7E8B,#FF9D6B)}
+.c3{background:linear-gradient(135deg,#3FC6E0,#5B8DEF)}
+.c4{background:linear-gradient(135deg,#FFB02E,#FFC85B)}
+.c5{background:linear-gradient(135deg,#9D7BFF,#C39BFF)}
+.c6{background:linear-gradient(135deg,#16C172,#9BE15D)}
+
+/* ============ SERVICES CARDS ============ */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:28px;transition:.25s;position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--teal),var(--lime));transform:scaleX(0);transform-origin:left;transition:.3s}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.card:hover::before{transform:scaleX(1)}
+.card .ic{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;color:var(--teal-d);background:var(--mint);margin-bottom:18px}
+.card .ic svg{width:28px;height:28px}
+.card h3{font-size:1.32rem;margin-bottom:8px}
+.card p{color:var(--ink-2);font-weight:500;font-size:.96rem}
+
+/* ============ PRODUCTS ============ */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:.25s}
+.tile:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.tile .ph{height:160px;position:relative;display:grid;place-items:center;overflow:hidden}
+.tile .ph svg{width:64px;height:64px;color:rgba(255,255,255,.95);filter:drop-shadow(0 8px 14px rgba(0,0,0,.15))}
+.tile .ph::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 20% 18%, rgba(255,255,255,.5) 0 2px, transparent 3px) 0 0/26px 26px;opacity:.4}
+.p1{background:linear-gradient(135deg,#0FB39B,#16C172)}
+.p2{background:linear-gradient(135deg,#3FC6E0,#5B8DEF)}
+.p3{background:linear-gradient(135deg,#FFB02E,#FF7E8B)}
+.p4{background:linear-gradient(135deg,#9D7BFF,#16C172)}
+.tile .body{padding:16px 18px 18px}
+.tile h4{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.02rem;margin-bottom:6px}
+.tile .cat-tag{display:inline-block;font-size:.72rem;font-weight:800;color:var(--teal-d);background:var(--mint);padding:3px 9px;border-radius:7px;letter-spacing:.03em}
+.tile .meta{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.tile .price{font-family:'Fraunces',serif;font-size:1.35rem;color:var(--ink);font-weight:600}
+.tile .off{font-size:.74rem;font-weight:800;color:#fff;background:var(--green);padding:4px 9px;border-radius:8px}
+.tile .add{margin-top:14px;width:100%;justify-content:center}
+
+/* ============ WHY / SPLIT ============ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+.split h2{font-size:clamp(1.9rem,4vw,2.7rem);margin:14px 0 14px}
+.split p{color:var(--ink-2);font-weight:500;margin-bottom:22px}
+.feat-list{list-style:none;display:grid;gap:14px}
+.feat-list li{display:flex;align-items:flex-start;gap:12px;font-weight:600;color:var(--ink)}
+.feat-list li .tick{flex-shrink:0;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--mint);color:var(--green)}
+.feat-list li .tick svg{width:16px;height:16px}
+/* illustrated panel replacing image */
+.why-panel{position:relative;background:linear-gradient(150deg,var(--teal),#0E9C88 55%,var(--green));border-radius:var(--r-lg);padding:34px;color:#fff;overflow:hidden;box-shadow:var(--shadow);min-height:360px}
+.why-panel .grid-dots{position:absolute;inset:0;background:radial-gradient(circle, rgba(255,255,255,.18) 0 1.6px, transparent 2px) 0 0/24px 24px;opacity:.6}
+.why-panel .pcard{position:relative;z-index:2;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);border-radius:18px;padding:18px;display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.why-panel .pcard:last-child{margin-bottom:0}
+.why-panel .pcard .pi{width:46px;height:46px;border-radius:13px;background:#fff;color:var(--teal-d);display:grid;place-items:center;flex-shrink:0}
+.why-panel .pcard .pi svg{width:24px;height:24px}
+.why-panel .pcard b{display:block;font-family:'Fraunces',serif;font-size:1.15rem}
+.why-panel .pcard span{font-size:.84rem;opacity:.9;font-weight:600}
+
+/* ============ CONSULT BANNER ============ */
+.consult .wrap{background:linear-gradient(120deg,#062B24,#0A5A4D);border-radius:var(--r-lg);padding:46px;display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center;color:#fff;position:relative;overflow:hidden}
+.consult .glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,var(--lime),transparent 70%);opacity:.25;top:-100px;right:-40px}
+.consult h2{font-size:clamp(1.7rem,3.6vw,2.4rem);position:relative;z-index:2}
+.consult p{opacity:.85;font-weight:500;margin-top:10px;position:relative;z-index:2;max-width:460px}
+.consult .right{position:relative;z-index:2;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
+.consult .right .btn{width:100%;justify-content:center}
+.consult .avatars{display:flex;align-items:center;gap:10px;font-size:.85rem;font-weight:600}
+.consult .avatars .a{display:flex}
+.consult .avatars .a span{width:34px;height:34px;border-radius:50%;border:2px solid #0A5A4D;margin-left:-10px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:.8rem}
+.av1{background:linear-gradient(135deg,#0FB39B,#16C172)}
+.av2{background:linear-gradient(135deg,#3FC6E0,#5B8DEF)}
+.av3{background:linear-gradient(135deg,#FFB02E,#FF7E8B)}
+
+/* ============ TESTIMONIAL ============ */
+.quote{max-width:760px;margin:0 auto;text-align:center;background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:48px 40px;box-shadow:var(--shadow-sm);position:relative}
+.quote .mark{position:absolute;top:18px;left:30px;font-family:'Fraunces',serif;font-size:5rem;color:var(--mint);line-height:1;z-index:0}
+.quote .stars{color:var(--amber);letter-spacing:3px;font-size:1.2rem;position:relative;z-index:2}
+.quote p{font-family:'Fraunces',serif;font-size:clamp(1.3rem,2.6vw,1.7rem);color:var(--ink);margin:18px 0 22px;position:relative;z-index:2;line-height:1.4}
+.quote .who{font-weight:800;position:relative;z-index:2}
+.quote .who span{display:block;font-weight:600;color:var(--ink-2);font-size:.88rem}
+
+/* ============ CTA ============ */
+.cta .wrap{background:
+  radial-gradient(600px 300px at 80% 0%, rgba(155,225,93,.4), transparent 60%),
+  linear-gradient(120deg,var(--teal),var(--green));
+  border-radius:var(--r-lg);padding:62px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.cta .wrap::after{content:"";position:absolute;inset:0;background:radial-gradient(circle, rgba(255,255,255,.16) 0 1.6px, transparent 2px) 0 0/26px 26px;opacity:.5}
+.cta h2{font-size:clamp(2rem,4.5vw,3rem);position:relative;z-index:2}
+.cta p{opacity:.95;font-weight:500;margin:12px auto 26px;max-width:480px;position:relative;z-index:2}
+.cta .btn{position:relative;z-index:2}
+
+/* ============ FOOTER ============ */
+.foot{background:#062B24;color:#cfe9e1;padding:60px 0 26px}
+.foot .top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot .logo{color:#fff;margin-bottom:14px}
+.foot .desc{font-size:.92rem;max-width:300px;opacity:.8;font-weight:500}
+.foot h5{color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:14px}
+.foot .col a{display:block;font-size:.9rem;padding:5px 0;opacity:.8;transition:.2s;cursor:pointer}
+.foot .col a:hover{opacity:1;color:var(--lime);transform:translateX(3px)}
+.foot .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:22px;font-size:.84rem;opacity:.7}
+
+/* ============ RX RIBBON ============ */
+.rx-ribbon{position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:10px;
+  background:#062B24;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:11px 16px;
+  box-shadow:0 16px 38px -12px rgba(0,0,0,.5);font-size:.84rem;font-weight:600;transition:transform .3s,box-shadow .3s}
+.rx-ribbon:hover{transform:translateY(-3px);box-shadow:0 22px 44px -12px rgba(0,0,0,.6)}
+.rx-ribbon .star{width:26px;height:26px;flex-shrink:0}
+.rx-ribbon b{font-weight:900;background:linear-gradient(120deg,#9BE15D,#16C172,#3FC6E0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rx-ribbon .price{color:#FFB02E;font-weight:800}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+  .hero-card{max-width:480px}
+  .cats{grid-template-columns:repeat(3,1fr)}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;gap:34px}
+  .consult .wrap{grid-template-columns:1fr;gap:24px}
+  .foot .top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links{position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;background:#fff;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:90px 24px 24px;gap:8px;transform:translateX(100%);transition:transform .35s;box-shadow:-20px 0 50px -20px rgba(8,90,76,.4);z-index:55}
+  .nav-links.open{transform:none}
+  .nav-links a{padding:13px 16px;font-size:1.05rem}
+  .nav-links .btn-primary{margin-top:8px}
+  .burger{display:grid;z-index:56;position:relative}
+  .sec{padding:56px 0}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+  .tiles{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:18px}
+  .hero-stats .s{padding-right:18px}
+  .consult .wrap,.cta .wrap{padding:34px 22px}
+  .quote{padding:36px 22px}
+  .foot .top{grid-template-columns:1fr 1fr}
+  .fb-1{left:0;bottom:-16px}
+}
+@media(max-width:380px){
+  .tiles{grid-template-columns:1fr}
+  .cats{grid-template-columns:1fr 1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
 
 <div class="demo-bar"><span class="pill">Demo</span>Pharmacy template — like it? <a href="../index.html">Get this site from ₹200/mo →</a></div>
 
-<header class="t-nav"><div class="wrap">
-  <div class="t-logo"><span class="mark"><svg class="lucide lucide-pill" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" /> <path d="m8.5 8.5 7 7" /> </svg></span> WellMed</div>
-  <nav class="t-links">
+<header class="nav" id="nav"><div class="wrap">
+  <a href="#" class="logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span> WellMed</a>
+  <nav class="nav-links" id="navlinks">
     <a href="#shop">Shop</a>
+    <a href="#categories">Categories</a>
     <a href="#services">Services</a>
     <a href="#about">About</a>
-    <a href="#order" class="btn btn-primary">Order Medicines</a>
+    <a href="#order" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>Order Medicines</a>
   </nav>
+  <button class="burger" id="burger" aria-label="Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
 </div></header>
 
-<section class="t-hero"><div class="wrap">
-  <div>
-    <span class="eyebrow">Free delivery in 90 minutes</span>
-    <h1>Your medicines,<br><span class="grad">delivered fast.</span></h1>
-    <p class="lead">Upload your prescription and get genuine medicines at the lowest prices — delivered to your doorstep, the same day.</p>
-    <div class="t-hero-cta">
-      <a href="#order" class="btn btn-primary">Order now →</a>
-      <a href="#services" class="btn btn-ghost">Upload prescription</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow"><span class="dot"></span>Free delivery in 90 minutes</span>
+      <h1>Your medicines,<br><span class="grad">delivered with care.</span></h1>
+      <p class="lead">Upload your prescription and get genuine medicines at the lowest prices — delivered to your doorstep, the same day.</p>
+      <div class="hero-cta">
+        <a href="#order" class="btn btn-primary">Order now <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        <a href="#order" class="btn btn-ghost"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>Upload prescription</a>
+      </div>
+      <div class="hero-stats">
+        <div class="s"><b>25%</b><span>Off on medicines</span></div>
+        <div class="s"><b>90 min</b><span>Delivery</span></div>
+        <div class="s"><b>100%</b><span>Genuine products</span></div>
+      </div>
     </div>
-    <div class="t-hero-stats">
-      <div class="s"><b>25%</b><span>Off on medicines</span></div>
-      <div class="s"><b>90 min</b><span>Delivery</span></div>
-      <div class="s"><b>100%</b><span>Genuine products</span></div>
+
+    <div class="reveal" style="transition-delay:.1s">
+      <div class="hero-card">
+        <div class="hc-head">
+          <div class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M9 13h6"/><path d="M9 17h3"/></svg></div>
+          <div><b>Order in 3 easy steps</b><span>Genuine • Lowest price • Same day</span></div>
+        </div>
+        <div class="upload-zone">
+          <div class="uic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg></div>
+          <p>Upload your prescription</p>
+          <small>JPG, PNG or PDF — we'll do the rest</small>
+        </div>
+        <div class="hc-row">
+          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Verified pharmacist</div>
+          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>Free delivery</div>
+        </div>
+        <div class="float-badge fb-1"><span class="d"></span><div><b>Delivering now</b><span>12 orders out for delivery</span></div></div>
+      </div>
     </div>
   </div>
-  <div class="t-hero-visual">
-    <img src="img/ph-hero.jpg" alt="Friendly pharmacist at WellMed pharmacy counter" loading="lazy">
-    <div class="t-hero-badge"><span class="dot"></span><div><b>Delivering now</b><span>12 orders out for delivery</span></div></div>
+</section>
+
+<!-- OFFERS MARQUEE -->
+<div class="offers">
+  <div class="marquee">
+    <span>Flat 25% off on first order</span><span>Free delivery above ₹299</span><span>Lab tests from ₹199</span><span>Free pharmacist consult</span><span>Auto-refill &amp; save 10%</span>
+    <span>Flat 25% off on first order</span><span>Free delivery above ₹299</span><span>Lab tests from ₹199</span><span>Free pharmacist consult</span><span>Auto-refill &amp; save 10%</span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="sec" id="categories"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="eyebrow">Shop by need</span>
+    <h2>Browse our <span class="grad">categories</span></h2>
+    <p>Everything for your family's health, organised so you find it fast.</p>
+  </div>
+  <div class="cats">
+    <div class="cat reveal"><div class="ci c1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></div><h4>Medicines</h4><small>2,400+ items</small></div>
+    <div class="cat reveal" style="transition-delay:.05s"><div class="ci c2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></svg></div><h4>Baby Care</h4><small>Trusted brands</small></div>
+    <div class="cat reveal" style="transition-delay:.1s"><div class="ci c3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></div><h4>Devices</h4><small>BP, sugar &amp; more</small></div>
+    <div class="cat reveal" style="transition-delay:.15s"><div class="ci c4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div><h4>Wellness</h4><small>Vitamins &amp; care</small></div>
+    <div class="cat reveal" style="transition-delay:.2s"><div class="ci c5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg></div><h4>Lab Tests</h4><small>Home collection</small></div>
+    <div class="cat reveal" style="transition-delay:.25s"><div class="ci c6"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div><h4>Personal Care</h4><small>Skin &amp; hygiene</small></div>
   </div>
 </div></section>
 
-<div class="t-trust"><div class="wrap">
-  <div class="ti"><b><svg class="lucide lucide-badge-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m9 12 2 2 4-4" /> </svg></b> Licensed Pharmacy</div>
-  <div class="ti"><b><svg class="lucide lucide-truck" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M15 18H9" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" /> </svg></b> Same-day Delivery</div>
-  <div class="ti"><b><svg class="lucide lucide-banknote" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="12" x="2" y="6" rx="2" /> <circle cx="12" cy="12" r="2" /> <path d="M6 12h.01M18 12h.01" /> </svg></b> Up to 25% Off</div>
-  <div class="ti"><b><svg class="lucide lucide-receipt" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 17V7" /> <path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /> <path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /> </svg></b> Easy Prescription Upload</div>
-  <div class="ti"><b><svg class="lucide lucide-repeat" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m17 2 4 4-4 4" /> <path d="M3 11v-1a4 4 0 0 1 4-4h14" /> <path d="m7 22-4-4 4-4" /> <path d="M21 13v1a4 4 0 0 1-4 4H3" /> </svg></b> Auto-refill Plans</div>
-</div></div>
-
-<section class="sec" id="services"><div class="wrap">
-  <div class="sec-head">
+<!-- SERVICES -->
+<section class="sec tint" id="services"><div class="wrap">
+  <div class="sec-head reveal">
     <span class="eyebrow">How we help</span>
     <h2>More than just a <span class="grad">medical store</span></h2>
     <p>Everything you need to stay healthy, in one trusted place.</p>
   </div>
   <div class="cards">
-    <div class="card"><div class="ic"><svg class="lucide lucide-clipboard-list" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /> </svg></div><h3>Prescription Refills</h3><p>Snap a photo of your prescription and we handle the rest — with auto-refill reminders.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-truck" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M15 18H9" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" /> </svg></div><h3>Express Delivery</h3><p>Genuine medicines delivered to your door in as little as 90 minutes.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-stethoscope" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 2v2" /> <path d="M5 2v2" /> <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1" /> <path d="M8 15a6 6 0 0 0 12 0v-3" /> <circle cx="20" cy="10" r="2" /> </svg></div><h3>Free Consultations</h3><p>Talk to a licensed pharmacist about dosage, side-effects and alternatives.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-heart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> </svg></div><h3>Wellness &amp; Care</h3><p>Vitamins, skincare, baby care and health devices at unbeatable prices.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-flask-conical" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /> <path d="M6.453 15h11.094" /> <path d="M8.5 2h7" /> </svg></div><h3>Lab Tests at Home</h3><p>Book blood tests and health check-ups with sample collection at home.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-credit-card" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /> </svg></div><h3>Health Savings</h3><p>Members save on every order with exclusive discounts and cashback.</p></div>
+    <div class="card reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div><h3>Prescription Refills</h3><p>Snap a photo of your prescription and we handle the rest — with auto-refill reminders.</p></div>
+    <div class="card reveal" style="transition-delay:.05s"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><h3>Express Delivery</h3><p>Genuine medicines delivered to your door in as little as 90 minutes.</p></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Free Consultations</h3><p>Talk to a licensed pharmacist about dosage, side-effects and alternatives.</p></div>
+    <div class="card reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/></svg></div><h3>Wellness &amp; Care</h3><p>Vitamins, skincare, baby care and health devices at unbeatable prices.</p></div>
+    <div class="card reveal" style="transition-delay:.05s"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg></div><h3>Lab Tests at Home</h3><p>Book blood tests and health check-ups with sample collection at home.</p></div>
+    <div class="card reveal" style="transition-delay:.1s"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div><h3>Health Savings</h3><p>Members save on every order with exclusive discounts and cashback.</p></div>
   </div>
 </div></section>
 
-<section class="sec tinted" id="shop"><div class="wrap">
-  <div class="sec-head">
+<!-- PRODUCTS -->
+<section class="sec" id="shop"><div class="wrap">
+  <div class="sec-head reveal">
     <span class="eyebrow">Best sellers</span>
     <h2>Shop popular <span class="grad">essentials</span></h2>
     <p>Genuine products, clearly priced. What you'd actually sell — set up in minutes.</p>
   </div>
   <div class="tiles">
-    <div class="tile"><div class="ph"><img src="img/ph-1.jpg" alt="Multivitamin Daily supplement" loading="lazy"></div><div class="body"><h4>Multivitamin Daily</h4><div class="tag">Wellness</div><div class="meta"><span class="price">₹299</span><span class="tag">−20%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ph-2.jpg" alt="Hand sanitizer pack" loading="lazy"></div><div class="body"><h4>Sanitizer Pack</h4><div class="tag">Hygiene</div><div class="meta"><span class="price">₹149</span><span class="tag">−15%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ph-3.jpg" alt="Digital thermometer" loading="lazy"></div><div class="body"><h4>Digital Thermometer</h4><div class="tag">Devices</div><div class="meta"><span class="price">₹399</span><span class="tag">−10%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ph-4.jpg" alt="First-aid kit" loading="lazy"></div><div class="body"><h4>First-Aid Kit</h4><div class="tag">Care</div><div class="meta"><span class="price">₹499</span><span class="tag">−25%</span></div></div></div>
+    <div class="tile reveal"><div class="ph p1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg></div><div class="body"><span class="cat-tag">Wellness</span><h4>Multivitamin Daily</h4><div class="meta"><span class="price">₹299</span><span class="off">−20%</span></div><a href="#order" class="btn btn-ghost add">Add to cart</a></div></div>
+    <div class="tile reveal" style="transition-delay:.05s"><div class="ph p2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11V7a5 5 0 0 1 10 0v4"/><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/></svg></div><div class="body"><span class="cat-tag">Hygiene</span><h4>Sanitizer Pack</h4><div class="meta"><span class="price">₹149</span><span class="off">−15%</span></div><a href="#order" class="btn btn-ghost add">Add to cart</a></div></div>
+    <div class="tile reveal" style="transition-delay:.1s"><div class="ph p3"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg></div><div class="body"><span class="cat-tag">Devices</span><h4>Digital Thermometer</h4><div class="meta"><span class="price">₹399</span><span class="off">−10%</span></div><a href="#order" class="btn btn-ghost add">Add to cart</a></div></div>
+    <div class="tile reveal" style="transition-delay:.15s"><div class="ph p4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 12h2"/><path d="M12 11v2"/><path d="M14 22a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2Z"/><path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg></div><div class="body"><span class="cat-tag">Care</span><h4>First-Aid Kit</h4><div class="meta"><span class="price">₹499</span><span class="off">−25%</span></div><a href="#order" class="btn btn-ghost add">Add to cart</a></div></div>
   </div>
 </div></section>
 
-<section class="sec" id="about"><div class="wrap">
+<!-- WHY / ABOUT -->
+<section class="sec tint" id="about"><div class="wrap">
   <div class="split">
-    <div>
+    <div class="reveal">
       <span class="eyebrow">Why WellMed</span>
       <h2>Trusted by <span class="grad">families everywhere</span></h2>
       <p>We make staying healthy effortless and affordable — genuine medicines, real pharmacists, and delivery you can count on.</p>
-      <ul>
-        <li>100% genuine, sealed &amp; quality-checked products</li>
-        <li>Lowest prices with everyday discounts</li>
-        <li>Licensed pharmacists available on call</li>
-        <li>Secure payments &amp; easy returns</li>
+      <ul class="feat-list">
+        <li><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>100% genuine, sealed &amp; quality-checked products</li>
+        <li><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Lowest prices with everyday discounts</li>
+        <li><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Licensed pharmacists available on call</li>
+        <li><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Secure payments &amp; easy returns</li>
       </ul>
     </div>
-    <div class="visual"><img src="img/ph-about.jpg" alt="Modern WellMed pharmacy store interior" loading="lazy"></div>
+    <div class="why-panel reveal" style="transition-delay:.1s">
+      <div class="grid-dots"></div>
+      <div class="pcard"><div class="pi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>Licensed &amp; certified</b><span>Every order checked by a registered pharmacist</span></div></div>
+      <div class="pcard"><div class="pi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg></div><div><b>90-minute delivery</b><span>Out for delivery the moment you order</span></div></div>
+      <div class="pcard"><div class="pi"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></div><div><b>Auto-refill plans</b><span>Never run out of your regular medicines</span></div></div>
+    </div>
   </div>
 </div></section>
 
-<section class="sec tinted"><div class="wrap">
-  <div class="quote">
+<!-- CONSULT BANNER -->
+<section class="sec consult"><div class="wrap reveal">
+  <div class="glow"></div>
+  <div>
+    <h2>Talk to a pharmacist, free.</h2>
+    <p>Confused about a medicine, dosage or a cheaper alternative? Our licensed pharmacists are a tap away — no appointment needed.</p>
+  </div>
+  <div class="right">
+    <a href="#order" class="btn btn-white"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Start free consult</a>
+    <div class="avatars"><div class="a"><span class="av1">DR</span><span class="av2">SK</span><span class="av3">+8</span></div>Pharmacists online now</div>
+  </div>
+</div></section>
+
+<!-- TESTIMONIAL -->
+<section class="sec tint"><div class="wrap">
+  <div class="quote reveal">
+    <span class="mark">&ldquo;</span>
     <div class="stars">★★★★★</div>
-    <p>"I uploaded my prescription at night and the medicines arrived before lunch the next day — cheaper than my local store too. Brilliant."</p>
+    <p>I uploaded my prescription at night and the medicines arrived before lunch the next day — cheaper than my local store too. Brilliant.</p>
     <div class="who">Rahul Verma<span>Verified customer</span></div>
   </div>
 </div></section>
 
-<section class="t-cta" id="order"><div class="wrap"><div class="box">
+<!-- CTA -->
+<section class="sec cta" id="order"><div class="wrap reveal">
   <h2>Order your medicines now</h2>
   <p>Upload a prescription or browse thousands of products — delivered today.</p>
-  <a href="../index.html" class="btn">Start your order →</a>
-</div></div></section>
+  <a href="../index.html" class="btn btn-white">Start your order <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+</div></section>
 
-<footer class="t-foot"><div class="wrap">
+<!-- FOOTER -->
+<footer class="foot"><div class="wrap">
   <div class="top">
     <div>
-      <div class="t-logo"><span class="mark"><svg class="lucide lucide-pill" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z" /> <path d="m8.5 8.5 7 7" /> </svg></span> WellMed</div>
+      <div class="logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg></span> WellMed</div>
       <p class="desc">Your trusted neighbourhood pharmacy — now online, faster and more affordable.</p>
     </div>
-    <div><h5>Shop</h5><a>Medicines</a><a>Wellness</a><a>Devices</a><a>Baby care</a></div>
-    <div><h5>Services</h5><a>Upload prescription</a><a>Lab tests</a><a>Consultations</a><a>Auto-refill</a></div>
-    <div><h5>Contact</h5><a>+91 90000 00000</a><a>help@wellmed.example</a><a>Open 8am – 11pm</a></div>
+    <div class="col"><h5>Shop</h5><a>Medicines</a><a>Wellness</a><a>Devices</a><a>Baby care</a></div>
+    <div class="col"><h5>Services</h5><a>Upload prescription</a><a>Lab tests</a><a>Consultations</a><a>Auto-refill</a></div>
+    <div class="col"><h5>Contact</h5><a>+91 90000 00000</a><a>help@wellmed.example</a><a>Open 8am – 11pm</a></div>
   </div>
   <div class="bottom"><span>© 2026 WellMed Pharmacy. Demo template.</span><span>Designed &amp; built by RockitX</span></div>
 </div></footer>
 
 <a class="rx-ribbon" href="../index.html" title="Get a website like this from RockitX">
-  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
+  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#9BE15D"/><stop offset=".5" stop-color="#16C172"/><stop offset="1" stop-color="#3FC6E0"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
   <span>Built with <b>RockitX</b> · <span class="price">from ₹200/mo</span></span>
 </a>
+
+<script>
+// Mobile nav
+const burger=document.getElementById('burger'),links=document.getElementById('navlinks');
+burger.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+// Nav shadow on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8));
+// Scroll reveal
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
 
 </body>
 </html>

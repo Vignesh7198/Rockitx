@@ -3,18 +3,374 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MediCare+ — Doctors & Clinic Website Template | RockitX Demo</title>
+<title>MediCare+ — Doctors &amp; Clinic Website Template | RockitX Demo</title>
 <meta name="description" content="A premium clinic & doctor website demo template by RockitX. Get a site like this from ₹200/month.">
-<link rel="stylesheet" href="template.css">
-<style>:root{--accent:#0EA5E9;--accent2:#14B8A6;--tint:#ECFEFF;--ink:#0C2434;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MediCare+ — bespoke clinical-premium design (self-contained)
+   ============================================================ */
+:root{
+  --sky:#0EA5E9;
+  --sky-deep:#0284C7;
+  --teal:#0D9488;
+  --teal2:#14B8A6;
+  --mint:#ECFEFF;
+  --mint2:#F0FDFA;
+  --ink:#0B2233;
+  --slate:#43596A;
+  --line:#E3EEF2;
+  --paper:#F6FBFC;
+  --card:#FFFFFF;
+  --grad:linear-gradient(115deg,#0EA5E9 0%,#14B8A6 100%);
+  --grad-soft:linear-gradient(135deg,#E0F7FB 0%,#E7FBF4 100%);
+  --shadow-sm:0 4px 16px -8px rgba(11,34,51,.18);
+  --shadow:0 24px 60px -28px rgba(8,80,110,.40);
+  --shadow-lg:0 40px 90px -34px rgba(8,80,110,.50);
+  --radius:26px;
+  --maxw:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,h5{font-family:'Plus Jakarta Sans',sans-serif;line-height:1.1;letter-spacing:-.02em;color:var(--ink)}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.grad-txt{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+
+/* ---- shared demo chrome (restyled, sheet removed) ---- */
+.demo-bar{
+  background:linear-gradient(90deg,#0B2233,#0D5C6E);
+  color:#fff;text-align:center;font-size:.85rem;font-weight:600;
+  padding:10px 16px;position:relative;z-index:60;
+}
+.demo-bar .pill{
+  background:rgba(255,255,255,.16);padding:3px 10px;border-radius:7px;
+  font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-right:9px;font-weight:700;
+}
+.demo-bar a{color:#7DE7D4;font-weight:800;border-bottom:1px solid transparent;transition:border-color .2s}
+.demo-bar a:hover{border-color:#7DE7D4}
+
+.rx-ribbon{
+  position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:10px;
+  background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:11px 16px;
+  box-shadow:var(--shadow);font-size:.84rem;font-weight:600;transition:transform .3s,box-shadow .3s;
+}
+.rx-ribbon:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.rx-ribbon .star{width:26px;height:26px;flex-shrink:0}
+.rx-ribbon b{font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rx-ribbon .price{color:var(--teal);font-weight:800}
+@media(max-width:560px){.rx-ribbon{right:10px;bottom:10px;padding:9px 12px;font-size:.76rem}}
+
+/* ---- buttons ---- */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.96rem;
+  padding:14px 24px;border-radius:999px;cursor:pointer;border:0;transition:.25s ease;
+  font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 16px 30px -12px rgba(13,148,136,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 22px 40px -12px rgba(13,148,136,.7)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--teal2);color:var(--teal);transform:translateY(-2px)}
+.btn .arrow{transition:transform .25s}
+.btn:hover .arrow{transform:translateX(4px)}
+
+/* ---- eyebrow ---- */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--teal);
+  background:var(--mint2);border:1px solid #CDEEE6;padding:7px 14px;border-radius:999px;margin-bottom:18px;
+}
+
+/* ---- nav ---- */
+.t-nav{position:sticky;top:0;z-index:50;padding:14px 0;transition:.3s}
+.t-nav.scrolled{background:rgba(246,251,252,.82);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+.t-nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.t-logo{display:flex;align-items:center;gap:11px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.25rem}
+.t-logo .mark{
+  display:grid;place-items:center;width:42px;height:42px;border-radius:13px;
+  background:var(--grad);color:#fff;box-shadow:0 10px 22px -10px rgba(13,148,136,.7)
+}
+.t-logo .mark svg{width:23px;height:23px}
+.t-links{display:flex;align-items:center;gap:6px}
+.t-links a:not(.btn){padding:9px 15px;border-radius:999px;font-weight:600;font-size:.95rem;color:var(--slate);transition:.2s}
+.t-links a:not(.btn):hover{color:var(--ink);background:#fff}
+.nav-toggle{display:none;background:#fff;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;cursor:pointer;align-items:center;justify-content:center}
+.nav-toggle svg{width:22px;height:22px;color:var(--ink)}
+
+/* ---- hero ---- */
+.hero{position:relative;padding:48px 0 70px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(60% 55% at 12% 8%,#E3F7FB 0%,transparent 60%),
+    radial-gradient(50% 50% at 92% 24%,#E7FBF2 0%,transparent 60%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background-image:radial-gradient(rgba(13,148,136,.10) 1.3px,transparent 1.3px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);
+          mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);
+}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.hero h1{font-size:clamp(2.5rem,5.4vw,4rem);font-weight:800}
+.hero .lead{font-size:1.15rem;color:var(--slate);max-width:520px;margin:22px 0 30px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+.hero-rating{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.avatars{display:flex}
+.avatars span{
+  width:36px;height:36px;border-radius:50%;border:2.5px solid var(--paper);margin-left:-12px;
+  display:grid;place-items:center;font-size:.8rem;font-weight:700;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;
+}
+.avatars span:first-child{margin-left:0}
+.hero-rating .txt b{font-weight:800}
+.hero-rating .txt span{color:var(--slate);font-size:.88rem}
+.hero-rating .stars{color:#F5A524;letter-spacing:1px}
+
+.hero-stats{display:flex;gap:30px;margin-top:38px;flex-wrap:wrap}
+.hero-stats .s b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.9rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stats .s span{font-size:.86rem;color:var(--slate);font-weight:600}
+
+/* ---- booking widget (signature) ---- */
+.booking{
+  position:relative;background:var(--card);border:1px solid var(--line);border-radius:28px;
+  padding:26px;box-shadow:var(--shadow-lg);
+}
+.booking .b-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.booking .b-head h3{font-size:1.18rem}
+.booking .b-head .live{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:700;color:var(--teal);background:var(--mint2);padding:6px 12px;border-radius:999px}
+.booking .b-head .live .dot{width:8px;height:8px;border-radius:50%;background:var(--teal2);box-shadow:0 0 0 0 rgba(20,184,166,.5);animation:pulse 2s infinite}
+.b-label{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--slate);margin:18px 0 9px}
+.b-label:first-of-type{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{
+  font-size:.86rem;font-weight:600;padding:9px 14px;border-radius:12px;border:1.5px solid var(--line);
+  background:#fff;color:var(--slate);cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:7px;
+}
+.chip:hover{border-color:var(--teal2);color:var(--teal)}
+.chip.active{background:var(--grad);border-color:transparent;color:#fff;box-shadow:0 10px 20px -10px rgba(13,148,136,.6)}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day{
+  text-align:center;padding:11px 4px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;transition:.18s
+}
+.day:hover{border-color:var(--teal2)}
+.day small{display:block;font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--slate);letter-spacing:.04em}
+.day b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.15rem;font-weight:800;margin-top:3px}
+.day.active{background:var(--grad);border-color:transparent}
+.day.active small,.day.active b{color:#fff}
+.booking .confirm{width:100%;justify-content:center;margin-top:22px}
+.booking .b-note{text-align:center;font-size:.8rem;color:var(--slate);margin-top:12px}
+.booking .b-note b{color:var(--ink)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(20,184,166,.5)}70%{box-shadow:0 0 0 9px rgba(20,184,166,0)}100%{box-shadow:0 0 0 0 rgba(20,184,166,0)}}
+
+/* ---- trust strip ---- */
+.trust{padding:8px 0 8px}
+.trust .wrap{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:14px 30px;align-items:center;
+  background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 26px;box-shadow:var(--shadow-sm)
+}
+.trust .ti{display:flex;align-items:center;gap:11px;font-weight:700;font-size:.92rem;color:var(--ink)}
+.trust .ti svg{width:22px;height:22px;color:var(--teal);flex-shrink:0}
+.trust .sep{width:1px;height:24px;background:var(--line)}
+
+/* ---- section base ---- */
+.sec{padding:84px 0}
+.sec-head{max-width:660px;margin:0 auto 50px;text-align:center}
+.sec-head h2{font-size:clamp(2rem,4vw,2.85rem);font-weight:800;margin-bottom:14px}
+.sec-head p{color:var(--slate);font-size:1.08rem}
+
+/* ---- departments grid ---- */
+.depts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.dept{
+  position:relative;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:28px;transition:.28s;overflow:hidden
+}
+.dept::after{content:"";position:absolute;inset:0;border-radius:inherit;border:1.5px solid transparent;transition:.28s}
+.dept:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.dept .ic{
+  width:58px;height:58px;border-radius:17px;display:grid;place-items:center;margin-bottom:18px;transition:.28s
+}
+.dept .ic svg{width:27px;height:27px}
+.dept h3{font-size:1.22rem;margin-bottom:8px}
+.dept p{color:var(--slate);font-size:.95rem;margin-bottom:16px}
+.dept .more{font-weight:700;font-size:.9rem;color:var(--teal);display:inline-flex;align-items:center;gap:6px}
+.dept .more svg{width:16px;height:16px;transition:transform .25s}
+.dept:hover .more svg{transform:translateX(4px)}
+/* per-card tints */
+.dept:nth-child(1) .ic{background:#E0F2FE;color:#0284C7}
+.dept:nth-child(2) .ic{background:#EDE9FE;color:#7C3AED}
+.dept:nth-child(3) .ic{background:#CCFBF1;color:#0D9488}
+.dept:nth-child(4) .ic{background:#FEF3C7;color:#D97706}
+.dept:nth-child(5) .ic{background:#FCE7F3;color:#DB2777}
+.dept:nth-child(6) .ic{background:#DCFCE7;color:#16A34A}
+
+/* ---- why / split ---- */
+.why{background:linear-gradient(180deg,#fff,var(--mint2))}
+.why .split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center}
+.why h2{font-size:clamp(1.9rem,3.6vw,2.6rem);font-weight:800;margin-bottom:16px}
+.why p.intro{color:var(--slate);font-size:1.06rem;margin-bottom:26px}
+.feat-list{display:flex;flex-direction:column;gap:14px}
+.feat{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:.22s}
+.feat:hover{transform:translateX(4px);box-shadow:var(--shadow-sm)}
+.feat .tick{flex-shrink:0;width:30px;height:30px;border-radius:9px;background:var(--mint2);display:grid;place-items:center;color:var(--teal)}
+.feat .tick svg{width:18px;height:18px}
+.feat b{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;display:block;font-size:1rem}
+.feat span{color:var(--slate);font-size:.92rem}
+/* decorative visual panel */
+.why-visual{position:relative;aspect-ratio:1/1;border-radius:32px;overflow:hidden;background:var(--grad);box-shadow:var(--shadow-lg)}
+.why-visual::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.16) 1.5px,transparent 1.5px);background-size:22px 22px}
+.why-visual .glyph{position:absolute;inset:0;display:grid;place-items:center;font-size:8rem;opacity:.9}
+.why-visual .float-card{
+  position:absolute;background:#fff;border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:11px
+}
+.why-visual .fc-1{left:18px;top:18px}
+.why-visual .fc-2{right:18px;bottom:18px}
+.why-visual .float-card .ico{width:38px;height:38px;border-radius:11px;background:var(--mint2);display:grid;place-items:center;color:var(--teal)}
+.why-visual .float-card .ico svg{width:20px;height:20px}
+.why-visual .float-card b{font-size:.95rem;display:block;font-family:'Plus Jakarta Sans',sans-serif}
+.why-visual .float-card span{font-size:.78rem;color:var(--slate)}
+
+/* ---- doctors ---- */
+.docs{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.doc{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center;transition:.28s}
+.doc:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.doc .av{
+  width:96px;height:96px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.9rem;color:#fff;position:relative
+}
+.doc .av .on{position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;background:#22C55E;border:3px solid #fff}
+.doc:nth-child(1) .av{background:linear-gradient(135deg,#0EA5E9,#22D3EE)}
+.doc:nth-child(2) .av{background:linear-gradient(135deg,#7C3AED,#A78BFA)}
+.doc:nth-child(3) .av{background:linear-gradient(135deg,#0D9488,#34D399)}
+.doc:nth-child(4) .av{background:linear-gradient(135deg,#F59E0B,#FBBF24)}
+.doc h4{font-size:1.12rem;margin-bottom:3px}
+.doc .spec{color:var(--teal);font-weight:700;font-size:.88rem;margin-bottom:12px}
+.doc .dmeta{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
+.doc .dmeta .m{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:5px 11px;font-size:.8rem;font-weight:600;color:var(--slate)}
+.doc .dmeta .m b{color:#F5A524}
+.doc .bookbtn{display:inline-flex;width:100%;justify-content:center;padding:11px;border-radius:13px;border:1.5px solid var(--line);font-weight:700;font-size:.9rem;color:var(--ink);transition:.2s}
+.doc .bookbtn:hover{background:var(--grad);color:#fff;border-color:transparent}
+
+/* ---- emergency strip ---- */
+.emerg{padding:0 0 14px}
+.emerg .band{
+  background:linear-gradient(120deg,#0B2233 0%,#0D5C6E 60%,#0D9488 100%);
+  border-radius:30px;padding:40px 44px;color:#fff;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;box-shadow:var(--shadow)
+}
+.emerg .band::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.10) 1.4px,transparent 1.4px);background-size:24px 24px;opacity:.6}
+.emerg .left{display:flex;align-items:center;gap:20px;position:relative}
+.emerg .pulse-ic{
+  width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,.14);display:grid;place-items:center;flex-shrink:0;
+  animation:beat 1.8s ease-in-out infinite
+}
+.emerg .pulse-ic svg{width:32px;height:32px;color:#fff}
+.emerg h3{color:#fff;font-size:1.5rem}
+.emerg .left p{color:rgba(255,255,255,.78);font-size:.96rem;margin-top:4px}
+.emerg .phone{position:relative;display:flex;flex-direction:column;align-items:flex-end}
+.emerg .phone small{color:rgba(255,255,255,.7);font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.emerg .phone a{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.7rem;color:#fff}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* ---- insurance ---- */
+.ins{text-align:center;padding:18px 0 0}
+.ins p{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--slate);margin-bottom:18px}
+.ins .row{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.ins .pill{background:#fff;border:1px solid var(--line);border-radius:999px;padding:10px 20px;font-weight:700;color:var(--slate);font-size:.92rem;transition:.2s}
+.ins .pill:hover{color:var(--teal);border-color:var(--teal2)}
+
+/* ---- testimonial ---- */
+.tst{background:var(--grad-soft)}
+.tst .box{max-width:760px;margin:0 auto;text-align:center}
+.tst .qmark{font-family:'Plus Jakarta Sans',sans-serif;font-size:5rem;line-height:.6;color:var(--teal2);opacity:.5;height:48px}
+.tst .stars{color:#F5A524;font-size:1.3rem;letter-spacing:3px;margin-bottom:18px}
+.tst blockquote{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.3rem,2.6vw,1.85rem);font-weight:600;line-height:1.4;color:var(--ink)}
+.tst .who{display:flex;align-items:center;justify-content:center;gap:13px;margin-top:26px}
+.tst .who .pa{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0EA5E9,#14B8A6);display:grid;place-items:center;color:#fff;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif}
+.tst .who b{display:block;font-family:'Plus Jakarta Sans',sans-serif}
+.tst .who span{font-size:.86rem;color:var(--slate)}
+
+/* ---- booking CTA ---- */
+.cta{padding:84px 0}
+.cta .box{
+  position:relative;background:var(--grad);border-radius:34px;padding:62px 40px;text-align:center;color:#fff;overflow:hidden;box-shadow:var(--shadow-lg)
+}
+.cta .box::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.5px,transparent 1.5px);background-size:24px 24px;opacity:.6}
+.cta .box::after{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:rgba(255,255,255,.12);top:-140px;right:-90px}
+.cta h2{position:relative;color:#fff;font-size:clamp(2rem,4vw,2.9rem);font-weight:800;margin-bottom:14px}
+.cta p{position:relative;color:rgba(255,255,255,.9);font-size:1.12rem;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta .box .btn{position:relative;background:#fff;color:var(--teal);font-size:1.05rem;padding:16px 32px}
+.cta .box .btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -14px rgba(0,0,0,.4)}
+
+/* ---- footer ---- */
+.foot{background:var(--ink);color:#C7DAE3;padding:64px 0 30px}
+.foot .top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot .t-logo{color:#fff;margin-bottom:16px}
+.foot .desc{font-size:.95rem;max-width:300px;color:#9FB8C3}
+.foot h5{color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;margin-bottom:16px}
+.foot .col a{display:block;color:#9FB8C3;font-size:.93rem;margin-bottom:10px;transition:.2s}
+.foot .col a:hover{color:#7DE7D4}
+.foot .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-top:24px;font-size:.85rem;color:#7E97A3}
+.foot .bottom a{color:#7DE7D4;font-weight:700}
+
+/* ---- scroll reveal ---- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- responsive ---- */
+@media(max-width:980px){
+  .hero .wrap{grid-template-columns:1fr;gap:40px}
+  .booking{max-width:480px}
+  .why .split{grid-template-columns:1fr;gap:36px}
+  .why-visual{max-width:440px;order:-1}
+  .depts{grid-template-columns:repeat(2,1fr)}
+  .docs{grid-template-columns:repeat(2,1fr)}
+  .foot .top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .t-links{
+    position:absolute;top:72px;right:16px;left:16px;background:#fff;border:1px solid var(--line);
+    border-radius:18px;flex-direction:column;align-items:stretch;padding:12px;gap:4px;
+    box-shadow:var(--shadow);display:none
+  }
+  .t-links.open{display:flex}
+  .t-links a:not(.btn){padding:12px 14px}
+  .t-links .btn{justify-content:center;margin-top:6px}
+  .nav-toggle{display:flex}
+  .sec{padding:60px 0}
+  .depts{grid-template-columns:1fr}
+  .docs{grid-template-columns:1fr}
+  .emerg .band{padding:30px 26px}
+  .emerg .phone{align-items:flex-start}
+  .trust .sep{display:none}
+  .cta .box{padding:46px 24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
 
 <div class="demo-bar"><span class="pill">Demo</span>Doctors &amp; Clinics template — like it? <a href="../index.html">Get this site from ₹200/mo →</a></div>
 
-<header class="t-nav"><div class="wrap">
-  <div class="t-logo"><span class="mark"><svg class="lucide lucide-heart-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /> </svg></span> MediCare+</div>
-  <nav class="t-links">
+<header class="t-nav" id="nav"><div class="wrap">
+  <div class="t-logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span> MediCare+</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+  <nav class="t-links" id="navLinks">
     <a href="#services">Services</a>
     <a href="#doctors">Doctors</a>
     <a href="#about">About</a>
@@ -22,113 +378,225 @@
   </nav>
 </div></header>
 
-<section class="t-hero"><div class="wrap">
-  <div>
-    <span class="eyebrow">★ Rated 4.9 by 15,000+ patients</span>
-    <h1>Trusted care,<br><span class="grad">close to home.</span></h1>
+<!-- ============ HERO ============ -->
+<section class="hero"><div class="wrap">
+  <div class="reveal">
+    <div class="hero-rating">
+      <div class="avatars">
+        <span style="background:linear-gradient(135deg,#0EA5E9,#22D3EE)">A</span>
+        <span style="background:linear-gradient(135deg,#7C3AED,#A78BFA)">R</span>
+        <span style="background:linear-gradient(135deg,#0D9488,#34D399)">M</span>
+        <span style="background:linear-gradient(135deg,#F59E0B,#FBBF24)">+</span>
+      </div>
+      <div class="txt"><div class="stars">★★★★★</div><span>Rated <b>4.9</b> by 15,000+ patients</span></div>
+    </div>
+    <h1>Trusted care,<br><span class="grad-txt">close to home.</span></h1>
     <p class="lead">Expert doctors, modern facilities and same-day appointments. Your family's health, handled with warmth and precision.</p>
-    <div class="t-hero-cta">
-      <a href="#book" class="btn btn-primary">Book an appointment →</a>
+    <div class="hero-cta">
+      <a href="#book" class="btn btn-primary">Book an appointment <span class="arrow">→</span></a>
       <a href="#services" class="btn btn-ghost">Our specialities</a>
     </div>
-    <div class="t-hero-stats">
+    <div class="hero-stats">
       <div class="s"><b>20+</b><span>Specialists</span></div>
       <div class="s"><b>15k+</b><span>Happy patients</span></div>
       <div class="s"><b>24/7</b><span>Emergency care</span></div>
     </div>
   </div>
-  <div class="t-hero-visual">
-    <img src="img/doc-hero.jpg" alt="Friendly doctor welcoming patients at MediCare+ clinic" loading="lazy">
-    <div class="t-hero-badge"><span class="dot"></span><div><b>Open now</b><span>Next slot in 20 min</span></div></div>
+
+  <div class="reveal">
+    <div class="booking">
+      <div class="b-head">
+        <h3>Book your visit</h3>
+        <span class="live"><span class="dot"></span>Open now</span>
+      </div>
+      <div class="b-label">Department</div>
+      <div class="chips" data-group="dept">
+        <button class="chip active" type="button">❤️ Cardiology</button>
+        <button class="chip" type="button">🧠 Neurology</button>
+        <button class="chip" type="button">🦷 Dental</button>
+        <button class="chip" type="button">👶 Pediatrics</button>
+      </div>
+      <div class="b-label">Select a day</div>
+      <div class="days" data-group="day">
+        <div class="day active" role="button" tabindex="0"><small>Mon</small><b>16</b></div>
+        <div class="day" role="button" tabindex="0"><small>Tue</small><b>17</b></div>
+        <div class="day" role="button" tabindex="0"><small>Wed</small><b>18</b></div>
+        <div class="day" role="button" tabindex="0"><small>Thu</small><b>19</b></div>
+        <div class="day" role="button" tabindex="0"><small>Fri</small><b>20</b></div>
+      </div>
+      <div class="b-label">Available slots</div>
+      <div class="chips" data-group="time">
+        <button class="chip active" type="button">09:30 AM</button>
+        <button class="chip" type="button">11:00 AM</button>
+        <button class="chip" type="button">02:15 PM</button>
+        <button class="chip" type="button">04:45 PM</button>
+      </div>
+      <a href="#book" class="btn btn-primary confirm">Confirm appointment <span class="arrow">→</span></a>
+      <p class="b-note">Next available slot in <b>20 minutes</b> · No queue</p>
+    </div>
   </div>
 </div></section>
 
-<div class="t-trust"><div class="wrap">
-  <div class="ti"><b><svg class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg></b> NABH Accredited</div>
-  <div class="ti"><b><svg class="lucide lucide-flask-conical" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /> <path d="M6.453 15h11.094" /> <path d="M8.5 2h7" /> </svg></b> In-house Lab &amp; Pharmacy</div>
-  <div class="ti"><b><svg class="lucide lucide-smartphone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="14" height="20" x="5" y="2" rx="2" ry="2" /> <path d="M12 18h.01" /> </svg></b> Online Reports</div>
-  <div class="ti"><b><svg class="lucide lucide-credit-card" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /> </svg></b> Cashless Insurance</div>
-  <div class="ti"><b><svg class="lucide lucide-ambulance" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 10H6" /> <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.28a1 1 0 0 0-.684-.948l-1.923-.641a1 1 0 0 1-.578-.502l-1.539-3.076A1 1 0 0 0 16.382 8H14" /> <path d="M8 8v4" /> <path d="M9 18h6" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" /> </svg></b> Ambulance 24/7</div>
+<!-- ============ TRUST ============ -->
+<div class="trust"><div class="wrap reveal">
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> NABH Accredited</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/><path d="M6.453 15h11.094"/><path d="M8.5 2h7"/></svg> In-house Lab &amp; Pharmacy</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg> Online Reports</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg> Cashless Insurance</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10H6"/><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.28a1 1 0 0 0-.684-.948l-1.923-.641a1 1 0 0 1-.578-.502l-1.539-3.076A1 1 0 0 0 16.382 8H14"/><path d="M8 8v4"/><path d="M9 18h6"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg> Ambulance 24/7</div>
 </div></div>
 
+<!-- ============ DEPARTMENTS ============ -->
 <section class="sec" id="services"><div class="wrap">
-  <div class="sec-head">
+  <div class="sec-head reveal">
     <span class="eyebrow">Our Departments</span>
-    <h2>Complete care under <span class="grad">one roof</span></h2>
+    <h2>Complete care under <span class="grad-txt">one roof</span></h2>
     <p>From everyday check-ups to specialist treatment, our team is here for every stage of your health journey.</p>
   </div>
-  <div class="cards">
-    <div class="card"><div class="ic"><svg class="lucide lucide-heart-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /> </svg></div><h3>Cardiology</h3><p>Advanced heart care, ECG, echo and preventive screening by senior cardiologists.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-brain" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12 18V5" /> <path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4" /> <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5" /> <path d="M17.997 5.125a4 4 0 0 1 2.526 5.77" /> <path d="M18 18a4 4 0 0 0 2-7.464" /> <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517" /> <path d="M6 18a4 4 0 0 1-2-7.464" /> <path d="M6.003 5.125a4 4 0 0 0-2.526 5.77" /> </svg></div><h3>Neurology</h3><p>Expert diagnosis and treatment for migraines, stroke and nerve disorders.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-smile" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="12" cy="12" r="10" /> <path d="M8 14s1.5 2 4 2 4-2 4-2" /> <line x1="9" x2="9.01" y1="9" y2="9" /> <line x1="15" x2="15.01" y1="9" y2="9" /> </svg></div><h3>Dental Care</h3><p>Painless dentistry, implants, braces and cosmetic smile makeovers.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-baby" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5" /> <path d="M15 12h.01" /> <path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1" /> <path d="M9 12h.01" /> </svg></div><h3>Pediatrics</h3><p>Gentle care for your little ones, from vaccinations to growth check-ups.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-bone" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z" /> </svg></div><h3>Orthopedics</h3><p>Joint, bone and sports-injury care with modern physiotherapy.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-eye" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /> </svg></div><h3>Eye Care</h3><p>Comprehensive eye exams, cataract surgery and laser vision correction.</p></div>
+  <div class="depts">
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></div><h3>Cardiology</h3><p>Advanced heart care, ECG, echo and preventive screening by senior cardiologists.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/><path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/><path d="M17.997 5.125a4 4 0 0 1 2.526 5.77"/><path d="M18 18a4 4 0 0 0 2-7.464"/><path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/><path d="M6 18a4 4 0 0 1-2-7.464"/><path d="M6.003 5.125a4 4 0 0 0-2.526 5.77"/></svg></div><h3>Neurology</h3><p>Expert diagnosis and treatment for migraines, stroke and nerve disorders.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg></div><h3>Dental Care</h3><p>Painless dentistry, implants, braces and cosmetic smile makeovers.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M15 12h.01"/><path d="M19.38 6.813A9 9 0 0 1 20.8 10.2a2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/><path d="M9 12h.01"/></svg></div><h3>Pediatrics</h3><p>Gentle care for your little ones, from vaccinations to growth check-ups.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5Z"/></svg></div><h3>Orthopedics</h3><p>Joint, bone and sports-injury care with modern physiotherapy.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
+    <div class="dept reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg></div><h3>Eye Care</h3><p>Comprehensive eye exams, cataract surgery and laser vision correction.</p><span class="more">Learn more <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
   </div>
 </div></section>
 
-<section class="sec tinted" id="about"><div class="wrap">
+<!-- ============ WHY US ============ -->
+<section class="sec why" id="about"><div class="wrap">
   <div class="split">
-    <div class="visual"><img src="img/doc-about.jpg" alt="Modern MediCare+ clinic interior with medical team" loading="lazy"></div>
-    <div>
+    <div class="reveal">
       <span class="eyebrow">Why MediCare+</span>
-      <h2>Healthcare that puts <span class="grad">you first</span></h2>
-      <p>We combine compassionate doctors with the latest technology so you get accurate diagnosis and faster recovery — without the long waits.</p>
-      <ul>
-        <li>Same-day appointments &amp; minimal waiting time</li>
-        <li>Senior, experienced &amp; friendly specialists</li>
-        <li>Digital prescriptions and lab reports on your phone</li>
-        <li>Transparent pricing with cashless insurance support</li>
-      </ul>
+      <h2>Healthcare that puts <span class="grad-txt">you first</span></h2>
+      <p class="intro">We combine compassionate doctors with the latest technology so you get accurate diagnosis and faster recovery — without the long waits.</p>
+      <div class="feat-list">
+        <div class="feat"><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Same-day appointments</b><span>Minimal waiting time, online or by phone.</span></div></div>
+        <div class="feat"><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Senior, friendly specialists</b><span>Experienced doctors who actually listen.</span></div></div>
+        <div class="feat"><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Digital prescriptions &amp; reports</b><span>Everything on your phone, instantly.</span></div></div>
+        <div class="feat"><span class="tick"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><div><b>Transparent pricing</b><span>Clear costs with cashless insurance support.</span></div></div>
+      </div>
+    </div>
+    <div class="why-visual reveal">
+      <div class="glyph">🩺</div>
+      <div class="float-card fc-1"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><b>Live monitoring</b><span>Care that never sleeps</span></div></div>
+      <div class="float-card fc-2"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>98% recovery</b><span>Patient satisfaction</span></div></div>
     </div>
   </div>
 </div></section>
 
+<!-- ============ DOCTORS ============ -->
 <section class="sec" id="doctors"><div class="wrap">
-  <div class="sec-head">
+  <div class="sec-head reveal">
     <span class="eyebrow">Meet the team</span>
-    <h2>Our <span class="grad">senior specialists</span></h2>
+    <h2>Our <span class="grad-txt">senior specialists</span></h2>
     <p>Decades of combined experience, dedicated to your wellbeing.</p>
   </div>
-  <div class="tiles">
-    <div class="tile"><div class="ph"><img src="img/doc-1.jpg" alt="Dr. Anita Rao, Cardiologist" loading="lazy"></div><div class="body"><h4>Dr. Anita Rao</h4><div class="tag">Cardiologist</div><div class="meta"><span class="price">★ 4.9</span><span class="tag">18 yrs</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/doc-2.jpg" alt="Dr. Vikram Shah, Neurologist" loading="lazy"></div><div class="body"><h4>Dr. Vikram Shah</h4><div class="tag">Neurologist</div><div class="meta"><span class="price">★ 4.8</span><span class="tag">15 yrs</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/doc-3.jpg" alt="Dr. Meera Nair, Pediatrician" loading="lazy"></div><div class="body"><h4>Dr. Meera Nair</h4><div class="tag">Pediatrician</div><div class="meta"><span class="price">★ 5.0</span><span class="tag">12 yrs</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/doc-4.jpg" alt="Dr. Arjun Menon, Orthopedic" loading="lazy"></div><div class="body"><h4>Dr. Arjun Menon</h4><div class="tag">Orthopedic</div><div class="meta"><span class="price">★ 4.9</span><span class="tag">20 yrs</span></div></div></div>
+  <div class="docs">
+    <div class="doc reveal"><div class="av">AR<span class="on" title="Available today"></span></div><h4>Dr. Anita Rao</h4><div class="spec">Cardiologist</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">18 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av">VS<span class="on" title="Available today"></span></div><h4>Dr. Vikram Shah</h4><div class="spec">Neurologist</div><div class="dmeta"><span class="m"><b>★</b> 4.8</span><span class="m">15 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av">MN<span class="on" title="Available today"></span></div><h4>Dr. Meera Nair</h4><div class="spec">Pediatrician</div><div class="dmeta"><span class="m"><b>★</b> 5.0</span><span class="m">12 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av">AM<span class="on" title="Available today"></span></div><h4>Dr. Arjun Menon</h4><div class="spec">Orthopedic</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">20 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
   </div>
 </div></section>
 
-<section class="sec tinted"><div class="wrap">
-  <div class="quote">
+<!-- ============ EMERGENCY STRIP ============ -->
+<section class="emerg"><div class="wrap reveal">
+  <div class="band">
+    <div class="left">
+      <div class="pulse-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div>
+        <h3>24/7 Emergency &amp; Ambulance</h3>
+        <p>Round-the-clock critical care with rapid-response ambulances across the city.</p>
+      </div>
+    </div>
+    <div class="phone">
+      <small>Emergency helpline</small>
+      <a href="tel:+919000000000">+91 90000 00000</a>
+    </div>
+  </div>
+</div></section>
+
+<!-- ============ INSURANCE ============ -->
+<section class="sec ins" style="padding-top:50px"><div class="wrap reveal">
+  <p>Cashless treatment with leading insurers</p>
+  <div class="row">
+    <span class="pill">Star Health</span>
+    <span class="pill">HDFC Ergo</span>
+    <span class="pill">ICICI Lombard</span>
+    <span class="pill">Niva Bupa</span>
+    <span class="pill">Care Health</span>
+    <span class="pill">Tata AIG</span>
+  </div>
+</div></section>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="sec tst"><div class="wrap">
+  <div class="box reveal">
+    <div class="qmark">&ldquo;</div>
     <div class="stars">★★★★★</div>
-    <p>"I booked online and was seen within 20 minutes. The doctor was patient and the reports came straight to my phone. Best clinic experience I've had."</p>
-    <div class="who">Priya Sharma<span>Patient since 2023</span></div>
+    <blockquote>I booked online and was seen within 20 minutes. The doctor was patient and the reports came straight to my phone. Best clinic experience I've had.</blockquote>
+    <div class="who"><span class="pa">PS</span><div style="text-align:left"><b>Priya Sharma</b><span>Patient since 2023</span></div></div>
   </div>
 </div></section>
 
-<section class="t-cta" id="book"><div class="wrap"><div class="box">
-  <h2>Your health can't wait</h2>
-  <p>Book an appointment in under a minute — online or by phone.</p>
-  <a href="../index.html" class="btn">Book appointment →</a>
-</div></div></section>
+<!-- ============ BOOKING CTA ============ -->
+<section class="cta" id="book"><div class="wrap">
+  <div class="box reveal">
+    <h2>Your health can't wait</h2>
+    <p>Book an appointment in under a minute — online or by phone. Same-day slots available.</p>
+    <a href="../index.html" class="btn">Book appointment <span class="arrow">→</span></a>
+  </div>
+</div></section>
 
-<footer class="t-foot"><div class="wrap">
+<!-- ============ FOOTER ============ -->
+<footer class="foot"><div class="wrap">
   <div class="top">
     <div>
-      <div class="t-logo"><span class="mark"><svg class="lucide lucide-heart-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" /> <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" /> </svg></span> MediCare+</div>
+      <div class="t-logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span> MediCare+</div>
       <p class="desc">Compassionate, modern healthcare for the whole family — trusted by thousands across the city.</p>
     </div>
-    <div><h5>Departments</h5><a>Cardiology</a><a>Neurology</a><a>Pediatrics</a><a>Dental</a></div>
-    <div><h5>Patients</h5><a>Book appointment</a><a>Lab reports</a><a>Insurance</a><a>Health packages</a></div>
-    <div><h5>Contact</h5><a>+91 90000 00000</a><a>care@medicare.example</a><a>Mon–Sun · 24/7</a></div>
+    <div class="col"><h5>Departments</h5><a>Cardiology</a><a>Neurology</a><a>Pediatrics</a><a>Dental</a></div>
+    <div class="col"><h5>Patients</h5><a>Book appointment</a><a>Lab reports</a><a>Insurance</a><a>Health packages</a></div>
+    <div class="col"><h5>Contact</h5><a>+91 90000 00000</a><a>care@medicare.example</a><a>Mon–Sun · 24/7</a></div>
   </div>
-  <div class="bottom"><span>© 2026 MediCare+. Demo template.</span><span>Designed &amp; built by RockitX</span></div>
+  <div class="bottom"><span>© 2026 MediCare+. Demo template.</span><span>Designed &amp; built by <a href="../index.html">RockitX</a></span></div>
 </div></footer>
 
 <a class="rx-ribbon" href="../index.html" title="Get a website like this from RockitX">
-  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
+  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#22D3EE"/><stop offset=".5" stop-color="#14B8A6"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
   <span>Built with <b>RockitX</b> · <span class="price">from ₹200/mo</span></span>
 </a>
+
+<script>
+// nav: scrolled state + mobile toggle
+const nav=document.getElementById('nav');
+const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>10);
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+// booking widget: single-select within each group
+document.querySelectorAll('[data-group]').forEach(group=>{
+  const items=group.children;
+  const sel=e=>{[...items].forEach(i=>i.classList.remove('active'));e.classList.add('active');};
+  [...items].forEach(item=>{
+    item.addEventListener('click',()=>sel(item));
+    item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();sel(item);}});
+  });
+});
+
+// scroll reveal
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%4,3)*70)+'ms';io.observe(el);});
+</script>
 
 </body>
 </html>

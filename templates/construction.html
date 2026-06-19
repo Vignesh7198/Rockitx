@@ -5,130 +5,582 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuildCraft — Construction Company Website Template | RockitX Demo</title>
 <meta name="description" content="A premium construction company website demo template by RockitX. Get a site like this from ₹200/month.">
-<link rel="stylesheet" href="template.css">
-<style>:root{--accent:#EA580C;--accent2:#F59E0B;--tint:#FFF7ED;--ink:#1C1917;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════
+   BuildCraft — Self-contained industrial construction theme
+   (no shared template.css — fully standalone)
+   ════════════════════════════════════════════════════════ */
+:root{
+  --concrete:#16171B;      /* near-black concrete */
+  --concrete2:#1F2126;     /* panel */
+  --steel:#2B2E35;         /* steel grey */
+  --steel-line:#3A3E46;
+  --hivis:#FFB200;         /* hi-vis amber */
+  --hivis2:#FF7A00;        /* deep orange */
+  --hazard:#FFD400;        /* hazard yellow */
+  --paper:#EDEAE3;         /* light concrete */
+  --paper2:#F5F3EE;
+  --ink:#16171B;
+  --body:#41454D;
+  --muted:#6B7079;
+  --line:#D8D4CB;
+  --on-dark:#C9CCD2;
+  --font:'Archivo','Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  --display:'Anton','Archivo Black',Impact,var(--font);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);color:var(--body);background:var(--paper2);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+h1,h2,h3,h4,h5{color:var(--ink);line-height:1.04;font-weight:800;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 26px;}
+section{position:relative;}
+
+/* blueprint grid utility */
+.blueprint{
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:34px 34px;
+}
+.hazard-strip{height:8px;width:100%;
+  background:repeating-linear-gradient(135deg,var(--hivis) 0 22px,#16171B 22px 44px);}
+
+/* display text */
+.kicker{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--hivis2);}
+.kicker::before{content:"";width:26px;height:2px;background:var(--hivis2);display:inline-block;}
+.kicker.on-dark{color:var(--hivis);}
+.kicker.on-dark::before{background:var(--hivis);}
+.display{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:.92;}
+
+/* ---- Buttons ---- */
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:.9rem;
+  letter-spacing:.04em;text-transform:uppercase;padding:1rem 1.7rem;border-radius:2px;cursor:pointer;
+  border:none;transition:transform .2s,box-shadow .2s,background .2s,color .2s;}
+.btn-primary{background:var(--hivis);color:#16171B;box-shadow:0 0 0 0 var(--hivis);}
+.btn-primary:hover{background:var(--hazard);transform:translateY(-2px);box-shadow:0 12px 26px -10px rgba(255,178,0,.7);}
+.btn-dark{background:var(--concrete);color:#fff;}
+.btn-dark:hover{background:#000;transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.28);}
+.btn-ghost:hover{border-color:var(--hivis);color:var(--hivis);}
+.btn-outline{background:transparent;color:var(--ink);border:2px solid var(--ink);}
+.btn-outline:hover{background:var(--ink);color:#fff;}
+
+/* ════ Demo banner (restyled, was .demo-bar) ════ */
+.demo-bar{background:var(--concrete);color:#fff;text-align:center;font-size:.82rem;font-weight:600;
+  padding:9px 16px;letter-spacing:.02em;border-bottom:2px solid var(--hivis);}
+.demo-bar a{color:var(--hivis);font-weight:800;text-transform:uppercase;letter-spacing:.04em;}
+.demo-bar a:hover{color:var(--hazard);}
+.demo-bar .pill{background:var(--hivis);color:#16171B;padding:2px 9px;border-radius:2px;font-size:.7rem;
+  letter-spacing:.12em;text-transform:uppercase;margin-right:9px;font-weight:900;}
+
+/* ════ Nav ════ */
+.t-nav{position:sticky;top:0;z-index:50;background:rgba(22,23,27,.92);backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08);}
+.t-nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px;}
+.t-logo{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:400;
+  font-size:1.6rem;letter-spacing:.02em;color:#fff;text-transform:uppercase;}
+.t-logo .mark{width:42px;height:42px;border-radius:3px;background:var(--hivis);display:grid;place-items:center;
+  color:#16171B;box-shadow:0 0 0 4px rgba(255,178,0,.18);}
+.t-logo .mark svg{width:24px;height:24px;stroke:#16171B;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.t-links{display:flex;align-items:center;gap:34px;}
+.t-links a:not(.btn){font-size:.82rem;font-weight:700;color:var(--on-dark);text-transform:uppercase;
+  letter-spacing:.08em;transition:color .2s;position:relative;}
+.t-links a:not(.btn):hover{color:var(--hivis);}
+.t-nav .btn{padding:.7rem 1.3rem;font-size:.78rem;}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px;}
+.nav-toggle span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:.3s;}
+
+/* ════ Hero ════ */
+.t-hero{background:var(--concrete);color:#fff;position:relative;overflow:hidden;padding:0;}
+.t-hero .blueprint-bg{position:absolute;inset:0;background-image:
+    linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+  background-size:40px 40px;mask:radial-gradient(120% 90% at 70% 10%,#000,transparent 75%);}
+.t-hero .glow{position:absolute;top:-160px;right:-120px;width:560px;height:560px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,178,0,.22),transparent 65%);pointer-events:none;}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center;
+  padding:78px 0 92px;position:relative;z-index:2;}
+.t-hero h1{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(2.9rem,7vw,5.6rem);line-height:.9;letter-spacing:.005em;color:#fff;margin:22px 0 22px;}
+.t-hero h1 .hl{color:var(--hivis);position:relative;display:inline-block;}
+.t-hero h1 .hl::after{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.1em;
+  background:repeating-linear-gradient(135deg,var(--hivis) 0 9px,#16171B 9px 18px);opacity:.9;}
+.t-hero .lead{font-size:1.12rem;color:var(--on-dark);max-width:520px;margin-bottom:34px;font-weight:500;}
+.t-hero-cta{display:flex;gap:14px;flex-wrap:wrap;}
+.t-hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:0;margin-top:46px;
+  border-top:1px solid rgba(255,255,255,.12);}
+.t-hero-stats .s{padding:22px 28px 0 0;margin-right:28px;border-right:1px solid rgba(255,255,255,.12);}
+.t-hero-stats .s:last-child{border-right:none;}
+.t-hero-stats .s b{display:block;font-family:var(--display);font-weight:400;font-size:2.5rem;color:var(--hivis);line-height:1;}
+.t-hero-stats .s span{font-size:.74rem;color:var(--on-dark);font-weight:700;text-transform:uppercase;letter-spacing:.1em;}
+
+/* hero structural visual (no image needed) */
+.hero-visual{position:relative;height:460px;border:1px solid rgba(255,255,255,.12);
+  background:
+    linear-gradient(160deg,#23262C,#16171B);
+  border-radius:4px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;}
+.hero-visual .bp{position:absolute;inset:0;background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:30px 30px;}
+.hero-visual .corner{position:absolute;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(255,255,255,.45);font-weight:700;}
+.hero-visual .corner.tl{top:14px;left:16px;}
+.hero-visual .corner.tr{top:14px;right:16px;color:var(--hivis);}
+.hero-visual .corner.bl{bottom:14px;left:16px;}
+/* CSS skyline */
+.skyline{position:relative;width:86%;display:flex;align-items:flex-end;gap:10px;height:74%;z-index:2;}
+.skyline .b{flex:1;background:linear-gradient(180deg,#3A3E46,#23262C);border:1px solid rgba(255,255,255,.08);
+  border-bottom:none;position:relative;
+  background-image:
+    linear-gradient(rgba(0,0,0,.35) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.35) 1px,transparent 1px),
+    linear-gradient(180deg,#3A3E46,#23262C);
+  background-size:14px 18px,14px 18px,100% 100%;}
+.skyline .b.b1{height:46%;} .skyline .b.b2{height:78%;} .skyline .b.b3{height:100%;background:linear-gradient(180deg,var(--hivis),#C98A00);background-image:linear-gradient(rgba(0,0,0,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.18) 1px,transparent 1px),linear-gradient(180deg,var(--hivis),#C98A00);background-size:14px 18px,14px 18px,100% 100%;}
+.skyline .b.b4{height:60%;} .skyline .b.b5{height:88%;}
+/* crane */
+.crane{position:absolute;top:18px;right:8%;z-index:3;color:rgba(255,255,255,.55);}
+.crane svg{width:140px;height:140px;}
+.hero-badge{position:absolute;bottom:18px;right:18px;z-index:4;background:var(--hivis);color:#16171B;
+  border-radius:3px;padding:12px 16px;display:flex;align-items:center;gap:11px;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);}
+.hero-badge .dot{width:10px;height:10px;border-radius:50%;background:#16171B;box-shadow:0 0 0 0 #16171B;animation:tlive 1.6s infinite;}
+@keyframes tlive{0%{box-shadow:0 0 0 0 rgba(22,23,27,.6);}70%{box-shadow:0 0 0 9px rgba(22,23,27,0);}100%{box-shadow:0 0 0 0 transparent;}}
+.hero-badge b{font-size:.9rem;font-weight:900;display:block;text-transform:uppercase;letter-spacing:.04em;}
+.hero-badge span{font-size:.74rem;font-weight:700;}
+
+/* ════ Trust / certifications ════ */
+.t-trust{background:var(--hivis);color:#16171B;}
+.t-trust .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px;padding:22px 26px;}
+.t-trust .ti{display:flex;align-items:center;gap:11px;font-weight:800;font-size:.86rem;text-transform:uppercase;letter-spacing:.04em;}
+.t-trust .ti svg{width:22px;height:22px;stroke:#16171B;fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;}
+.t-trust .sep{width:1px;height:24px;background:rgba(22,23,27,.25);}
+
+/* ════ Section heads ════ */
+.sec{padding:96px 0;}
+.sec.dark{background:var(--concrete);color:#fff;}
+.sec.dark h2{color:#fff;}
+.sec-head{max-width:760px;margin:0 0 56px;}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+.sec-head h2{font-family:var(--display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(2rem,4.6vw,3.4rem);line-height:.94;margin:16px 0 16px;letter-spacing:.005em;}
+.sec-head h2 .hl{color:var(--hivis2);}
+.sec.dark .sec-head h2 .hl{color:var(--hivis);}
+.sec-head p{color:var(--muted);font-size:1.06rem;max-width:560px;}
+.sec.dark .sec-head p{color:var(--on-dark);}
+.sec-head.center p{margin-inline:auto;}
+
+/* ════ Services — numbered list ════ */
+.services{border-top:1px solid var(--line);}
+.svc{display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;
+  padding:30px 14px;border-bottom:1px solid var(--line);transition:background .25s,padding .25s;cursor:default;}
+.svc:hover{background:var(--concrete);color:#fff;padding-left:28px;}
+.svc:hover .svc-no{color:var(--hivis);}
+.svc:hover h3{color:#fff;}
+.svc:hover .svc-desc{color:var(--on-dark);}
+.svc:hover .svc-ic{background:var(--hivis);}
+.svc:hover .svc-ic svg{stroke:#16171B;}
+.svc-no{font-family:var(--display);font-weight:400;font-size:2.4rem;color:var(--line);line-height:1;transition:color .25s;}
+.svc-main{display:flex;align-items:center;gap:20px;}
+.svc-ic{width:54px;height:54px;border-radius:3px;background:var(--paper);display:grid;place-items:center;flex-shrink:0;transition:background .25s;}
+.svc-ic svg{width:26px;height:26px;stroke:var(--hivis2);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
+.svc h3{font-size:1.35rem;text-transform:uppercase;letter-spacing:.01em;margin-bottom:3px;transition:color .25s;}
+.svc-desc{color:var(--muted);font-size:.95rem;max-width:520px;transition:color .25s;}
+.svc-arrow{color:var(--line);font-size:1.6rem;transition:transform .25s,color .25s;}
+.svc:hover .svc-arrow{color:var(--hivis);transform:translateX(6px);}
+@media(max-width:760px){
+  .svc{grid-template-columns:54px 1fr;gap:14px;padding:22px 6px;}
+  .svc:hover{padding-left:14px;}
+  .svc-no{font-size:1.6rem;}
+  .svc-main{flex-direction:column;align-items:flex-start;gap:12px;}
+  .svc-arrow{display:none;}
+}
+
+/* ════ Projects portfolio grid ════ */
+.tiles{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;}
+.tile{position:relative;border-radius:4px;overflow:hidden;border:1px solid var(--steel-line);
+  min-height:300px;display:flex;flex-direction:column;justify-content:flex-end;
+  color:#fff;transition:transform .3s,box-shadow .3s;}
+.tile::before{content:"";position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:28px 28px;}
+.tile::after{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,transparent 30%,rgba(10,11,13,.88) 100%);}
+.tile.g1{background:linear-gradient(150deg,#3A4756,#1B2027);}
+.tile.g2{background:linear-gradient(150deg,#4A3B2A,#211B14);}
+.tile.g3{background:linear-gradient(150deg,#33444A,#15212A);}
+.tile.g4{background:linear-gradient(150deg,#403A48,#1C1924);}
+.tile:hover{transform:translateY(-6px);box-shadow:0 26px 50px -20px rgba(0,0,0,.6);}
+.tile .glyph{position:absolute;top:20px;left:22px;z-index:2;opacity:.5;}
+.tile .glyph svg{width:46px;height:46px;stroke:#fff;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.tile .num{position:absolute;top:18px;right:22px;z-index:2;font-family:var(--display);font-weight:400;
+  font-size:2.4rem;color:rgba(255,255,255,.16);}
+.tile .body{position:relative;z-index:2;padding:24px;}
+.tile .body .cat{display:inline-block;background:var(--hivis);color:#16171B;font-size:.66rem;font-weight:900;
+  text-transform:uppercase;letter-spacing:.1em;padding:4px 10px;border-radius:2px;margin-bottom:12px;}
+.tile .body h4{font-size:1.5rem;text-transform:uppercase;color:#fff;letter-spacing:.01em;margin-bottom:10px;}
+.tile .body .meta{display:flex;align-items:center;gap:16px;font-size:.84rem;font-weight:700;color:var(--on-dark);}
+.tile .body .meta .yr{color:var(--hivis);}
+@media(max-width:760px){.tiles{grid-template-columns:1fr;}}
+
+/* ════ Process / timeline ════ */
+.process{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid rgba(255,255,255,.12);}
+.step{padding:34px 26px;border-right:1px solid rgba(255,255,255,.12);position:relative;transition:background .25s;}
+.step:last-child{border-right:none;}
+.step:hover{background:rgba(255,178,0,.06);}
+.step-no{font-family:var(--display);font-weight:400;font-size:3.4rem;color:rgba(255,255,255,.12);line-height:1;
+  -webkit-text-stroke:1px rgba(255,178,0,.5);}
+.step h4{color:#fff;font-size:1.15rem;text-transform:uppercase;margin:14px 0 10px;letter-spacing:.02em;}
+.step p{color:var(--on-dark);font-size:.92rem;}
+.step .bar{width:34px;height:3px;background:var(--hivis);margin-top:16px;}
+@media(max-width:860px){.process{grid-template-columns:1fr 1fr;}
+  .step:nth-child(2n){border-right:none;}
+  .step{border-bottom:1px solid rgba(255,255,255,.12);}}
+@media(max-width:480px){.process{grid-template-columns:1fr;}.step{border-right:none;}}
+
+/* ════ Why us / split ════ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:center;}
+.split-visual{position:relative;min-height:420px;border:1px solid var(--steel-line);border-radius:4px;overflow:hidden;
+  background:linear-gradient(155deg,#23262C,#16171B);display:grid;place-items:center;}
+.split-visual .bp{position:absolute;inset:0;background-image:
+    linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:30px 30px;}
+.split-visual .badge-stat{position:relative;z-index:2;text-align:center;color:#fff;}
+.split-visual .badge-stat b{font-family:var(--display);font-weight:400;font-size:6rem;color:var(--hivis);line-height:.9;display:block;}
+.split-visual .badge-stat span{text-transform:uppercase;letter-spacing:.14em;font-size:.8rem;font-weight:700;color:var(--on-dark);}
+.split-visual .tape{position:absolute;top:30px;left:-50px;transform:rotate(-45deg);background:var(--hivis);
+  color:#16171B;font-weight:900;text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;padding:8px 60px;z-index:3;}
+.split h2{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.9rem,4vw,3rem);
+  line-height:.96;margin-bottom:18px;letter-spacing:.005em;}
+.split h2 .hl{color:var(--hivis2);}
+.split .intro{color:var(--body);font-size:1.05rem;margin-bottom:8px;}
+.split ul{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:0;}
+.split li{display:flex;gap:16px;align-items:center;font-weight:700;color:var(--ink);font-size:1rem;
+  padding:16px 0;border-bottom:1px solid var(--line);}
+.split li:first-child{border-top:1px solid var(--line);}
+.split li .chk{display:grid;place-items:center;width:30px;height:30px;border-radius:2px;background:var(--concrete);
+  color:var(--hivis);font-weight:900;flex-shrink:0;}
+.split li .chk svg{width:16px;height:16px;stroke:var(--hivis);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:36px;}.split-visual{min-height:320px;}}
+
+/* ════ Testimonial ════ */
+.quote-sec{background:var(--concrete);color:#fff;position:relative;overflow:hidden;}
+.quote-sec .bigmark{position:absolute;top:-30px;left:30px;font-family:var(--display);font-size:18rem;
+  color:rgba(255,178,0,.08);line-height:1;pointer-events:none;}
+.quote{max-width:840px;margin:0 auto;text-align:center;position:relative;z-index:2;}
+.quote .stars{color:var(--hivis);font-size:1.3rem;letter-spacing:4px;margin-bottom:22px;}
+.quote p{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:clamp(1.5rem,3.4vw,2.5rem);
+  line-height:1.1;color:#fff;letter-spacing:.005em;}
+.quote .who{margin-top:28px;font-weight:800;color:var(--hivis);text-transform:uppercase;letter-spacing:.06em;}
+.quote .who span{display:block;color:var(--on-dark);font-weight:600;font-size:.86rem;text-transform:none;letter-spacing:0;margin-top:4px;}
+
+/* ════ CTA / quote ════ */
+.t-cta{padding:0;}
+.cta-box{background:var(--hivis);color:#16171B;position:relative;overflow:hidden;padding:84px 26px;text-align:center;}
+.cta-box .hz{position:absolute;top:0;left:0;right:0;height:8px;
+  background:repeating-linear-gradient(135deg,#16171B 0 22px,transparent 22px 44px);}
+.cta-box .hz.bottom{top:auto;bottom:0;}
+.cta-box .bp{position:absolute;inset:0;background-image:
+    linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);background-size:36px 36px;}
+.cta-box .inner{position:relative;z-index:2;max-width:720px;margin:0 auto;}
+.cta-box h2{font-family:var(--display);font-weight:400;text-transform:uppercase;color:#16171B;
+  font-size:clamp(2.2rem,5vw,4rem);line-height:.94;margin-bottom:16px;letter-spacing:.005em;}
+.cta-box p{color:#3a2f10;font-size:1.1rem;font-weight:600;margin-bottom:32px;}
+.cta-box .row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.cta-box .phone{font-weight:900;font-size:1.05rem;display:inline-flex;align-items:center;gap:9px;}
+.cta-box .phone svg{width:20px;height:20px;stroke:#16171B;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ════ Footer ════ */
+.t-foot{background:#0E0F12;color:#9AA0A8;padding:64px 0 28px;}
+.t-foot .top{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px;}
+.t-foot .t-logo{margin-bottom:16px;}
+.t-foot .desc{font-size:.92rem;color:#7A8089;max-width:300px;}
+.t-foot h5{color:#fff;font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;margin-bottom:18px;}
+.t-foot .top a{display:block;color:#9AA0A8;font-size:.9rem;margin-bottom:11px;transition:color .2s,padding .2s;}
+.t-foot .top a:hover{color:var(--hivis);padding-left:4px;}
+.t-foot .bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;font-size:.84rem;color:#7A8089;
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;text-transform:uppercase;letter-spacing:.04em;}
+@media(max-width:760px){.t-foot .top{grid-template-columns:1fr 1fr;}}
+
+/* ════ RockitX floating ribbon (restyled, was .rx-ribbon) ════ */
+.rx-ribbon{position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:10px;
+  background:#16171B;color:#fff;border:1px solid var(--hivis);border-radius:3px;padding:11px 16px;
+  box-shadow:0 16px 38px -12px rgba(0,0,0,.6);font-size:.82rem;font-weight:700;
+  transition:transform .25s,box-shadow .25s;}
+.rx-ribbon:hover{transform:translateY(-3px);box-shadow:0 22px 44px -12px rgba(0,0,0,.75);}
+.rx-ribbon .star{width:24px;height:24px;flex-shrink:0;}
+.rx-ribbon b{font-weight:900;color:var(--hivis);}
+.rx-ribbon .price{color:var(--hazard);font-weight:900;}
+@media(max-width:560px){.rx-ribbon{right:10px;bottom:10px;padding:9px 12px;font-size:.74rem;}}
+
+/* ════ Scroll reveal ════ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);}
+.reveal.in{opacity:1;transform:none;}
+
+/* ════ Responsive ════ */
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:40px;}.hero-visual{height:360px;}}
+@media(max-width:860px){
+  .nav-toggle{display:flex;}
+  .t-links{position:fixed;inset:76px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--concrete);border-bottom:2px solid var(--hivis);padding:10px 26px 22px;
+    transform:translateY(-130%);transition:transform .35s ease;z-index:49;}
+  .t-links.open{transform:translateY(0);}
+  .t-links a:not(.btn){padding:15px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem;}
+  .t-nav .btn{margin-top:14px;justify-content:center;}
+}
+@media(max-width:560px){
+  .t-hero-stats{grid-template-columns:1fr 1fr;}
+  .t-hero-stats .s:nth-child(2){border-right:none;margin-right:0;padding-right:0;}
+  .t-hero-stats .s:nth-child(3){border-right:none;}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;}
+  .reveal{opacity:1;transform:none;transition:none;}}
+</style>
 </head>
 <body>
 
 <div class="demo-bar"><span class="pill">Demo</span>Construction template — like it? <a href="../index.html">Get this site from ₹200/mo →</a></div>
 
 <header class="t-nav"><div class="wrap">
-  <div class="t-logo"><span class="mark"><svg class="lucide lucide-hard-hat" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" /> <path d="M14 6a6 6 0 0 1 6 6v3" /> <path d="M4 15v-3a6 6 0 0 1 6-6" /> <rect x="2" y="15" width="20" height="4" rx="1" /> </svg></span> BuildCraft</div>
-  <nav class="t-links">
+  <a class="t-logo" href="#top">
+    <span class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></svg></span>
+    BuildCraft
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav class="t-links" id="navLinks">
     <a href="#services">Services</a>
     <a href="#projects">Projects</a>
+    <a href="#process">Process</a>
     <a href="#about">About</a>
     <a href="#quote" class="btn btn-primary">Get a Quote</a>
   </nav>
 </div></header>
 
-<section class="t-hero"><div class="wrap">
-  <div>
-    <span class="eyebrow">25 years · 500+ projects delivered</span>
-    <h1>We build it right,<br><span class="grad">the first time.</span></h1>
-    <p class="lead">From dream homes to commercial landmarks — on time, on budget, and built to last. Your vision, engineered to perfection.</p>
-    <div class="t-hero-cta">
-      <a href="#quote" class="btn btn-primary">Get a free quote →</a>
-      <a href="#projects" class="btn btn-ghost">View our work</a>
-    </div>
-    <div class="t-hero-stats">
-      <div class="s"><b>500+</b><span>Projects done</span></div>
-      <div class="s"><b>25 yrs</b><span>Experience</span></div>
-      <div class="s"><b>100%</b><span>On-time delivery</span></div>
+<a id="top"></a>
+<section class="t-hero">
+  <div class="blueprint-bg"></div>
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="reveal">
+        <span class="kicker on-dark">25 Years · 500+ Projects Delivered</span>
+        <h1>We build it<br>right, the<br><span class="hl">first time.</span></h1>
+        <p class="lead">From dream homes to commercial landmarks — on time, on budget, and built to last. Your vision, engineered to perfection.</p>
+        <div class="t-hero-cta">
+          <a href="#quote" class="btn btn-primary">Get a free quote →</a>
+          <a href="#projects" class="btn btn-ghost">View our work</a>
+        </div>
+        <div class="t-hero-stats">
+          <div class="s"><b>500+</b><span>Projects done</span></div>
+          <div class="s"><b>25</b><span>Years on site</span></div>
+          <div class="s"><b>100%</b><span>On-time delivery</span></div>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="bp"></div>
+        <span class="corner tl">BUILDCRAFT / EST. 2001</span>
+        <span class="corner tr">SITE 014 ● ACTIVE</span>
+        <span class="corner bl">SCALE 1:100</span>
+        <div class="crane">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V4"/><path d="M12 4 3 8"/><path d="M12 4h9"/><path d="M21 4v3"/><path d="M21 7v0"/><path d="M16 4v3M16 7h0"/><path d="M9 22h6"/><path d="M12 4 3 8l0 2"/></svg>
+        </div>
+        <div class="skyline">
+          <div class="b b1"></div><div class="b b2"></div><div class="b b3"></div><div class="b b4"></div><div class="b b5"></div>
+        </div>
+        <div class="hero-badge">
+          <span class="dot"></span>
+          <div><b>Now Building</b><span>14 active sites</span></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="t-hero-visual">
-    <img src="img/con-hero.jpg" alt="BuildCraft engineer with blueprints on a construction site at sunset" loading="lazy">
-    <div class="t-hero-badge"><span class="dot"></span><div><b>Now building</b><span>14 active sites</span></div></div>
-  </div>
-</div></section>
+</section>
 
 <div class="t-trust"><div class="wrap">
-  <div class="ti"><b><svg class="lucide lucide-shield-check" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /> <path d="m9 12 2 2 4-4" /> </svg></b> Licensed &amp; Insured</div>
-  <div class="ti"><b><svg class="lucide lucide-ruler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /> <path d="m14.5 12.5 2-2" /> <path d="m11.5 9.5 2-2" /> <path d="m8.5 6.5 2-2" /> <path d="m17.5 15.5 2-2" /> </svg></b> In-house Architects</div>
-  <div class="ti"><b><svg class="lucide lucide-timer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <line x1="10" x2="14" y1="2" y2="2" /> <line x1="12" x2="15" y1="14" y2="11" /> <circle cx="12" cy="14" r="8" /> </svg></b> On-time Guarantee</div>
-  <div class="ti"><b><svg class="lucide lucide-trophy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978" /> <path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978" /> <path d="M18 9h1.5a1 1 0 0 0 0-5H18" /> <path d="M4 22h16" /> <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z" /> <path d="M6 9H4.5a1 1 0 0 1 0-5H6" /> </svg></b> Award-winning Builds</div>
-  <div class="ti"><b><svg class="lucide lucide-message-circle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /> </svg></b> Free Consultation</div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg> Licensed &amp; Insured</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg> ISO 9001 Certified</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/></svg> On-time Guarantee</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg> Award-winning Builds</div>
+  <div class="sep"></div>
+  <div class="ti"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg> Free Consultation</div>
 </div></div>
 
 <section class="sec" id="services"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">What we do</span>
-    <h2>From foundation to <span class="grad">finishing touch</span></h2>
-    <p>Full-service construction and contracting, handled by one expert team.</p>
+  <div class="sec-head reveal">
+    <span class="kicker">What We Do</span>
+    <h2>From foundation to <span class="hl">finishing touch</span></h2>
+    <p>Full-service construction and contracting, handled end-to-end by one expert team.</p>
   </div>
-  <div class="cards">
-    <div class="card"><div class="ic"><svg class="lucide lucide-house" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" /> <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /> </svg></div><h3>Residential</h3><p>Custom homes and villas designed and built around how you live.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-building-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 12h4" /> <path d="M10 8h4" /> <path d="M14 21v-3a2 2 0 0 0-4 0v3" /> <path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /> <path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /> </svg></div><h3>Commercial</h3><p>Offices, retail and industrial spaces built to spec and to code.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-hammer" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9" /> <path d="m18 15 4-4" /> <path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5" /> </svg></div><h3>Renovation</h3><p>Transform old spaces into modern ones with expert remodelling.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-ruler" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z" /> <path d="m14.5 12.5 2-2" /> <path d="m11.5 9.5 2-2" /> <path d="m8.5 6.5 2-2" /> <path d="m17.5 15.5 2-2" /> </svg></div><h3>Architecture</h3><p>3D designs and structural planning from our in-house architects.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-sofa" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3" /> <path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z" /> <path d="M4 18v2" /> <path d="M20 18v2" /> <path d="M12 4v9" /> </svg></div><h3>Interiors</h3><p>Turnkey interior fit-outs that bring your space to life.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-clipboard-list" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" /> </svg></div><h3>Project Management</h3><p>One point of contact, transparent timelines and zero surprises.</p></div>
+  <div class="services">
+    <div class="svc reveal">
+      <div class="svc-no">01</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div><h3>Residential</h3><p class="svc-desc">Custom homes and villas designed and built around how you live.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-no">02</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg></div><div><h3>Commercial</h3><p class="svc-desc">Offices, retail and industrial spaces built to spec and to code.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-no">03</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></svg></div><div><h3>Renovation</h3><p class="svc-desc">Transform old spaces into modern ones with expert remodelling.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-no">04</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg></div><div><h3>Architecture</h3><p class="svc-desc">3D designs and structural planning from our in-house architects.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-no">05</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 16a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v1.5a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5V11a2 2 0 0 0-4 0z"/><path d="M4 18v2"/><path d="M20 18v2"/><path d="M12 4v9"/></svg></div><div><h3>Interiors</h3><p class="svc-desc">Turnkey interior fit-outs that bring your space to life.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
+    <div class="svc reveal">
+      <div class="svc-no">06</div>
+      <div class="svc-main"><div class="svc-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg></div><div><h3>Project Management</h3><p class="svc-desc">One point of contact, transparent timelines and zero surprises.</p></div></div>
+      <div class="svc-arrow">→</div>
+    </div>
   </div>
 </div></section>
 
-<section class="sec tinted" id="projects"><div class="wrap">
-  <div class="sec-head">
-    <span class="eyebrow">Recent work</span>
-    <h2>Projects we're <span class="grad">proud of</span></h2>
+<section class="sec dark blueprint" id="projects"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="kicker on-dark">Recent Work</span>
+    <h2>Projects we're <span class="hl">proud of</span></h2>
     <p>A glimpse of what your portfolio gallery could look like.</p>
   </div>
   <div class="tiles">
-    <div class="tile"><div class="ph"><img src="img/con-1.jpg" alt="Hillview Villa residential project" loading="lazy"></div><div class="body"><h4>Hillview Villa</h4><div class="tag">Residential</div><div class="meta"><span class="price">4,200 sq ft</span><span class="tag">2025</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/con-2.jpg" alt="Axis Corporate Tower commercial project" loading="lazy"></div><div class="body"><h4>Axis Corporate Tower</h4><div class="tag">Commercial</div><div class="meta"><span class="price">12 floors</span><span class="tag">2024</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/con-3.jpg" alt="Riverside Mall retail project" loading="lazy"></div><div class="body"><h4>Riverside Mall</h4><div class="tag">Retail</div><div class="meta"><span class="price">90k sq ft</span><span class="tag">2024</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/con-4.jpg" alt="Green Acres Homes township project" loading="lazy"></div><div class="body"><h4>Green Acres Homes</h4><div class="tag">Township</div><div class="meta"><span class="price">48 units</span><span class="tag">2023</span></div></div></div>
+    <div class="tile g1 reveal">
+      <span class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
+      <span class="num">01</span>
+      <div class="body"><span class="cat">Residential</span><h4>Hillview Villa</h4><div class="meta"><span>4,200 sq ft</span><span class="yr">2025</span></div></div>
+    </div>
+    <div class="tile g2 reveal">
+      <span class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg></span>
+      <span class="num">02</span>
+      <div class="body"><span class="cat">Commercial</span><h4>Axis Corporate Tower</h4><div class="meta"><span>12 floors</span><span class="yr">2024</span></div></div>
+    </div>
+    <div class="tile g3 reveal">
+      <span class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 7 12 3l10 4"/><path d="M4 7v13h16V7"/><path d="M9 20v-6h6v6"/></svg></span>
+      <span class="num">03</span>
+      <div class="body"><span class="cat">Retail</span><h4>Riverside Mall</h4><div class="meta"><span>90k sq ft</span><span class="yr">2024</span></div></div>
+    </div>
+    <div class="tile g4 reveal">
+      <span class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V8l5-4 5 4v13"/><path d="M19 21V11l-4-3"/><path d="M9 12h2"/><path d="M9 16h2"/></svg></span>
+      <span class="num">04</span>
+      <div class="body"><span class="cat">Township</span><h4>Green Acres Homes</h4><div class="meta"><span>48 units</span><span class="yr">2023</span></div></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="sec dark blueprint" id="process" style="padding-top:0;"><div class="wrap">
+  <div class="sec-head reveal">
+    <span class="kicker on-dark">How We Work</span>
+    <h2>Engineered, <span class="hl">step by step</span></h2>
+    <p>A disciplined process keeps every build on schedule, on budget and to spec.</p>
+  </div>
+  <div class="process reveal">
+    <div class="step"><div class="step-no">01</div><h4>Consult &amp; Quote</h4><p>We meet on site, understand your vision and return a fixed, transparent estimate.</p><div class="bar"></div></div>
+    <div class="step"><div class="step-no">02</div><h4>Design &amp; Plan</h4><p>In-house architects produce 3D designs, structural drawings and a clear timeline.</p><div class="bar"></div></div>
+    <div class="step"><div class="step-no">03</div><h4>Build &amp; Manage</h4><p>Skilled crews execute with a dedicated project manager and weekly progress updates.</p><div class="bar"></div></div>
+    <div class="step"><div class="step-no">04</div><h4>Inspect &amp; Hand Over</h4><p>Strict safety and quality checks, snag-free finishing, then keys in your hand.</p><div class="bar"></div></div>
   </div>
 </div></section>
 
 <section class="sec" id="about"><div class="wrap">
   <div class="split">
-    <div class="visual"><img src="img/con-about.jpg" alt="BuildCraft team reviewing plans on site" loading="lazy"></div>
-    <div>
-      <span class="eyebrow">Why BuildCraft</span>
-      <h2>Built on trust, <span class="grad">delivered with pride</span></h2>
-      <p>We treat every project like our own — quality materials, skilled craftsmen, and a promise we always keep.</p>
+    <div class="split-visual reveal">
+      <div class="bp"></div>
+      <div class="tape">Since 2001</div>
+      <div class="badge-stat"><b>25</b><span>Years of building</span></div>
+    </div>
+    <div class="reveal">
+      <span class="kicker">Why BuildCraft</span>
+      <h2>Built on trust,<br><span class="hl">delivered with pride</span></h2>
+      <p class="intro">We treat every project like our own — quality materials, skilled craftsmen, and a promise we always keep.</p>
       <ul>
-        <li>Fixed quotes with no hidden costs</li>
-        <li>Dedicated project manager for every build</li>
-        <li>Premium materials &amp; certified engineers</li>
-        <li>Strict safety &amp; on-time delivery standards</li>
+        <li><span class="chk"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 12 5 5 9-11"/></svg></span> Fixed quotes with no hidden costs</li>
+        <li><span class="chk"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 12 5 5 9-11"/></svg></span> Dedicated project manager for every build</li>
+        <li><span class="chk"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 12 5 5 9-11"/></svg></span> Premium materials &amp; certified engineers</li>
+        <li><span class="chk"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5 12 5 5 9-11"/></svg></span> Strict safety &amp; on-time delivery standards</li>
       </ul>
     </div>
   </div>
 </div></section>
 
-<section class="sec tinted"><div class="wrap">
-  <div class="quote">
+<section class="sec quote-sec"><div class="wrap">
+  <div class="bigmark">“</div>
+  <div class="quote reveal">
     <div class="stars">★★★★★</div>
-    <p>"They finished our home two weeks early and the quality is outstanding. Clear updates the whole way through — zero stress."</p>
+    <p>They finished our home two weeks early and the quality is outstanding. Clear updates the whole way through — zero stress.</p>
     <div class="who">Suresh &amp; Latha<span>Hillview Villa owners</span></div>
   </div>
 </div></section>
 
-<section class="t-cta" id="quote"><div class="wrap"><div class="box">
-  <h2>Let's build something great</h2>
-  <p>Get a free, no-obligation quote for your project today.</p>
-  <a href="../index.html" class="btn">Get a free quote →</a>
-</div></div></section>
+<section class="t-cta" id="quote">
+  <div class="cta-box">
+    <div class="hz"></div>
+    <div class="bp"></div>
+    <div class="inner reveal">
+      <span class="kicker" style="color:#16171B;justify-content:center;">Request a Quote</span>
+      <h2 style="margin-top:14px;">Let's build something great</h2>
+      <p>Get a free, no-obligation quote for your project today.</p>
+      <div class="row">
+        <a href="../index.html" class="btn btn-dark">Get a free quote →</a>
+        <span class="phone"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg> +91 90000 00000</span>
+      </div>
+    </div>
+    <div class="hz bottom"></div>
+  </div>
+</section>
 
 <footer class="t-foot"><div class="wrap">
   <div class="top">
     <div>
-      <div class="t-logo"><span class="mark"><svg class="lucide lucide-hard-hat" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5" /> <path d="M14 6a6 6 0 0 1 6 6v3" /> <path d="M4 15v-3a6 6 0 0 1 6-6" /> <rect x="2" y="15" width="20" height="4" rx="1" /> </svg></span> BuildCraft</div>
+      <div class="t-logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 10V5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v5"/><path d="M14 6a6 6 0 0 1 6 6v3"/><path d="M4 15v-3a6 6 0 0 1 6-6"/><rect x="2" y="15" width="20" height="4" rx="1"/></svg></span> BuildCraft</div>
       <p class="desc">Award-winning construction and contracting — building landmarks across the region for 25 years.</p>
     </div>
-    <div><h5>Services</h5><a>Residential</a><a>Commercial</a><a>Renovation</a><a>Interiors</a></div>
-    <div><h5>Company</h5><a>About us</a><a>Projects</a><a>Careers</a><a>Safety</a></div>
-    <div><h5>Contact</h5><a>+91 90000 00000</a><a>build@buildcraft.example</a><a>Mon–Sat · 9–6</a></div>
+    <div><h5>Services</h5><a href="#services">Residential</a><a href="#services">Commercial</a><a href="#services">Renovation</a><a href="#services">Interiors</a></div>
+    <div><h5>Company</h5><a href="#about">About us</a><a href="#projects">Projects</a><a href="#">Careers</a><a href="#">Safety</a></div>
+    <div><h5>Contact</h5><a href="#">+91 90000 00000</a><a href="#">build@buildcraft.example</a><a href="#">Mon–Sat · 9–6</a></div>
   </div>
   <div class="bottom"><span>© 2026 BuildCraft. Demo template.</span><span>Designed &amp; built by RockitX</span></div>
 </div></footer>
 
 <a class="rx-ribbon" href="../index.html" title="Get a website like this from RockitX">
-  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
+  <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#FFD400"/><stop offset=".5" stop-color="#FFB200"/><stop offset="1" stop-color="#FF7A00"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
   <span>Built with <b>RockitX</b> · <span class="price">from ₹200/mo</span></span>
 </a>
+
+<script>
+(function(){
+  // Mobile nav
+  var toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+  if(toggle){toggle.addEventListener('click',function(){links.classList.toggle('open');});
+    links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');});});}
+  // Scroll reveal
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    els.forEach(function(el){io.observe(el);});
+  }else{els.forEach(function(el){el.classList.add('in');});}
+})();
+</script>
 
 </body>
 </html>

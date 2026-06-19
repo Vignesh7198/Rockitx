@@ -5,121 +5,565 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shopwave — E-commerce Website Template | RockitX Demo</title>
 <meta name="description" content="A premium online store / e-commerce website demo template by RockitX. Get a site like this from ₹200/month.">
-<link rel="stylesheet" href="template.css">
-<style>:root{--accent:#4F46E5;--accent2:#06B6D4;--tint:#EEF2FF;--ink:#0F1535;}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ RESET / TOKENS ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --ink:#160a2e;
+  --ink-soft:#4b3b6b;
+  --violet:#7c3aed;
+  --violet2:#5b21b6;
+  --coral:#ff4d6d;
+  --pink:#ff7eb3;
+  --lime:#c6ff3a;
+  --tang:#ff9f1c;
+  --cyan:#22d3ee;
+  --cream:#fff8f0;
+  --paper:#fffdfb;
+  --line:rgba(22,10,46,.10);
+  --r-lg:30px;
+  --r-md:20px;
+  --r-sm:14px;
+  --pill:999px;
+  --shadow:0 30px 60px -28px rgba(91,33,182,.45);
+  --shadow-sm:0 14px 30px -16px rgba(91,33,182,.4);
+  --max:1200px;
+  --font-d:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-b:"Plus Jakarta Sans",system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-b);
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter-spacing:-.02em}
+.wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+.grad{
+  background:linear-gradient(100deg,var(--coral),var(--violet) 55%,var(--cyan));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+}
+
+/* ============ DEMO BAR ============ */
+.demo-bar{
+  position:relative;z-index:60;
+  background:#160a2e;color:#fff;text-align:center;font-size:.84rem;font-weight:600;
+  padding:9px 16px;
+}
+.demo-bar a{color:var(--lime);font-weight:800}
+.demo-bar a:hover{text-decoration:underline}
+.demo-bar .pill{
+  background:rgba(255,255,255,.14);padding:2px 9px;border-radius:6px;font-size:.7rem;
+  letter-spacing:.1em;text-transform:uppercase;margin-right:8px;
+}
+
+/* ============ NAV ============ */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,248,240,.78);
+  backdrop-filter:saturate(180%) blur(16px);
+  -webkit-backdrop-filter:saturate(180%) blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.nav .wrap{display:flex;align-items:center;gap:18px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--font-d);font-weight:800;font-size:1.3rem}
+.logo .mark{
+  width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:#fff;
+  background:linear-gradient(135deg,var(--coral),var(--violet));
+  box-shadow:0 8px 20px -8px rgba(124,58,237,.7);transform:rotate(-6deg);
+}
+.logo .mark svg{width:22px;height:22px}
+.nav-links{margin-left:auto;display:flex;align-items:center;gap:8px}
+.nav-links .lnk{
+  padding:9px 14px;border-radius:var(--pill);font-weight:700;font-size:.95rem;color:var(--ink-soft);
+  transition:.2s;
+}
+.nav-links .lnk:hover{color:var(--ink);background:rgba(124,58,237,.08)}
+.cart-pill{
+  display:flex;align-items:center;gap:9px;padding:10px 18px;border-radius:var(--pill);
+  background:var(--ink);color:#fff;font-weight:800;font-size:.92rem;
+  box-shadow:0 12px 26px -12px rgba(22,10,46,.8);transition:.25s;
+}
+.cart-pill svg{width:18px;height:18px}
+.cart-pill:hover{transform:translateY(-2px)}
+.cart-count{
+  background:var(--lime);color:#160a2e;border-radius:var(--pill);
+  min-width:22px;height:22px;display:grid;place-items:center;font-size:.78rem;font-weight:800;
+  animation:bob 2.4s ease-in-out infinite;
+}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.nav-burger{display:none}
+
+/* ============ MARQUEE ============ */
+.marquee{
+  background:var(--ink);color:#fff;overflow:hidden;white-space:nowrap;border-bottom:3px solid var(--lime);
+}
+.marquee .track{display:inline-flex;gap:0;will-change:transform;animation:scroll 26s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{
+  display:inline-flex;align-items:center;gap:14px;padding:11px 24px;font-weight:800;font-size:.9rem;
+  letter-spacing:.02em;text-transform:uppercase;
+}
+.marquee span i{color:var(--lime);font-style:normal}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ============ MESH BG ============ */
+.mesh{position:relative;isolation:isolate}
+.mesh::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(60% 70% at 12% 8%,rgba(255,77,109,.30),transparent 60%),
+    radial-gradient(55% 65% at 92% 12%,rgba(34,211,238,.26),transparent 60%),
+    radial-gradient(70% 75% at 78% 92%,rgba(124,58,237,.30),transparent 60%),
+    radial-gradient(60% 60% at 22% 95%,rgba(198,255,58,.22),transparent 60%);
+  filter:blur(8px);
+  animation:meshmove 18s ease-in-out infinite alternate;
+}
+@keyframes meshmove{
+  0%{transform:scale(1) translate(0,0)}
+  100%{transform:scale(1.12) translate(-2%,1.5%)}
+}
+
+/* ============ HERO BENTO ============ */
+.hero{padding:46px 0 60px}
+.hero .wrap{
+  display:grid;gap:18px;
+  grid-template-columns:repeat(6,1fr);
+  grid-auto-rows:auto;
+}
+.cell{
+  border-radius:var(--r-lg);padding:30px;position:relative;overflow:hidden;
+  border:1px solid var(--line);background:var(--paper);
+  box-shadow:var(--shadow-sm);
+}
+.cell-main{
+  grid-column:span 4;
+  background:
+    radial-gradient(120% 120% at 100% 0,rgba(255,77,109,.16),transparent 50%),
+    linear-gradient(180deg,#fffdfb,#fff5ef);
+  padding:46px;
+  display:flex;flex-direction:column;justify-content:center;min-height:380px;
+}
+.tagline{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  background:#160a2e;color:#fff;padding:7px 14px;border-radius:var(--pill);
+  font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:22px;
+}
+.tagline .dot{width:8px;height:8px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 0 rgba(198,255,58,.7);animation:ping 1.8s infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(198,255,58,.6)}70%{box-shadow:0 0 0 9px rgba(198,255,58,0)}100%{box-shadow:0 0 0 0 rgba(198,255,58,0)}}
+.cell-main h1{font-size:clamp(2.5rem,6vw,4.4rem);margin-bottom:18px}
+.cell-main .lead{font-size:1.12rem;color:var(--ink-soft);max-width:30ch;margin-bottom:28px}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;border-radius:var(--pill);padding:15px 26px;
+  font-weight:800;font-size:1rem;cursor:pointer;border:0;transition:.25s;font-family:var(--font-b);
+}
+.btn-primary{
+  background:linear-gradient(120deg,var(--coral),var(--violet));color:#fff;
+  box-shadow:0 16px 34px -14px rgba(124,58,237,.85);
+}
+.btn-primary:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 22px 40px -14px rgba(124,58,237,.95)}
+.btn-ghost{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff;transform:translateY(-3px)}
+
+.cell-visual{
+  grid-column:span 2;grid-row:span 2;padding:0;min-height:380px;
+  background:
+    radial-gradient(120% 90% at 50% 0,rgba(34,211,238,.5),transparent 60%),
+    linear-gradient(160deg,#7c3aed,#5b21b6 55%,#160a2e);
+  display:flex;align-items:flex-end;
+}
+.cell-visual .imgwrap{position:absolute;inset:0;overflow:hidden}
+.cell-visual img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.85}
+.cell-visual .emoji{
+  position:absolute;inset:0;display:grid;place-items:center;font-size:7rem;
+  filter:drop-shadow(0 18px 30px rgba(0,0,0,.45));animation:float 5s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}}
+.flash{
+  position:relative;z-index:2;margin:auto 22px 22px;width:calc(100% - 44px);
+  background:rgba(255,255,255,.14);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.28);border-radius:var(--r-md);padding:16px 18px;color:#fff;
+}
+.flash .fl-top{display:flex;align-items:center;gap:9px;font-weight:800;font-size:.95rem;margin-bottom:10px}
+.flash .live{width:9px;height:9px;border-radius:50%;background:var(--lime);animation:ping 1.6s infinite}
+.flash .clock{display:flex;gap:8px}
+.flash .u{background:rgba(0,0,0,.32);border-radius:10px;padding:7px 0;text-align:center;flex:1}
+.flash .u b{font-family:var(--font-d);font-size:1.4rem;display:block;line-height:1}
+.flash .u span{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+
+.cell-stat{grid-column:span 2;display:flex;flex-direction:column;justify-content:center;min-height:150px}
+.cell-stat b{font-family:var(--font-d);font-size:2.6rem;line-height:1;display:block}
+.cell-stat span{color:var(--ink-soft);font-weight:600;margin-top:4px}
+.cell-stat.s1{background:linear-gradient(140deg,#fff,#ffe9d6)}
+.cell-stat.s2{background:linear-gradient(140deg,#fff,#e8fbff)}
+.cell-stat.s3{background:linear-gradient(140deg,#fff,#f0e7ff)}
+.cell-stat .ic{font-size:1.6rem;margin-bottom:8px}
+
+/* category chips */
+.cell-chips{grid-column:span 6;display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:18px 26px}
+.cell-chips .lbl{font-weight:800;color:var(--ink-soft);margin-right:6px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:var(--pill);
+  background:#fff;border:1.5px solid var(--line);font-weight:700;font-size:.9rem;transition:.2s;cursor:pointer;
+}
+.chip:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-2px)}
+
+/* ============ SECTIONS ============ */
+.sec{padding:84px 0}
+.sec-head{max-width:640px;margin:0 0 44px}
+.sec-head.center{margin:0 auto 48px;text-align:center}
+.eyebrow{
+  display:inline-block;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:14px;
+}
+.sec-head h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:14px}
+.sec-head p{color:var(--ink-soft);font-size:1.08rem}
+
+/* ============ PRODUCT GRID ============ */
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.prod{
+  position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--paper);
+  border:1px solid var(--line);box-shadow:var(--shadow-sm);transition:.3s;
+}
+.prod:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.prod .thumb{
+  position:relative;aspect-ratio:4/3;overflow:hidden;display:grid;place-items:center;
+}
+.prod .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.9}
+.prod .thumb .em{font-size:4.2rem;filter:drop-shadow(0 12px 18px rgba(0,0,0,.25));transition:.4s;z-index:1}
+.prod:hover .thumb .em{transform:scale(1.12) rotate(-6deg)}
+.prod .g1{background:linear-gradient(150deg,#ffd3df,#ff7eb3)}
+.prod .g2{background:linear-gradient(150deg,#d6ecff,#22d3ee)}
+.prod .g3{background:linear-gradient(150deg,#e9dcff,#7c3aed)}
+.prod .g4{background:linear-gradient(150deg,#fff0d6,#ff9f1c)}
+.prod .g5{background:linear-gradient(150deg,#dafff0,#10b981)}
+.prod .g6{background:linear-gradient(150deg,#ffe1ec,#ff4d6d)}
+.disc{
+  position:absolute;top:12px;left:12px;z-index:2;background:var(--ink);color:#fff;
+  font-weight:800;font-size:.78rem;padding:5px 11px;border-radius:var(--pill);
+}
+.fav{
+  position:absolute;top:12px;right:12px;z-index:2;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.85);display:grid;place-items:center;font-size:.95rem;cursor:pointer;transition:.2s;
+}
+.fav:hover{transform:scale(1.15);background:#fff}
+.quick{
+  position:absolute;left:12px;right:12px;bottom:12px;z-index:2;
+  background:var(--ink);color:#fff;border:0;border-radius:var(--pill);padding:12px;
+  font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  opacity:0;transform:translateY(14px);transition:.3s;font-family:var(--font-b);
+}
+.prod:hover .quick{opacity:1;transform:translateY(0)}
+.quick:hover{background:var(--violet)}
+.prod .info{padding:18px 18px 20px}
+.prod .cat{font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--violet)}
+.prod h4{font-size:1.18rem;margin:4px 0 10px}
+.prod .price-row{display:flex;align-items:center;gap:9px}
+.prod .price{font-family:var(--font-d);font-size:1.35rem;font-weight:800}
+.prod .was{color:var(--ink-soft);text-decoration:line-through;font-size:.92rem}
+.prod .rate{margin-left:auto;font-size:.85rem;font-weight:700;color:var(--tang)}
+
+/* ============ WHY (split) ============ */
+.why{background:var(--ink);color:#fff;border-radius:0}
+.why .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.why .eyebrow{color:var(--lime)}
+.why h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:16px}
+.why p.sub{color:rgba(255,255,255,.7);font-size:1.08rem;margin-bottom:26px;max-width:42ch}
+.why ul{display:grid;gap:14px}
+.why li{display:flex;align-items:flex-start;gap:13px;font-weight:600}
+.why li .tick{
+  flex-shrink:0;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--coral),var(--violet));font-size:.85rem;
+}
+.why-visual{
+  border-radius:var(--r-lg);min-height:360px;position:relative;overflow:hidden;
+  background:radial-gradient(110% 90% at 30% 10%,rgba(198,255,58,.4),transparent 55%),
+             linear-gradient(150deg,#ff4d6d,#7c3aed 70%);
+  display:grid;place-items:center;
+}
+.why-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.8}
+.why-visual .big{position:relative;font-size:7rem;filter:drop-shadow(0 18px 28px rgba(0,0,0,.4));animation:float 6s ease-in-out infinite}
+.why-visual .tagfloat{
+  position:absolute;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:10px 14px;font-weight:800;font-size:.85rem;
+}
+.why-visual .t1{top:24px;left:24px}
+.why-visual .t2{bottom:24px;right:24px}
+
+/* ============ HOW (cards) ============ */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.fcard{
+  border-radius:var(--r-md);padding:32px;background:var(--paper);border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);transition:.3s;position:relative;overflow:hidden;
+}
+.fcard:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.fcard::after{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--coral),var(--violet),var(--cyan))}
+.fcard .ic{
+  width:58px;height:58px;border-radius:17px;display:grid;place-items:center;color:#fff;margin-bottom:18px;
+  background:linear-gradient(135deg,var(--violet),var(--coral));box-shadow:0 12px 24px -12px rgba(124,58,237,.8);
+}
+.fcard .ic svg{width:28px;height:28px}
+.fcard h3{font-size:1.32rem;margin-bottom:8px}
+.fcard p{color:var(--ink-soft)}
+
+/* ============ TESTIMONIAL ============ */
+.testi{text-align:center;padding:90px 0}
+.testi .stars{font-size:1.5rem;letter-spacing:4px;color:var(--tang);margin-bottom:22px}
+.testi blockquote{
+  font-family:var(--font-d);font-weight:700;font-size:clamp(1.5rem,3.6vw,2.4rem);line-height:1.18;
+  max-width:18ch;margin:0 auto 26px;letter-spacing:-.02em;
+}
+.testi .who{font-weight:800}
+.testi .who span{display:block;color:var(--ink-soft);font-weight:600;font-size:.92rem}
+
+/* ============ CTA ============ */
+.cta{padding:0 0 90px}
+.cta .box{
+  position:relative;overflow:hidden;border-radius:36px;padding:70px 40px;text-align:center;color:#fff;
+  background:linear-gradient(130deg,#ff4d6d,#7c3aed 55%,#160a2e);
+  box-shadow:var(--shadow);
+}
+.cta .box::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(50% 60% at 80% 10%,rgba(34,211,238,.5),transparent 55%),
+            radial-gradient(45% 55% at 10% 90%,rgba(198,255,58,.4),transparent 55%);
+}
+.cta .box>*{position:relative}
+.cta h2{font-size:clamp(2rem,5vw,3.4rem);margin-bottom:14px}
+.cta p{font-size:1.12rem;opacity:.92;margin-bottom:30px}
+.cta .btn-light{background:#fff;color:var(--ink)}
+.cta .btn-light:hover{transform:translateY(-3px) scale(1.03)}
+
+/* ============ FOOTER ============ */
+.foot{background:var(--ink);color:#fff;padding:64px 0 30px}
+.foot .top{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px}
+.foot .logo{color:#fff;margin-bottom:14px}
+.foot .desc{color:rgba(255,255,255,.6);max-width:30ch}
+.foot h5{font-family:var(--font-d);font-size:1rem;margin-bottom:14px}
+.foot .col a{display:block;color:rgba(255,255,255,.65);padding:5px 0;transition:.2s}
+.foot .col a:hover{color:var(--lime)}
+.foot .bottom{
+  border-top:1px solid rgba(255,255,255,.12);padding-top:22px;
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;
+  color:rgba(255,255,255,.55);font-size:.88rem;
+}
+
+/* ============ RX RIBBON ============ */
+.rx-ribbon{
+  position:fixed;right:18px;bottom:18px;z-index:200;display:flex;align-items:center;gap:10px;
+  background:#0b0b12;color:#fff;border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:11px 16px;
+  box-shadow:0 16px 38px -12px rgba(0,0,0,.6);font-size:.84rem;font-weight:600;transition:transform .3s,box-shadow .3s;
+}
+.rx-ribbon:hover{transform:translateY(-3px);box-shadow:0 22px 44px -12px rgba(0,0,0,.7)}
+.rx-ribbon .star{width:26px;height:26px;flex-shrink:0}
+.rx-ribbon b{font-weight:900;background:linear-gradient(120deg,#C4B5FD,#818CF8,#38BDF8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.rx-ribbon .price{color:#FBBF24;font-weight:800}
+
+/* ============ SCROLL REVEAL ============ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:920px){
+  .hero .wrap{grid-template-columns:repeat(2,1fr)}
+  .cell-main{grid-column:1 / -1;min-height:auto}
+  .cell-visual{grid-column:1 / -1;grid-row:auto;min-height:340px}
+  .cell-stat{grid-column:span 1}
+  .cell-chips{grid-column:1 / -1}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+  .why .wrap{grid-template-columns:1fr;gap:34px}
+  .foot .top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links .lnk{display:none}
+  .products{grid-template-columns:1fr}
+  .cell-main{padding:32px 24px}
+  .cell{padding:24px}
+  .sec{padding:60px 0}
+  .quick{opacity:1;transform:none}
+  .foot .top{grid-template-columns:1fr 1fr}
+  .rx-ribbon{right:10px;bottom:10px;padding:9px 12px;font-size:.76rem}
+}
+@media(max-width:400px){
+  .hero .wrap{grid-template-columns:1fr}
+  .cell-stat{grid-column:1 / -1}
+  .foot .top{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
 </head>
 <body>
 
 <div class="demo-bar"><span class="pill">Demo</span>E-commerce template — like it? <a href="../index.html">Get this site from ₹200/mo →</a></div>
 
-<header class="t-nav"><div class="wrap">
-  <div class="t-logo"><span class="mark"><svg class="lucide lucide-shopping-cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /> </svg></span> Shopwave</div>
-  <nav class="t-links">
-    <a href="#shop">Shop</a>
-    <a href="#deals">Deals</a>
-    <a href="#about">Why Us</a>
-    <a href="#shop" class="btn btn-primary"><svg class="lucide lucide-shopping-cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /> </svg> Cart (3)</a>
+<!-- NAV -->
+<header class="nav"><div class="wrap">
+  <a href="#" class="logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></span> Shopwave</a>
+  <nav class="nav-links">
+    <a href="#shop" class="lnk">Shop</a>
+    <a href="#deals" class="lnk">Deals</a>
+    <a href="#about" class="lnk">Why Us</a>
+    <a href="#shop" class="cart-pill"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Cart <span class="cart-count" id="cartCount">3</span></a>
   </nav>
 </div></header>
 
-<section class="t-hero"><div class="wrap">
-  <div>
-    <span class="eyebrow">Free shipping over ₹499</span>
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true"><div class="track">
+  <span>FREE SHIPPING OVER ₹499 <i>✦</i></span><span>FLASH SALE — UP TO 40% OFF <i>✦</i></span><span>7-DAY EASY RETURNS <i>✦</i></span><span>24-HOUR DELIVERY <i>✦</i></span><span>2M+ HAPPY SHOPPERS <i>✦</i></span>
+  <span>FREE SHIPPING OVER ₹499 <i>✦</i></span><span>FLASH SALE — UP TO 40% OFF <i>✦</i></span><span>7-DAY EASY RETURNS <i>✦</i></span><span>24-HOUR DELIVERY <i>✦</i></span><span>2M+ HAPPY SHOPPERS <i>✦</i></span>
+</div></div>
+
+<!-- HERO BENTO -->
+<section class="hero mesh"><div class="wrap">
+  <div class="cell cell-main reveal">
+    <span class="tagline"><span class="dot"></span> Free shipping over ₹499</span>
     <h1>Everything you want,<br><span class="grad">delivered fast.</span></h1>
-    <p class="lead">Thousands of products at the best prices, with lightning-fast delivery and easy returns. Shop the brands you love.</p>
-    <div class="t-hero-cta">
+    <p class="lead">Thousands of products at the best prices, lightning-fast delivery and easy returns. Shop the brands you love.</p>
+    <div class="cta-row">
       <a href="#shop" class="btn btn-primary">Shop now →</a>
       <a href="#deals" class="btn btn-ghost">Today's deals</a>
     </div>
-    <div class="t-hero-stats">
-      <div class="s"><b>50k+</b><span>Products</span></div>
-      <div class="s"><b>4.8★</b><span>2M+ reviews</span></div>
-      <div class="s"><b>24 hr</b><span>Delivery</span></div>
+  </div>
+
+  <div class="cell cell-visual reveal">
+    <div class="imgwrap"><img src="img/ec-hero.jpg" alt="Trending products and shopping bags from Shopwave online store" loading="lazy"></div>
+    <div class="emoji">🛍️</div>
+    <div class="flash">
+      <div class="fl-top"><span class="live"></span> Flash sale live</div>
+      <div class="clock">
+        <div class="u"><b id="fh">02</b><span>hrs</span></div>
+        <div class="u"><b id="fm">14</b><span>min</span></div>
+        <div class="u"><b id="fs">08</b><span>sec</span></div>
+      </div>
     </div>
   </div>
-  <div class="t-hero-visual">
-    <img src="img/ec-hero.jpg" alt="Trending products and shopping bags from Shopwave online store" loading="lazy">
-    <div class="t-hero-badge"><span class="dot"></span><div><b>Flash sale live</b><span>Ends in 02:14:08</span></div></div>
+
+  <div class="cell cell-stat s1 reveal"><span class="ic">📦</span><b>50k+</b><span>Products in stock</span></div>
+  <div class="cell cell-stat s2 reveal"><span class="ic">⭐</span><b>4.8★</b><span>From 2M+ reviews</span></div>
+  <div class="cell cell-stat s3 reveal"><span class="ic">⚡</span><b>24 hr</b><span>Express delivery</span></div>
+
+  <div class="cell cell-chips reveal">
+    <span class="lbl">Shop by category:</span>
+    <a href="#shop" class="chip">🎧 Audio</a>
+    <a href="#shop" class="chip">⌚ Wearables</a>
+    <a href="#shop" class="chip">👟 Footwear</a>
+    <a href="#shop" class="chip">🎒 Bags</a>
+    <a href="#shop" class="chip">📷 Cameras</a>
+    <a href="#shop" class="chip">🏠 Home</a>
   </div>
 </div></section>
 
-<div class="t-trust"><div class="wrap">
-  <div class="ti"><b><svg class="lucide lucide-truck" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M15 18H9" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" /> </svg></b> Free &amp; Fast Shipping</div>
-  <div class="ti"><b><svg class="lucide lucide-rotate-ccw" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> </svg></b> 7-Day Easy Returns</div>
-  <div class="ti"><b><svg class="lucide lucide-lock" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="18" height="11" x="3" y="11" rx="2" ry="2" /> <path d="M7 11V7a5 5 0 0 1 10 0v4" /> </svg></b> Secure Payments</div>
-  <div class="ti"><b><svg class="lucide lucide-message-circle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /> </svg></b> 24/7 Support</div>
-  <div class="ti"><b><svg class="lucide lucide-tag" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /> </svg></b> Lowest Price Promise</div>
-</div></div>
-
+<!-- PRODUCTS -->
 <section class="sec" id="shop"><div class="wrap">
-  <div class="sec-head">
+  <div class="sec-head reveal">
     <span class="eyebrow">Best sellers</span>
     <h2>Trending <span class="grad">right now</span></h2>
     <p>This is how your storefront could display products — clean, tappable and ready to sell.</p>
   </div>
-  <div class="tiles">
-    <div class="tile"><div class="ph"><img src="img/ec-1.jpg" alt="Wireless headphones" loading="lazy"></div><div class="body"><h4>Wireless Headphones</h4><div class="tag">Audio</div><div class="meta"><span class="price">₹2,499</span><span class="tag">−30%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ec-2.jpg" alt="Smart watch" loading="lazy"></div><div class="body"><h4>Smart Watch Pro</h4><div class="tag">Wearables</div><div class="meta"><span class="price">₹3,999</span><span class="tag">−25%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ec-3.jpg" alt="Running sneakers" loading="lazy"></div><div class="body"><h4>Running Sneakers</h4><div class="tag">Footwear</div><div class="meta"><span class="price">₹1,899</span><span class="tag">−40%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ec-4.jpg" alt="Travel backpack" loading="lazy"></div><div class="body"><h4>Travel Backpack</h4><div class="tag">Bags</div><div class="meta"><span class="price">₹1,299</span><span class="tag">−20%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ec-5.jpg" alt="4K action camera" loading="lazy"></div><div class="body"><h4>4K Action Camera</h4><div class="tag">Cameras</div><div class="meta"><span class="price">₹6,499</span><span class="tag">−15%</span></div></div></div>
-    <div class="tile"><div class="ph"><img src="img/ec-6.jpg" alt="Smart LED lamp" loading="lazy"></div><div class="body"><h4>Smart LED Lamp</h4><div class="tag">Home</div><div class="meta"><span class="price">₹899</span><span class="tag">−35%</span></div></div></div>
+  <div class="products">
+    <article class="prod reveal">
+      <div class="thumb g1"><img src="img/ec-1.jpg" alt="Wireless headphones" loading="lazy"><span class="em">🎧</span><span class="disc">−30%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Audio</span><h4>Wireless Headphones</h4><div class="price-row"><span class="price">₹2,499</span><span class="was">₹3,570</span><span class="rate">★ 4.8</span></div></div>
+    </article>
+    <article class="prod reveal">
+      <div class="thumb g2"><img src="img/ec-2.jpg" alt="Smart watch" loading="lazy"><span class="em">⌚</span><span class="disc">−25%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Wearables</span><h4>Smart Watch Pro</h4><div class="price-row"><span class="price">₹3,999</span><span class="was">₹5,330</span><span class="rate">★ 4.9</span></div></div>
+    </article>
+    <article class="prod reveal">
+      <div class="thumb g3"><img src="img/ec-3.jpg" alt="Running sneakers" loading="lazy"><span class="em">👟</span><span class="disc">−40%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Footwear</span><h4>Running Sneakers</h4><div class="price-row"><span class="price">₹1,899</span><span class="was">₹3,165</span><span class="rate">★ 4.7</span></div></div>
+    </article>
+    <article class="prod reveal">
+      <div class="thumb g4"><img src="img/ec-4.jpg" alt="Travel backpack" loading="lazy"><span class="em">🎒</span><span class="disc">−20%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Bags</span><h4>Travel Backpack</h4><div class="price-row"><span class="price">₹1,299</span><span class="was">₹1,620</span><span class="rate">★ 4.6</span></div></div>
+    </article>
+    <article class="prod reveal">
+      <div class="thumb g5"><img src="img/ec-5.jpg" alt="4K action camera" loading="lazy"><span class="em">📷</span><span class="disc">−15%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Cameras</span><h4>4K Action Camera</h4><div class="price-row"><span class="price">₹6,499</span><span class="was">₹7,640</span><span class="rate">★ 4.8</span></div></div>
+    </article>
+    <article class="prod reveal">
+      <div class="thumb g6"><img src="img/ec-6.jpg" alt="Smart LED lamp" loading="lazy"><span class="em">💡</span><span class="disc">−35%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="info"><span class="cat">Home</span><h4>Smart LED Lamp</h4><div class="price-row"><span class="price">₹899</span><span class="was">₹1,385</span><span class="rate">★ 4.7</span></div></div>
+    </article>
   </div>
 </div></section>
 
-<section class="sec tinted" id="deals"><div class="wrap">
-  <div class="split">
-    <div>
-      <span class="eyebrow">Why Shopwave</span>
-      <h2>Shopping that just <span class="grad">works</span></h2>
-      <p>Built for speed and trust — so your customers checkout in seconds and keep coming back.</p>
-      <ul>
-        <li>One-tap checkout &amp; multiple payment options</li>
-        <li>Real-time order tracking</li>
-        <li>Genuine products with warranty</li>
-        <li>Loyalty rewards on every purchase</li>
-      </ul>
-    </div>
-    <div class="visual"><img src="img/ec-about.jpg" alt="Shopping bags with sale and discount tags" loading="lazy"></div>
+<!-- WHY -->
+<section class="sec why" id="deals"><div class="wrap">
+  <div class="reveal">
+    <span class="eyebrow">Why Shopwave</span>
+    <h2>Shopping that just <span class="grad">works</span></h2>
+    <p class="sub">Built for speed and trust — so your customers checkout in seconds and keep coming back.</p>
+    <ul>
+      <li><span class="tick">✓</span> One-tap checkout &amp; multiple payment options</li>
+      <li><span class="tick">✓</span> Real-time order tracking</li>
+      <li><span class="tick">✓</span> Genuine products with warranty</li>
+      <li><span class="tick">✓</span> Loyalty rewards on every purchase</li>
+    </ul>
+  </div>
+  <div class="why-visual reveal">
+    <img src="img/ec-about.jpg" alt="Shopping bags with sale and discount tags" loading="lazy">
+    <span class="big">🏷️</span>
+    <div class="tagfloat t1">⚡ 24hr delivery</div>
+    <div class="tagfloat t2">💸 Best prices</div>
   </div>
 </div></section>
 
+<!-- HOW -->
 <section class="sec" id="about"><div class="wrap">
-  <div class="sec-head">
+  <div class="sec-head center reveal">
     <span class="eyebrow">Made simple</span>
     <h2>From cart to <span class="grad">doorstep</span></h2>
     <p>A complete shopping experience your customers will love.</p>
   </div>
   <div class="cards">
-    <div class="card"><div class="ic"><svg class="lucide lucide-search" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" /> </svg></div><h3>Easy Discovery</h3><p>Smart search and categories help shoppers find products instantly.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-credit-card" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <rect width="20" height="14" x="2" y="5" rx="2" /> <line x1="2" x2="22" y1="10" y2="10" /> </svg></div><h3>Secure Checkout</h3><p>UPI, cards, wallets &amp; cash on delivery — all PCI-secure.</p></div>
-    <div class="card"><div class="ic"><svg class="lucide lucide-package" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z" /> <path d="M12 22V12" /> <polyline points="3.29 7 12 12 20.71 7" /> <path d="m7.5 4.27 9 5.15" /> </svg></div><h3>Live Tracking</h3><p>Customers follow their order from warehouse to doorstep.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></div><h3>Easy Discovery</h3><p>Smart search and categories help shoppers find products instantly.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></div><h3>Secure Checkout</h3><p>UPI, cards, wallets &amp; cash on delivery — all PCI-secure.</p></div>
+    <div class="fcard reveal"><div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg></div><h3>Live Tracking</h3><p>Customers follow their order from warehouse to doorstep.</p></div>
   </div>
 </div></section>
 
-<section class="sec tinted"><div class="wrap">
-  <div class="quote">
+<!-- TESTIMONIAL -->
+<section class="testi mesh"><div class="wrap">
+  <div class="reveal">
     <div class="stars">★★★★★</div>
-    <p>"Ordered at midnight, delivered by noon. Genuine products, smooth checkout and the prices beat everyone else. My go-to store now."</p>
+    <blockquote>"Ordered at midnight, delivered by noon."</blockquote>
+    <p style="max-width:46ch;margin:0 auto 22px;color:var(--ink-soft);font-size:1.05rem">Genuine products, smooth checkout and prices that beat everyone else. My go-to store now.</p>
     <div class="who">Aishwarya R.<span>Verified buyer</span></div>
   </div>
 </div></section>
 
-<section class="t-cta"><div class="wrap"><div class="box">
+<!-- CTA -->
+<section class="cta"><div class="wrap"><div class="box reveal">
   <h2>Start shopping today</h2>
   <p>50,000+ products, unbeatable prices, delivered to your door.</p>
-  <a href="../index.html" class="btn">Shop now →</a>
+  <a href="../index.html" class="btn btn-light">Shop now →</a>
 </div></div></section>
 
-<footer class="t-foot"><div class="wrap">
+<!-- FOOTER -->
+<footer class="foot"><div class="wrap">
   <div class="top">
     <div>
-      <div class="t-logo"><span class="mark"><svg class="lucide lucide-shopping-cart" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" > <circle cx="8" cy="21" r="1" /> <circle cx="19" cy="21" r="1" /> <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /> </svg></span> Shopwave</div>
+      <div class="logo"><span class="mark"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></span> Shopwave</div>
       <p class="desc">Your one-stop online store for everything — at the best prices, delivered fast.</p>
     </div>
-    <div><h5>Shop</h5><a>Electronics</a><a>Fashion</a><a>Home</a><a>Deals</a></div>
-    <div><h5>Help</h5><a>Track order</a><a>Returns</a><a>Shipping</a><a>Support</a></div>
-    <div><h5>Contact</h5><a>+91 90000 00000</a><a>care@shopwave.example</a><a>24/7 Support</a></div>
+    <div class="col"><h5>Shop</h5><a href="#shop">Electronics</a><a href="#shop">Fashion</a><a href="#shop">Home</a><a href="#deals">Deals</a></div>
+    <div class="col"><h5>Help</h5><a href="#">Track order</a><a href="#">Returns</a><a href="#">Shipping</a><a href="#">Support</a></div>
+    <div class="col"><h5>Contact</h5><a href="#">+91 90000 00000</a><a href="#">care@shopwave.example</a><a href="#">24/7 Support</a></div>
   </div>
   <div class="bottom"><span>© 2026 Shopwave. Demo template.</span><span>Designed &amp; built by RockitX</span></div>
 </div></footer>
@@ -128,6 +572,49 @@
   <svg class="star" viewBox="0 0 24 24"><defs><linearGradient id="rs" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#C4B5FD"/><stop offset=".5" stop-color="#818CF8"/><stop offset="1" stop-color="#38BDF8"/></linearGradient></defs><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#rs)"/></svg>
   <span>Built with <b>RockitX</b> · <span class="price">from ₹200/mo</span></span>
 </a>
+
+<script>
+/* scroll reveal */
+(function(){
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(ents){
+    ents.forEach(function(en){if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+
+/* flash sale countdown */
+(function(){
+  var fh=document.getElementById('fh'),fm=document.getElementById('fm'),fs=document.getElementById('fs');
+  if(!fh)return;
+  var end=Date.now()+ (2*3600+14*60+8)*1000;
+  function pad(n){return (n<10?'0':'')+n;}
+  function tick(){
+    var d=Math.max(0,Math.floor((end-Date.now())/1000));
+    fh.textContent=pad(Math.floor(d/3600));
+    fm.textContent=pad(Math.floor((d%3600)/60));
+    fs.textContent=pad(d%60);
+    if(d<=0)end=Date.now()+(2*3600+14*60+8)*1000;
+  }
+  tick();setInterval(tick,1000);
+})();
+
+/* quick add + cart count */
+(function(){
+  var count=document.getElementById('cartCount');
+  document.querySelectorAll('.quick').forEach(function(b){
+    b.addEventListener('click',function(){
+      var n=parseInt(count.textContent,10)+1;count.textContent=n;
+      var t=b.textContent;b.textContent='✓ Added';b.style.background='var(--violet)';
+      setTimeout(function(){b.textContent=t;b.style.background='';},1100);
+    });
+  });
+  document.querySelectorAll('.fav').forEach(function(f){
+    f.addEventListener('click',function(){f.textContent=f.textContent==='🤍'?'❤️':'🤍';});
+  });
+})();
+</script>
 
 </body>
 </html>
