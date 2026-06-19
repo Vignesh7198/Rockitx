@@ -183,11 +183,8 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
   display:flex;align-items:flex-end;
 }
 .cell-visual .imgwrap{position:absolute;inset:0;overflow:hidden}
-.cell-visual img{width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.85}
-.cell-visual .emoji{
-  position:absolute;inset:0;display:grid;place-items:center;font-size:7rem;
-  filter:drop-shadow(0 18px 30px rgba(0,0,0,.45));animation:float 5s ease-in-out infinite;
-}
+.cell-visual .imgwrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,10,46,.04) 0%,rgba(22,10,46,0) 38%,rgba(22,10,46,.55) 100%)}
+.cell-visual img{width:100%;height:100%;object-fit:cover}
 @keyframes float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(4deg)}}
 .flash{
   position:relative;z-index:2;margin:auto 22px 22px;width:calc(100% - 44px);
@@ -239,9 +236,14 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
 .prod .thumb{
   position:relative;aspect-ratio:4/3;overflow:hidden;display:grid;place-items:center;
 }
-.prod .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.9}
-.prod .thumb .em{font-size:4.2rem;filter:drop-shadow(0 12px 18px rgba(0,0,0,.25));transition:.4s;z-index:1}
-.prod:hover .thumb .em{transform:scale(1.12) rotate(-6deg)}
+.prod .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.4s}
+.prod:hover .thumb img{transform:scale(1.06)}
+.prod .thumb .em{
+  position:absolute;left:12px;bottom:12px;z-index:2;font-size:1.15rem;line-height:1;
+  width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+  background:rgba(255,255,255,.9);box-shadow:0 6px 16px -6px rgba(22,10,46,.5);transition:.3s;
+}
+.prod:hover .thumb .em{opacity:0;transform:translateY(8px)}
 .prod .g1{background:linear-gradient(150deg,#ffd3df,#ff7eb3)}
 .prod .g2{background:linear-gradient(150deg,#d6ecff,#22d3ee)}
 .prod .g3{background:linear-gradient(150deg,#e9dcff,#7c3aed)}
@@ -291,11 +293,11 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
              linear-gradient(150deg,#ff4d6d,#7c3aed 70%);
   display:grid;place-items:center;
 }
-.why-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;mix-blend-mode:luminosity;opacity:.8}
-.why-visual .big{position:relative;font-size:7rem;filter:drop-shadow(0 18px 28px rgba(0,0,0,.4));animation:float 6s ease-in-out infinite}
+.why-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.why-visual::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(155deg,rgba(255,77,109,.12),rgba(124,58,237,.18) 70%);mix-blend-mode:multiply}
 .why-visual .tagfloat{
-  position:absolute;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:10px 14px;font-weight:800;font-size:.85rem;
+  position:absolute;z-index:2;background:rgba(22,10,46,.42);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:10px 14px;font-weight:800;font-size:.85rem;color:#fff;
 }
 .why-visual .t1{top:24px;left:24px}
 .why-visual .t2{bottom:24px;right:24px}
@@ -440,8 +442,7 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
   </div>
 
   <div class="cell cell-visual reveal">
-    <div class="imgwrap"><img src="img/ec-hero.jpg" alt="Trending products and shopping bags from Shopwave online store" loading="lazy"></div>
-    <div class="emoji">🛍️</div>
+    <div class="imgwrap"><img src="img/ec-hero.png" alt="Trending products and shopping bags from Shopwave online store" loading="lazy"></div>
     <div class="flash">
       <div class="fl-top"><span class="live"></span> Flash sale live</div>
       <div class="clock">
@@ -476,27 +477,27 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
   </div>
   <div class="products">
     <article class="prod reveal">
-      <div class="thumb g1"><img src="img/ec-1.jpg" alt="Wireless headphones" loading="lazy"><span class="em">🎧</span><span class="disc">−30%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g1"><img src="img/ec-1.png" alt="Premium wireless over-ear headphones" loading="lazy"><span class="em">🎧</span><span class="disc">−30%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Audio</span><h4>Wireless Headphones</h4><div class="price-row"><span class="price">₹2,499</span><span class="was">₹3,570</span><span class="rate">★ 4.8</span></div></div>
     </article>
     <article class="prod reveal">
-      <div class="thumb g2"><img src="img/ec-2.jpg" alt="Smart watch" loading="lazy"><span class="em">⌚</span><span class="disc">−25%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g2"><img src="img/ec-2.png" alt="Modern smartwatch" loading="lazy"><span class="em">⌚</span><span class="disc">−25%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Wearables</span><h4>Smart Watch Pro</h4><div class="price-row"><span class="price">₹3,999</span><span class="was">₹5,330</span><span class="rate">★ 4.9</span></div></div>
     </article>
     <article class="prod reveal">
-      <div class="thumb g3"><img src="img/ec-3.jpg" alt="Running sneakers" loading="lazy"><span class="em">👟</span><span class="disc">−40%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g3"><img src="img/ec-3.png" alt="Running sneakers" loading="lazy"><span class="em">👟</span><span class="disc">−40%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Footwear</span><h4>Running Sneakers</h4><div class="price-row"><span class="price">₹1,899</span><span class="was">₹3,165</span><span class="rate">★ 4.7</span></div></div>
     </article>
     <article class="prod reveal">
-      <div class="thumb g4"><img src="img/ec-4.jpg" alt="Travel backpack" loading="lazy"><span class="em">🎒</span><span class="disc">−20%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g4"><img src="img/ec-4.png" alt="Black travel backpack" loading="lazy"><span class="em">🎒</span><span class="disc">−20%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Bags</span><h4>Travel Backpack</h4><div class="price-row"><span class="price">₹1,299</span><span class="was">₹1,620</span><span class="rate">★ 4.6</span></div></div>
     </article>
     <article class="prod reveal">
-      <div class="thumb g5"><img src="img/ec-5.jpg" alt="4K action camera" loading="lazy"><span class="em">📷</span><span class="disc">−15%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g5"><img src="img/ec-5.png" alt="4K action camera" loading="lazy"><span class="em">📷</span><span class="disc">−15%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Cameras</span><h4>4K Action Camera</h4><div class="price-row"><span class="price">₹6,499</span><span class="was">₹7,640</span><span class="rate">★ 4.8</span></div></div>
     </article>
     <article class="prod reveal">
-      <div class="thumb g6"><img src="img/ec-6.jpg" alt="Smart LED lamp" loading="lazy"><span class="em">💡</span><span class="disc">−35%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
+      <div class="thumb g6"><img src="img/ec-6.png" alt="White smart LED desk lamp" loading="lazy"><span class="em">💡</span><span class="disc">−35%</span><span class="fav" role="button" aria-label="Add to wishlist">🤍</span><button class="quick">＋ Quick add</button></div>
       <div class="info"><span class="cat">Home</span><h4>Smart LED Lamp</h4><div class="price-row"><span class="price">₹899</span><span class="was">₹1,385</span><span class="rate">★ 4.7</span></div></div>
     </article>
   </div>
@@ -516,8 +517,7 @@ h1,h2,h3,h4,h5{font-family:var(--font-d);line-height:1.04;font-weight:800;letter
     </ul>
   </div>
   <div class="why-visual reveal">
-    <img src="img/ec-about.jpg" alt="Shopping bags with sale and discount tags" loading="lazy">
-    <span class="big">🏷️</span>
+    <img src="img/ec-about.png" alt="Happy customer unboxing a delivery surrounded by shopping bags" loading="lazy">
     <div class="tagfloat t1">⚡ 24hr delivery</div>
     <div class="tagfloat t2">💸 Best prices</div>
   </div>

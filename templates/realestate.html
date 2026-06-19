@@ -147,6 +147,9 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
   content:"";position:absolute;inset:0;
   background:radial-gradient(420px 320px at 78% 14%, rgba(217,182,128,.55), transparent 65%);
 }
+.hero-art .frame .himg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.hero-art .frame .hscrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(20,16,12,.18) 0%,transparent 38%,rgba(20,16,12,.30) 100%);}
 .hero-art .building{
   position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);
   width:62%;height:74%;
@@ -175,7 +178,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
 }
 .hero-art .ground{position:absolute;left:0;right:0;bottom:0;height:16%;background:linear-gradient(180deg,#0D0B09,#070605);}
 .hero-art .glyph{
-  position:absolute;top:26px;left:26px;width:46px;height:46px;border-radius:12px;
+  position:absolute;top:26px;left:26px;width:46px;height:46px;border-radius:12px;z-index:2;
   display:grid;place-items:center;background:rgba(246,242,235,.1);border:1px solid rgba(246,242,235,.2);
   backdrop-filter:blur(4px);color:#F0E4CC;
 }
@@ -237,6 +240,11 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
 .tile:nth-child(4) .ph{background:linear-gradient(150deg,#67574C,#39302A);}
 .tile:nth-child(5) .ph{background:linear-gradient(150deg,#52596B,#2B2F3C);}
 .tile:nth-child(6) .ph{background:linear-gradient(150deg,#6A5A66,#352D33);}
+/* real listing photo */
+.tile .ph .pimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.tile .ph.photo::after{content:none;}
+.tile .ph .scrim{position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,rgba(20,16,12,.12) 0%,transparent 34%,rgba(20,16,12,.30) 100%);}
 .tile .ribbon{
   position:absolute;top:14px;left:14px;z-index:2;background:var(--paper);color:var(--ink);
   font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
@@ -268,6 +276,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
   min-height:520px;display:flex;align-items:flex-end;box-shadow:var(--shadow-lg);}
 .featured .bg{position:absolute;inset:0;z-index:-2;
   background:linear-gradient(135deg,#3A4148 0%,#22272C 55%,#14181B 100%);}
+.featured .fimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;}
 .featured .bg::before{content:"";position:absolute;inset:0;
   background-image:repeating-linear-gradient(0deg, rgba(217,182,128,.12) 0 22px, transparent 22px 46px),
                    repeating-linear-gradient(90deg, rgba(217,182,128,.07) 0 22px, transparent 22px 46px);}
@@ -461,11 +470,9 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
 
   <div class="hero-art reveal">
     <div class="frame">
+      <img class="himg" src="img/re-hero.png" alt="Modern luxury house exterior glowing at dusk" fetchpriority="high">
+      <div class="hscrim"></div>
       <div class="glyph"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg></div>
-      <div class="building2"></div>
-      <div class="building3"></div>
-      <div class="building"></div>
-      <div class="ground"></div>
     </div>
     <div class="float-card float-1">
       <span class="ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg></span>
@@ -496,7 +503,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
   </div>
   <div class="tiles">
     <article class="tile reveal">
-      <div class="ph"><span class="ribbon">Sea view</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span class="glyph">🌊</span></div>
+      <div class="ph photo"><img class="pimg" src="img/re-4.png" alt="Beachfront home interior with ocean view" loading="lazy"><div class="scrim"></div><span class="ribbon">Sea view</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></div>
       <div class="body">
         <div class="loc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Marine Drive, Mumbai</div>
         <h4>3 BHK Sea-view Apartment</h4>
@@ -505,10 +512,10 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
       </div>
     </article>
     <article class="tile reveal">
-      <div class="ph"><span class="ribbon">Premium</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span class="glyph">🏡</span></div>
+      <div class="ph photo"><img class="pimg" src="img/re-1.png" alt="Contemporary villa with pool at golden hour" loading="lazy"><div class="scrim"></div><span class="ribbon">Premium</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></div>
       <div class="body">
         <div class="loc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Whitefield, Bengaluru</div>
-        <h4>Modern Villa with Garden</h4>
+        <h4>Modern Villa with Pool</h4>
         <div class="specs"><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> 4 beds</span><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5H4"/><path d="m7 19-1 2M18 19l1 2"/></svg> 4 baths</span><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 3 21M21 3v6M21 3h-6M3 21v-6M3 21h6"/></svg> 3,200 sqft</span></div>
         <div class="price-row"><span class="price">₹2.4 Cr</span><span class="view">Details <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
       </div>
@@ -532,7 +539,7 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
       </div>
     </article>
     <article class="tile reveal">
-      <div class="ph"><span class="ribbon">Penthouse</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span class="glyph">✨</span></div>
+      <div class="ph photo"><img class="pimg" src="img/re-2.png" alt="High-rise city penthouse interior with skyline view" loading="lazy"><div class="scrim"></div><span class="ribbon">Penthouse</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></div>
       <div class="body">
         <div class="loc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Banjara Hills, Hyderabad</div>
         <h4>Skyline Penthouse</h4>
@@ -541,10 +548,10 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
       </div>
     </article>
     <article class="tile reveal">
-      <div class="ph"><span class="ribbon">Heritage</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span><span class="glyph">🏛️</span></div>
+      <div class="ph photo"><img class="pimg" src="img/re-3.png" alt="Charming suburban family home in daylight" loading="lazy"><div class="scrim"></div><span class="ribbon">Family home</span><span class="fav"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></span></div>
       <div class="body">
         <div class="loc"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg> Civil Lines, Delhi</div>
-        <h4>Restored Heritage Bungalow</h4>
+        <h4>Spacious Family Home</h4>
         <div class="specs"><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> 5 beds</span><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5H4"/><path d="m7 19-1 2M18 19l1 2"/></svg> 4 baths</span><span class="sp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 3 21M21 3v6M21 3h-6M3 21v-6M3 21h6"/></svg> 5,600 sqft</span></div>
         <div class="price-row"><span class="price">₹9.5 Cr</span><span class="view">Details <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span></div>
       </div>
@@ -558,8 +565,8 @@ h1,h2,h3,h4{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spa
     <h2>A signature <span class="serif-i">address</span></h2>
   </div>
   <div class="featured reveal">
-    <div class="bg"></div><div class="scrim"></div>
-    <span class="glyph">🌆</span>
+    <img class="fimg" src="img/re-about.png" alt="Elegant luxury living room with lake and mountain view" loading="lazy">
+    <div class="scrim"></div>
     <div class="inner">
       <div class="tagrow">
         <span class="chip gold">Exclusive</span>

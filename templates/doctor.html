@@ -142,6 +142,11 @@ img{max-width:100%;display:block}
 .hero-stats .s b{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:1.9rem;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-stats .s span{font-size:.86rem;color:var(--slate);font-weight:600}
 
+/* ---- hero photo ---- */
+.hero-photo{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/11;margin-bottom:18px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.hero-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,34,51,0) 55%,rgba(11,34,51,.20))}
+
 /* ---- booking widget (signature) ---- */
 .booking{
   position:relative;background:var(--card);border:1px solid var(--line);border-radius:28px;
@@ -229,8 +234,10 @@ img{max-width:100%;display:block}
 .feat span{color:var(--slate);font-size:.92rem}
 /* decorative visual panel */
 .why-visual{position:relative;aspect-ratio:1/1;border-radius:32px;overflow:hidden;background:var(--grad);box-shadow:var(--shadow-lg)}
-.why-visual::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.16) 1.5px,transparent 1.5px);background-size:22px 22px}
-.why-visual .glyph{position:absolute;inset:0;display:grid;place-items:center;font-size:8rem;opacity:.9}
+.why-visual::before{content:"";position:absolute;inset:0;z-index:2;background-image:radial-gradient(rgba(255,255,255,.10) 1.5px,transparent 1.5px);background-size:22px 22px;pointer-events:none}
+.why-visual img.cover{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover}
+.why-visual::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(11,34,51,0) 45%,rgba(11,34,51,.35));pointer-events:none}
+.why-visual .float-card{z-index:3}
 .why-visual .float-card{
   position:absolute;background:#fff;border-radius:18px;padding:14px 16px;box-shadow:var(--shadow);
   display:flex;align-items:center;gap:11px
@@ -250,7 +257,8 @@ img{max-width:100%;display:block}
   width:96px;height:96px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.9rem;color:#fff;position:relative
 }
-.doc .av .on{position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;background:#22C55E;border:3px solid #fff}
+.doc .av .on{position:absolute;right:6px;bottom:6px;z-index:2;width:16px;height:16px;border-radius:50%;background:#22C55E;border:3px solid #fff}
+.doc .av img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:center top;border-radius:50%;box-shadow:0 0 0 3px #fff,0 10px 22px -10px rgba(8,80,110,.5)}
 .doc:nth-child(1) .av{background:linear-gradient(135deg,#0EA5E9,#22D3EE)}
 .doc:nth-child(2) .av{background:linear-gradient(135deg,#7C3AED,#A78BFA)}
 .doc:nth-child(3) .av{background:linear-gradient(135deg,#0D9488,#34D399)}
@@ -404,6 +412,9 @@ img{max-width:100%;display:block}
   </div>
 
   <div class="reveal">
+    <div class="hero-photo">
+      <img src="img/doc-hero.png" alt="Friendly MediCare+ doctor smiling in a modern clinic" loading="eager">
+    </div>
     <div class="booking">
       <div class="b-head">
         <h3>Book your visit</h3>
@@ -482,7 +493,7 @@ img{max-width:100%;display:block}
       </div>
     </div>
     <div class="why-visual reveal">
-      <div class="glyph">🩺</div>
+      <img class="cover" src="img/doc-about.png" alt="Bright, modern MediCare+ clinic reception and interior" loading="lazy">
       <div class="float-card fc-1"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><b>Live monitoring</b><span>Care that never sleeps</span></div></div>
       <div class="float-card fc-2"><div class="ico"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><div><b>98% recovery</b><span>Patient satisfaction</span></div></div>
     </div>
@@ -497,10 +508,10 @@ img{max-width:100%;display:block}
     <p>Decades of combined experience, dedicated to your wellbeing.</p>
   </div>
   <div class="docs">
-    <div class="doc reveal"><div class="av">AR<span class="on" title="Available today"></span></div><h4>Dr. Anita Rao</h4><div class="spec">Cardiologist</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">18 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
-    <div class="doc reveal"><div class="av">VS<span class="on" title="Available today"></span></div><h4>Dr. Vikram Shah</h4><div class="spec">Neurologist</div><div class="dmeta"><span class="m"><b>★</b> 4.8</span><span class="m">15 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
-    <div class="doc reveal"><div class="av">MN<span class="on" title="Available today"></span></div><h4>Dr. Meera Nair</h4><div class="spec">Pediatrician</div><div class="dmeta"><span class="m"><b>★</b> 5.0</span><span class="m">12 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
-    <div class="doc reveal"><div class="av">AM<span class="on" title="Available today"></span></div><h4>Dr. Arjun Menon</h4><div class="spec">Orthopedic</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">20 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av"><img src="img/doc-1.png" alt="Dr. Anita Rao, Cardiologist" loading="lazy"><span class="on" title="Available today"></span></div><h4>Dr. Anita Rao</h4><div class="spec">Cardiologist</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">18 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av"><img src="img/doc-2.png" alt="Dr. Vikram Shah, Neurologist" loading="lazy"><span class="on" title="Available today"></span></div><h4>Dr. Vikram Shah</h4><div class="spec">Neurologist</div><div class="dmeta"><span class="m"><b>★</b> 4.8</span><span class="m">15 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av"><img src="img/doc-3.png" alt="Dr. Meera Nair, Pediatrician" loading="lazy"><span class="on" title="Available today"></span></div><h4>Dr. Meera Nair</h4><div class="spec">Pediatrician</div><div class="dmeta"><span class="m"><b>★</b> 5.0</span><span class="m">12 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
+    <div class="doc reveal"><div class="av"><img src="img/doc-4.png" alt="Dr. Arjun Menon, Orthopedic" loading="lazy"><span class="on" title="Available today"></span></div><h4>Dr. Arjun Menon</h4><div class="spec">Orthopedic</div><div class="dmeta"><span class="m"><b>★</b> 4.9</span><span class="m">20 yrs</span></div><a href="#book" class="bookbtn">Book now</a></div>
   </div>
 </div></section>
 

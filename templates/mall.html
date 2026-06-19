@@ -135,9 +135,8 @@ img{max-width:100%;display:block}
   background:
     linear-gradient(135deg,#E0218A,#7C3AED 55%,#22D3EE);
 }
-.hero-card .glyph{
-  position:absolute;inset:0;display:grid;place-items:center;font-size:7rem;
-  filter:drop-shadow(0 14px 24px rgba(0,0,0,.25));
+.hero-card .photo{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
 }
 .hero-card .shine{
   position:absolute;inset:0;
@@ -189,7 +188,9 @@ img{max-width:100%;display:block}
 }
 .dir:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
 .dir::before{content:"";position:absolute;inset:0;z-index:-2;background:var(--bg,var(--grad))}
-.dir::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(20,5,30,.55),transparent 65%)}
+.dir .dir-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.dir:hover .dir-bg{transform:scale(1.06)}
+.dir::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(20,5,30,.7),rgba(20,5,30,.25) 65%)}
 .dir .em{font-size:2.6rem;position:absolute;top:20px;right:22px;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25));transition:transform .4s}
 .dir:hover .em{transform:scale(1.18) rotate(8deg)}
 .dir h3{font-size:1.45rem;letter-spacing:-.02em}
@@ -220,6 +221,7 @@ img{max-width:100%;display:block}
 .ecard:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
 .ecard .ph{aspect-ratio:4/3;position:relative;display:grid;place-items:center;background:var(--bg,var(--grad))}
 .ecard .ph .em{font-size:3.4rem;filter:drop-shadow(0 8px 16px rgba(0,0,0,.22))}
+.ecard .ph .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ecard .ph .chip{
   position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);color:var(--magenta);
   font-weight:800;font-size:.74rem;letter-spacing:.04em;padding:5px 11px;border-radius:999px;text-transform:uppercase;
@@ -246,6 +248,7 @@ img{max-width:100%;display:block}
 .dish:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow)}
 .dish .top{height:150px;display:grid;place-items:center;background:var(--bg);position:relative}
 .dish .top .em{font-size:3.6rem}
+.dish .top .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dish .cui{position:absolute;bottom:10px;left:12px;background:rgba(255,255,255,.92);font-weight:800;font-size:.72rem;padding:4px 10px;border-radius:999px;color:var(--ink)}
 .dish .b{padding:15px 16px 18px}
 .dish h4{font-size:1.12rem}
@@ -274,6 +277,7 @@ img{max-width:100%;display:block}
 .film:hover{transform:translateY(-8px) rotate(-1deg)}
 .film .poster{position:absolute;inset:0;background:var(--bg);display:grid;place-items:center}
 .film .poster .em{font-size:3.6rem;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+.film .poster .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .film .grain{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),transparent 55%)}
 .film .info{position:absolute;left:0;right:0;bottom:0;padding:16px;z-index:2}
 .film h4{font-size:1.1rem}
@@ -291,7 +295,7 @@ img{max-width:100%;display:block}
   position:relative;border-radius:32px;aspect-ratio:1/1;overflow:hidden;box-shadow:var(--shadow-lg);
   background:linear-gradient(140deg,#7C3AED,#E0218A 60%,#FF7A1A);border:6px solid #fff;
 }
-.exp-visual .glyph{position:absolute;inset:0;display:grid;place-items:center;font-size:6rem;filter:drop-shadow(0 12px 22px rgba(0,0,0,.25))}
+.exp-visual .photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .exp-visual .ring{position:absolute;width:160%;height:160%;top:-30%;left:-30%;border-radius:50%;border:2px dashed rgba(255,255,255,.3);animation:spin 40s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .exp ul{list-style:none;margin-top:26px;display:grid;gap:14px}
@@ -461,8 +465,8 @@ img{max-width:100%;display:block}
   </div>
   <div class="hero-visual reveal">
     <div class="hero-card">
+      <img class="photo" src="img/mall-hero.jpg" alt="Bright, modern Lumina Mall shopping interior">
       <div class="shine"></div>
-      <div class="glyph">🛍️</div>
       <div class="arch"></div>
     </div>
     <div class="float-badge fb-open"><span class="live"></span><div><b>Open today</b><span>10 AM – 11 PM</span></div></div>
@@ -489,37 +493,37 @@ img{max-width:100%;display:block}
   </div>
   <div class="dir-grid">
     <a class="dir big c-fashion reveal">
-      <span class="em">👗</span>
+      <img class="dir-bg" src="img/mall-1.jpg" alt="Fashion and style stores at Lumina Mall" loading="lazy">
       <span class="floor">Floors 1–2</span>
       <h3>Fashion &amp; Style</h3>
       <p>Flagship stores from the biggest national and global fashion brands.</p>
     </a>
     <a class="dir std c-elec reveal">
-      <span class="em">📱</span>
+      <img class="dir-bg" src="img/mall-4.jpg" alt="Electronics, gadgets and gaming gear" loading="lazy">
       <span class="floor">Floor 2</span>
       <h3>Electronics</h3>
       <p>The latest gadgets, phones and gaming gear with live demos.</p>
     </a>
     <a class="dir std c-beauty reveal">
-      <span class="em">✨</span>
+      <img class="dir-bg" src="img/mall-about.jpg" alt="Beauty, wellness and spa boutiques" loading="lazy">
       <span class="floor">Floor 1</span>
       <h3>Beauty &amp; Wellness</h3>
       <p>Salons, spas and beauty boutiques.</p>
     </a>
     <a class="dir wide c-dine reveal">
-      <span class="em">🍜</span>
+      <img class="dir-bg" src="img/mall-2.jpg" alt="Dining and cafés at the Lumina food court" loading="lazy">
       <span class="floor">Floor 4 · Food Court</span>
       <h3>Dining &amp; Cafés</h3>
       <p>40+ restaurants and cafés serving cuisines from around the world.</p>
     </a>
     <a class="dir std c-ent reveal">
-      <span class="em">🎬</span>
+      <img class="dir-bg" src="img/mall-3.jpg" alt="Cinema, arcade and indoor play zone entertainment" loading="lazy">
       <span class="floor">Floor 5</span>
       <h3>Entertainment</h3>
       <p>Premium cinema, arcade &amp; indoor play zone.</p>
     </a>
     <a class="dir std c-hyper reveal">
-      <span class="em">🛒</span>
+      <img class="dir-bg" src="img/mall-hero.jpg" alt="Hypermarket for groceries and home essentials" loading="lazy">
       <span class="floor">Lower Ground</span>
       <h3>Hypermarket</h3>
       <p>Your weekly grocery and home essentials run, made easy.</p>
@@ -535,19 +539,19 @@ img{max-width:100%;display:block}
   </div>
   <div class="event-row">
     <div class="ecard reveal">
-      <div class="ph e1"><span class="chip">Up to 60% off</span><span class="em">🏷️</span></div>
+      <div class="ph e1"><span class="chip">Up to 60% off</span><img class="photo" src="img/mall-1.jpg" alt="Mega weekend sale across all floors" loading="lazy"></div>
       <div class="body"><h4>Mega Weekend Sale</h4><div class="sub">All floors</div><div class="meta"><span class="when">This Sat–Sun</span><span class="tag">All floors</span></div></div>
     </div>
     <div class="ecard reveal">
-      <div class="ph e2"><span class="chip">Atrium Stage</span><span class="em">🎸</span></div>
+      <div class="ph e2"><span class="chip">Atrium Stage</span><img class="photo" src="img/mall-3.jpg" alt="Live music night on the atrium stage" loading="lazy"></div>
       <div class="body"><h4>Live Music Night</h4><div class="sub">Atrium Stage</div><div class="meta"><span class="when">Fri · 7 PM</span><span class="tag">Free entry</span></div></div>
     </div>
     <div class="ecard reveal">
-      <div class="ph e3"><span class="chip">40+ stalls</span><span class="em">🍢</span></div>
+      <div class="ph e3"><span class="chip">40+ stalls</span><img class="photo" src="img/mall-2.jpg" alt="Food festival with 40+ stalls" loading="lazy"></div>
       <div class="body"><h4>Food Festival</h4><div class="sub">Food Court</div><div class="meta"><span class="when">All month</span><span class="tag">40+ stalls</span></div></div>
     </div>
     <div class="ecard reveal">
-      <div class="ph e4"><span class="chip">Spend ₹2,000+</span><span class="em">🎁</span></div>
+      <div class="ph e4"><span class="chip">Spend ₹2,000+</span><img class="photo" src="img/mall-about.jpg" alt="Shop and win daily prizes for members" loading="lazy"></div>
       <div class="body"><h4>Shop &amp; Win</h4><div class="sub">Daily prizes</div><div class="meta"><span class="when">Daily prizes</span><span class="tag">Members</span></div></div>
     </div>
   </div>
@@ -562,12 +566,12 @@ img{max-width:100%;display:block}
     <p style="color:var(--ink2);max-width:30ch">Forty kitchens, one giant food court — swipe through the favourites.</p>
   </div>
   <div class="dine-scroll">
-    <div class="dish reveal"><div class="top d1"><span class="cui">Street Food</span><span class="em">🌮</span></div><div class="b"><h4>Mirchi &amp; Co.</h4><div class="stars">★★★★★</div><div class="desc">Chaat, rolls &amp; desi street classics.</div></div></div>
-    <div class="dish reveal"><div class="top d2"><span class="cui">Italian</span><span class="em">🍕</span></div><div class="b"><h4>Bella Forno</h4><div class="stars">★★★★★</div><div class="desc">Wood-fired pizza &amp; fresh pasta.</div></div></div>
-    <div class="dish reveal"><div class="top d3"><span class="cui">Asian</span><span class="em">🍜</span></div><div class="b"><h4>Wok Republic</h4><div class="stars">★★★★☆</div><div class="desc">Ramen, bao &amp; sizzling stir-fries.</div></div></div>
-    <div class="dish reveal"><div class="top d4"><span class="cui">Healthy</span><span class="em">🥗</span></div><div class="b"><h4>Green Bowl</h4><div class="stars">★★★★★</div><div class="desc">Bowls, smoothies &amp; cold-press juice.</div></div></div>
-    <div class="dish reveal"><div class="top d5"><span class="cui">Desserts</span><span class="em">🍰</span></div><div class="b"><h4>Sugar Atelier</h4><div class="stars">★★★★★</div><div class="desc">Gelato, pastries &amp; gourmet bakes.</div></div></div>
-    <div class="dish reveal"><div class="top d6"><span class="cui">Café</span><span class="em">☕</span></div><div class="b"><h4>Brew &amp; Bean</h4><div class="stars">★★★★☆</div><div class="desc">Specialty coffee &amp; all-day brunch.</div></div></div>
+    <div class="dish reveal"><div class="top d1"><span class="cui">Street Food</span><img class="photo" src="img/mall-2.jpg" alt="Mirchi &amp; Co. street food" loading="lazy"></div><div class="b"><h4>Mirchi &amp; Co.</h4><div class="stars">★★★★★</div><div class="desc">Chaat, rolls &amp; desi street classics.</div></div></div>
+    <div class="dish reveal"><div class="top d2"><span class="cui">Italian</span><img class="photo" src="img/mall-2.jpg" alt="Bella Forno wood-fired pizza &amp; pasta" loading="lazy"></div><div class="b"><h4>Bella Forno</h4><div class="stars">★★★★★</div><div class="desc">Wood-fired pizza &amp; fresh pasta.</div></div></div>
+    <div class="dish reveal"><div class="top d3"><span class="cui">Asian</span><img class="photo" src="img/mall-2.jpg" alt="Wok Republic ramen and stir-fries" loading="lazy"></div><div class="b"><h4>Wok Republic</h4><div class="stars">★★★★☆</div><div class="desc">Ramen, bao &amp; sizzling stir-fries.</div></div></div>
+    <div class="dish reveal"><div class="top d4"><span class="cui">Healthy</span><img class="photo" src="img/mall-2.jpg" alt="Green Bowl healthy bowls and smoothies" loading="lazy"></div><div class="b"><h4>Green Bowl</h4><div class="stars">★★★★★</div><div class="desc">Bowls, smoothies &amp; cold-press juice.</div></div></div>
+    <div class="dish reveal"><div class="top d5"><span class="cui">Desserts</span><img class="photo" src="img/mall-2.jpg" alt="Sugar Atelier desserts and pastries" loading="lazy"></div><div class="b"><h4>Sugar Atelier</h4><div class="stars">★★★★★</div><div class="desc">Gelato, pastries &amp; gourmet bakes.</div></div></div>
+    <div class="dish reveal"><div class="top d6"><span class="cui">Café</span><img class="photo" src="img/mall-2.jpg" alt="Brew &amp; Bean specialty coffee café" loading="lazy"></div><div class="b"><h4>Brew &amp; Bean</h4><div class="stars">★★★★☆</div><div class="desc">Specialty coffee &amp; all-day brunch.</div></div></div>
   </div>
 </div></section>
 
@@ -578,17 +582,17 @@ img{max-width:100%;display:block}
     <p>Recliners, Dolby Atmos and the biggest blockbusters — book your seats inside.</p>
   </div>
   <div class="films">
-    <div class="film reveal"><div class="poster f1"><span class="em">🚀</span></div><span class="rt">★ 8.9</span><div class="grain"></div><div class="info"><h4>Starbound</h4><div class="row"><span class="cert">U/A</span> Sci-Fi · 2h 18m</div></div></div>
-    <div class="film reveal"><div class="poster f2"><span class="em">🔥</span></div><span class="rt">★ 8.4</span><div class="grain"></div><div class="info"><h4>Wildfire</h4><div class="row"><span class="cert">U/A</span> Action · 2h 06m</div></div></div>
-    <div class="film reveal"><div class="poster f3"><span class="em">💞</span></div><span class="rt">★ 7.9</span><div class="grain"></div><div class="info"><h4>Monsoon Hearts</h4><div class="row"><span class="cert">U</span> Romance · 1h 54m</div></div></div>
-    <div class="film reveal"><div class="poster f4"><span class="em">🦖</span></div><span class="rt">★ 8.1</span><div class="grain"></div><div class="info"><h4>Lost World</h4><div class="row"><span class="cert">U/A</span> Adventure · 2h 22m</div></div></div>
+    <div class="film reveal"><div class="poster f1"><img class="photo" src="img/mall-3.jpg" alt="Starbound now showing at Lumina Cineplex" loading="lazy"></div><span class="rt">★ 8.9</span><div class="grain"></div><div class="info"><h4>Starbound</h4><div class="row"><span class="cert">U/A</span> Sci-Fi · 2h 18m</div></div></div>
+    <div class="film reveal"><div class="poster f2"><img class="photo" src="img/mall-3.jpg" alt="Wildfire now showing at Lumina Cineplex" loading="lazy"></div><span class="rt">★ 8.4</span><div class="grain"></div><div class="info"><h4>Wildfire</h4><div class="row"><span class="cert">U/A</span> Action · 2h 06m</div></div></div>
+    <div class="film reveal"><div class="poster f3"><img class="photo" src="img/mall-3.jpg" alt="Monsoon Hearts now showing at Lumina Cineplex" loading="lazy"></div><span class="rt">★ 7.9</span><div class="grain"></div><div class="info"><h4>Monsoon Hearts</h4><div class="row"><span class="cert">U</span> Romance · 1h 54m</div></div></div>
+    <div class="film reveal"><div class="poster f4"><img class="photo" src="img/mall-3.jpg" alt="Lost World now showing at Lumina Cineplex" loading="lazy"></div><span class="rt">★ 8.1</span><div class="grain"></div><div class="info"><h4>Lost World</h4><div class="row"><span class="cert">U/A</span> Adventure · 2h 22m</div></div></div>
   </div>
 </div></section>
 
 <section class="sec exp"><div class="wrap">
   <div class="exp-visual reveal">
+    <img class="photo" src="img/mall-about.jpg" alt="Families enjoying a full day out at Lumina Mall" loading="lazy">
     <div class="ring"></div>
-    <div class="glyph">👨‍👩‍👧‍👦</div>
   </div>
   <div class="reveal">
     <span class="eyebrow">A full day out</span>
