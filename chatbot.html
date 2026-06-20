@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get your AI Chatbot — RockitX</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    :root{
+      --font:'Satoshi',system-ui,sans-serif;
+      --grad:linear-gradient(135deg,#E879F9 0%,#A855F7 45%,#3B82F6 100%);
+      --bg:#070710;
+      --surface:rgba(255,255,255,.035);
+      --surface2:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.10);
+      --text:#fff;
+      --text2:#9ca3b8;
+      --accent:#a855f7;
+      --ok:#34d399;
+      --err:#fb7185;
+      --r:20px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{min-height:100%;}
+    body{
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 12% -5%,rgba(168,85,247,.22),transparent 60%),
+        radial-gradient(900px 600px at 110% 10%,rgba(59,130,246,.20),transparent 55%),
+        var(--bg);
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px 18px 56px;
+      -webkit-font-smoothing:antialiased;
+    }
+    .wrap{width:100%;max-width:480px;}
+    .brand{display:flex;align-items:center;gap:.55rem;justify-content:center;font-size:1.4rem;font-weight:900;letter-spacing:-.04em;margin-bottom:1.4rem;}
+    .brand .dot{width:30px;height:30px;border-radius:9px;background:var(--grad);display:grid;place-items:center;font-size:.95rem;color:#fff;box-shadow:0 8px 26px -8px rgba(168,85,247,.7);}
+    .brand span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+    .card{
+      position:relative;
+      background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
+      border:1px solid var(--border);
+      border-radius:26px;
+      padding:30px 28px;
+      box-shadow:0 40px 90px -30px rgba(0,0,0,.85);
+      backdrop-filter:blur(14px);
+      animation:rise .5s cubic-bezier(.2,.7,.2,1) both;
+    }
+    @keyframes rise{from{opacity:0;transform:translateY(14px) scale(.99);}to{opacity:1;transform:none;}}
+
+    /* progress dots */
+    .steps{display:flex;align-items:center;gap:.5rem;justify-content:center;margin-bottom:1.4rem;}
+    .steps i{width:30px;height:5px;border-radius:9px;background:var(--surface2);transition:.3s;}
+    .steps i.on{background:var(--grad);}
+
+    .eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.5rem;}
+    h1{font-size:1.7rem;line-height:1.15;font-weight:900;letter-spacing:-.03em;margin-bottom:.55rem;}
+    h1 .g{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .lead{color:var(--text2);line-height:1.65;font-size:.95rem;margin-bottom:1.4rem;}
+
+    .pricebox{display:flex;align-items:baseline;gap:.6rem;padding:1rem 1.1rem;border:1px solid var(--border);border-radius:16px;background:var(--surface);margin-bottom:1.3rem;}
+    .pricebox .amt{font-size:1.8rem;font-weight:900;letter-spacing:-.02em;}
+    .pricebox .per{color:var(--text2);font-size:.85rem;}
+    .pricebox .tag{margin-left:auto;font-size:.72rem;font-weight:800;color:var(--ok);background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);padding:.3rem .6rem;border-radius:999px;}
+
+    .finehint{font-size:.82rem;color:var(--text2);line-height:1.55;margin:-.6rem 0 1.4rem;}
+    ul.benefits{list-style:none;display:grid;gap:.7rem;margin-bottom:1.6rem;}
+    ul.benefits li{display:flex;gap:.7rem;align-items:flex-start;font-size:.92rem;color:#d7d9e3;line-height:1.4;}
+    ul.benefits svg{flex-shrink:0;width:20px;height:20px;margin-top:1px;}
+
+    .field{margin-bottom:1rem;}
+    .field label{display:block;font-size:.82rem;font-weight:700;margin-bottom:.45rem;color:#e7e8ef;}
+    .field .opt{color:var(--text2);font-weight:500;}
+    input{
+      width:100%;font:inherit;font-size:.96rem;color:var(--text);
+      background:rgba(0,0,0,.35);border:1px solid var(--border);border-radius:13px;
+      padding:.85rem 1rem;transition:.15s;
+    }
+    input::placeholder{color:#6b6e80;}
+    input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(168,85,247,.18);}
+
+    .swatches{display:flex;gap:.6rem;flex-wrap:wrap;}
+    .swatch{width:34px;height:34px;border-radius:50%;cursor:pointer;border:2px solid transparent;position:relative;transition:transform .12s;}
+    .swatch:hover{transform:scale(1.08);}
+    .swatch.sel{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.18);}
+    .swatch.sel::after{content:'✓';position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:.8rem;font-weight:900;text-shadow:0 1px 2px rgba(0,0,0,.5);}
+
+    .btn{
+      width:100%;margin-top:.4rem;padding:1.05rem 1.25rem;border:none;border-radius:15px;
+      font:inherit;font-size:1.02rem;font-weight:800;color:#fff;cursor:pointer;
+      background:var(--grad);background-size:160% 160%;
+      box-shadow:0 16px 40px -14px rgba(168,85,247,.7);
+      transition:filter .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:.5rem;
+    }
+    .btn:hover{filter:brightness(1.08);}
+    .btn:active{transform:translateY(1px);}
+    .btn:disabled{opacity:.6;cursor:not-allowed;filter:grayscale(.2);}
+    .btn svg{width:18px;height:18px;}
+
+    .secure{display:flex;align-items:center;justify-content:center;gap:.45rem;margin-top:1rem;font-size:.8rem;color:var(--text2);}
+    .secure svg{width:15px;height:15px;}
+
+    .msg{margin-top:.85rem;font-size:.88rem;line-height:1.5;display:none;}
+    .msg.err{display:block;color:var(--err);}
+    .msg.info{display:block;color:var(--text2);}
+
+    .back{display:block;text-align:center;margin-top:1.3rem;color:var(--text2);text-decoration:none;font-size:.86rem;}
+    .back:hover{color:#fff;}
+
+    .hidden{display:none!important;}
+
+    /* success */
+    .done-ico{width:64px;height:64px;margin:0 auto 1rem;border-radius:50%;display:grid;place-items:center;background:rgba(52,211,153,.14);border:1px solid rgba(52,211,153,.35);}
+    .done-ico svg{width:32px;height:32px;stroke:var(--ok);}
+    .next{list-style:none;counter-reset:n;display:grid;gap:.8rem;margin:1.3rem 0;text-align:left;}
+    .next li{counter-increment:n;display:flex;gap:.8rem;align-items:flex-start;font-size:.92rem;color:#d7d9e3;line-height:1.45;}
+    .next li::before{content:counter(n);flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--grad);color:#fff;font-size:.8rem;font-weight:800;display:grid;place-items:center;}
+    .linkrow{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:.8rem .9rem;margin-bottom:.7rem;text-align:left;}
+    .linkrow .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text2);margin-bottom:.25rem;}
+    .linkrow a{color:var(--accent);word-break:break-all;font-size:.9rem;font-weight:600;text-decoration:none;}
+    .linkrow a:hover{text-decoration:underline;}
+    .center{text-align:center;}
+    .spinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg);}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand"><span class="dot">R</span>Rockit<span>X</span></div>
+
+    <div class="card">
+      <div class="steps">
+        <i id="d1" class="on"></i><i id="d2"></i><i id="d3"></i>
+      </div>
+
+      <!-- ============ STEP 1: SELL + PAY ============ -->
+      <section id="step1">
+        <div class="eyebrow">Business Chatbot</div>
+        <h1>A smart assistant that <span class="g">answers customers for you</span></h1>
+        <p class="lead">It learns from your files — brochures, price lists, FAQs, anything — and replies to your customers instantly, 24/7, right on your website.</p>
+
+        <div class="pricebox">
+          <div>
+            <span class="amt" id="amt">…</span>
+            <span class="per">one-time setup</span>
+          </div>
+          <span class="tag" id="creditTag">includes free credits</span>
+        </div>
+        <p class="finehint" id="renewHint">Then a small monthly amount to keep it running. You only pay for what you actually use — top up anytime from your dashboard.</p>
+
+        <ul class="benefits">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Answers customer questions from your own documents, instantly
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Add it to your website by pasting one small piece of code
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            A simple dashboard to upload files, pick your colour &amp; watch your usage like a meter
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            No surprise bills — recharge whenever you want, only if you need to
+          </li>
+        </ul>
+
+        <button class="btn" id="payBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Pay <span id="payAmt"></span> &amp; get started
+        </button>
+        <div class="secure">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secure payment by Razorpay · UPI, cards &amp; netbanking
+          </div>
+        <p class="msg" id="msg1"></p>
+      </section>
+
+      <!-- ============ STEP 2: SETUP AFTER PAYMENT ============ -->
+      <section id="step2" class="hidden">
+        <div class="eyebrow center" style="text-align:center;color:var(--ok);">Payment received ✓</div>
+        <h1 style="text-align:center;font-size:1.5rem;">Let's set up <span class="g">your account</span></h1>
+        <p class="lead center">Just a few details and your chatbot is ready. You'll use these to log in.</p>
+
+        <form id="setupForm">
+          <div class="field">
+            <label for="company">Your business name</label>
+            <input id="company" required placeholder="e.g. Sunrise Bakery" autocomplete="organization">
+          </div>
+          <div class="field">
+            <label for="email">Email <span class="opt">— this is your login</span></label>
+            <input id="email" type="email" required placeholder="you@yourbusiness.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="password">Create a password</label>
+            <input id="password" type="password" minlength="6" required placeholder="At least 6 characters" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label>Pick your chatbot colour</label>
+            <div class="swatches" id="swatches"></div>
+          </div>
+          <button class="btn" type="submit" id="finishBtn">Create my chatbot</button>
+          <p class="msg" id="msg2"></p>
+        </form>
+      </section>
+
+      <!-- ============ STEP 3: DONE ============ -->
+      <section id="step3" class="hidden center">
+        <div class="done-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+        <h1 style="font-size:1.5rem;">You're all set! <span class="g">🎉</span></h1>
+        <p class="lead center" id="doneMsg"></p>
+
+        <div class="linkrow">
+          <div class="k">Your login</div>
+          <a id="adminLink" href="#" target="_blank" rel="noreferrer"></a>
+        </div>
+        <div class="linkrow">
+          <div class="k">Your chatbot preview</div>
+          <a id="embedLink" href="#" target="_blank" rel="noreferrer"></a>
+      </div>
+
+        <ol class="next">
+          <li>Log in with the email and password you just created.</li>
+          <li>Upload your files (PDF, Word or text) — the bot learns from them.</li>
+          <li>Copy your embed code and paste it into your website.</li>
+        </ol>
+      </section>
+
+      <a class="back" href="index.html">← Back to RockitX</a>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = (() => {
+      if (window.ROCKITX_API_BASE) return window.ROCKITX_API_BASE.replace(/\/$/, '');
+      if (window.location.protocol === 'file:') return 'http://localhost:8000';
+      return 'https://api.rockitx.com';
+    })();
+
+    const COLORS = ['#a855f7','#3b82f6','#10b981','#f59e0b','#ef4444','#ec4899','#06b6d4','#6366f1'];
+    let accent = COLORS[0];
+    let config = null;
+    let paid = null; // {order_id, payment_id, signature}
+
+    const $ = (id) => document.getElementById(id);
+    const setStep = (n) => {
+      $('step1').classList.toggle('hidden', n !== 1);
+      $('step2').classList.toggle('hidden', n !== 2);
+      $('step3').classList.toggle('hidden', n !== 3);
+      $('d1').classList.toggle('on', n >= 1);
+      $('d2').classList.toggle('on', n >= 2);
+      $('d3').classList.toggle('on', n >= 3);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const showMsg = (id, text, kind = 'err') => {
+      const el = $(id);
+      el.textContent = text || '';
+      el.className = 'msg' + (text ? ' ' + kind : '');
+    };
+
+    // build colour swatches
+    COLORS.forEach((c, i) => {
+      const s = document.createElement('div');
+      s.className = 'swatch' + (i === 0 ? ' sel' : '');
+      s.style.background = c;
+      s.title = c;
+      s.onclick = () => {
+        accent = c;
+        document.querySelectorAll('.swatch').forEach(x => x.classList.remove('sel'));
+        s.classList.add('sel');
+      };
+      $('swatches').appendChild(s);
+    });
+
+    async function loadConfig() {
+      const res = await fetch(`${API_BASE}/payments/config`);
+      if (!res.ok) throw new Error('config');
+      config = await res.json();
+      $('amt').textContent = config.amount_display;
+      $('payAmt').textContent = config.amount_display;
+      const credit = config.setup_credit_usd;
+      const chats = config.tokens_per_usd ? Math.round((config.tokens_per_usd / 1000) * credit) : 0;
+      $('creditTag').textContent = `includes $${credit} credit`;
+      $('renewHint').innerHTML =
+        `Includes <strong>$${credit} of AI usage</strong>` +
+        (chats ? ` — roughly ${chats.toLocaleString()} customer chats` : '') +
+        `. After that, just <strong>${config.renewal_amount_display}/month</strong> to keep it running ` +
+        `(adds another $${config.renewal_credit_usd}). You only pay for what you use — top up anytime from your dashboard.`;
+    }
+
+    // ---- Step 1: create order + open Razorpay ----
+    $('payBtn').addEventListener('click', async () => {
+      const btn = $('payBtn');
+      showMsg('msg1', '');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Opening secure checkout…';
+      try {
+        const res = await fetch(`${API_BASE}/payments/create-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({}),
+        });
+        const order = await res.json();
+        if (!res.ok) throw new Error(order.detail || 'Could not start checkout');
+
+        const rzp = new Razorpay({
+          key: order.key_id,
+          amount: order.amount_paise,
+          currency: order.currency,
+          name: 'RockitX',
+          description: 'Business Chatbot',
+          order_id: order.order_id,
+          theme: { color: '#a855f7' },
+          handler: (resp) => {
+            paid = {
+              order_id: resp.razorpay_order_id,
+              payment_id: resp.razorpay_payment_id,
+              signature: resp.razorpay_signature,
+            };
+            resetPayBtn();
+            setStep(2);
+          },
+          modal: { ondismiss: resetPayBtn },
+        });
+        rzp.on('payment.failed', (r) => {
+          showMsg('msg1', r.error?.description || 'Payment failed. Please try again.');
+          resetPayBtn();
+        });
+        rzp.open();
+      } catch (e) {
+        showMsg('msg1', e.message);
+        resetPayBtn();
+      }
+    });
+
+    function resetPayBtn() {
+      const btn = $('payBtn');
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg> Pay ' + (config ? config.amount_display : '') + ' &amp; get started';
+    }
+
+    // ---- Step 2: finish setup ----
+    $('setupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!paid) { setStep(1); return; }
+      const btn = $('finishBtn');
+      showMsg('msg2', '');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Setting up your chatbot…';
+      try {
+        const res = await fetch(`${API_BASE}/payments/verify`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+            razorpay_order_id: paid.order_id,
+            razorpay_payment_id: paid.payment_id,
+            razorpay_signature: paid.signature,
+            company_name: $('company').value.trim(),
+            customer_email: $('email').value.trim().toLowerCase(),
+            customer_name: '',
+            admin_password: $('password').value,
+            accent_color: accent,
+          }),
+        });
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.detail || 'Setup failed');
+
+        $('doneMsg').textContent = result.message;
+        $('adminLink').href = result.admin_panel_url;
+        $('adminLink').textContent = result.admin_panel_url;
+        $('embedLink').href = result.embed_url;
+        $('embedLink').textContent = result.embed_url;
+        setStep(3);
+      } catch (e2) {
+        showMsg('msg2', e2.message);
+        btn.disabled = false;
+        btn.textContent = 'Create my chatbot';
+      }
+    });
+
+    loadConfig().catch(async () => {
+      $('amt').textContent = 'Unavailable';
+      $('payBtn').disabled = true;
+      let msg = "We couldn't load pricing right now. Please try again in a moment.";
+      if (window.location.protocol === 'file:') {
+        msg = 'Please open this page through your website, not as a local file.';
+      }
+      showMsg('msg1', msg, 'info');
+    });
+  </script>
+</body>
+</html>
