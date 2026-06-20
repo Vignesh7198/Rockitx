@@ -2523,5 +2523,29 @@ function goSection(id){
   setInterval(render,1000);
 })();
 </script>
+
+<!-- TEST: Business Chatbot embed (sunrise-bakery) -->
+<style>
+  #rkChatPanel{position:fixed;right:24px;bottom:96px;width:400px;height:600px;max-width:calc(100vw - 32px);max-height:calc(100vh - 130px);z-index:9995;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -12px rgba(0,0,0,.5);background:#0b0b12;display:none;}
+  #rkChatPanel.open{display:block;}
+  #rkChatPanel iframe{width:100%;height:100%;border:none;display:block;}
+  #rkChatBtn{position:fixed;right:24px;bottom:24px;z-index:9996;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(145deg,#7C5CFF,#4F46E5);color:#fff;font-size:26px;box-shadow:0 14px 30px -8px rgba(79,70,229,.7);transition:transform .2s;}
+  #rkChatBtn:hover{transform:scale(1.06);}
+  @media(max-width:600px){#rkChatPanel{right:8px;bottom:84px;}}
+</style>
+<button id="rkChatBtn" type="button" aria-label="Open chat">&#128172;</button>
+<div id="rkChatPanel" role="dialog" aria-label="Business Chatbot">
+  <iframe src="https://api.rockitx.com/embed/sunrise-bakery" width="400" height="600" style="border:none;" title="Business Chatbot"></iframe>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('rkChatBtn'),panel=document.getElementById('rkChatPanel');
+  if(!btn||!panel)return;
+  btn.addEventListener('click',function(){
+    var open=panel.classList.toggle('open');
+    btn.innerHTML=open?'&#10005;':'&#128172;';
+  });
+})();
+</script>
 </body>
 </html>
