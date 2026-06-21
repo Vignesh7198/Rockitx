@@ -1919,6 +1919,94 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 .ai-modal-soon svg{width:42px;height:42px;stroke:var(--accent);fill:none;stroke-width:1.6;}
 .ai-modal-desc{padding:1.1rem 1.2rem 1.4rem;color:var(--text2);line-height:1.7;font-size:.9rem;}
 @media(max-width:560px){.ai-actions{flex-direction:column;}}
+
+/* ===== AI Services — image cards, pop-out robot, mystery timers ===== */
+#page-aiservices{position:relative;overflow:hidden;}
+#page-aiservices .ph,#page-aiservices .ai-grid,#page-aiservices .cta-s{position:relative;z-index:1;}
+
+.ai-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem;align-items:stretch;}
+
+/* card shell — overflow visible so the robot can pop OUT */
+.ai-card{position:relative;min-height:466px;border-radius:20px;overflow:visible;background:transparent;box-shadow:0 16px 44px -26px rgba(0,0,0,.8);transition:transform .45s var(--ease-spring),box-shadow .45s;}
+.ai-card:hover{transform:translateY(-8px);box-shadow:0 40px 90px -34px rgba(0,0,0,.85),0 0 0 1px rgba(124,108,255,.3);}
+.ai-card.feat{box-shadow:0 0 0 1px rgba(124,108,255,.4),0 26px 64px -30px rgba(124,108,255,.5);}
+
+/* clip wrapper holds image + scrim + reveal (rounded, clipped) */
+.ai-clip{position:absolute;inset:0;border-radius:20px;overflow:hidden;border:1px solid var(--border);background:#0b0b14;transition:border-color .3s;}
+.ai-card:hover .ai-clip{border-color:var(--border2);}
+
+.ai-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.03);transition:transform 1s var(--ease-spring),filter .5s;}
+.ai-card:hover .ai-img{transform:scale(1.1);filter:saturate(1.12);}
+.ai-clip::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(8,8,16,.5) 0%,rgba(8,8,16,0) 24%,rgba(8,8,16,0) 38%,rgba(8,8,16,.5) 66%,rgba(8,8,16,.98) 100%);}
+
+.ai-badge{position:absolute;top:14px;left:14px;z-index:4;}
+.ai-pop{position:absolute;top:18px;right:-34px;transform:rotate(45deg);z-index:5;background:linear-gradient(135deg,#E879F9,#A855F7);color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 42px;box-shadow:0 6px 16px -4px rgba(168,85,247,.7);}
+
+/* resting frosted label — high contrast for readability */
+.ai-base{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:2.2rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.26rem;background:linear-gradient(180deg,rgba(8,8,15,0),rgba(8,8,15,.85) 48%,rgba(8,8,15,.98));transition:opacity .3s,transform .45s var(--ease-spring);}
+.ai-card:hover .ai-base{opacity:0;transform:translateY(16px);}
+.ai-cat{font-size:.6rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#B7C0FF;}
+.ai-title{font-size:1.08rem;font-weight:800;color:#fff;line-height:1.2;letter-spacing:-.01em;text-shadow:0 2px 16px rgba(0,0,0,.75);}
+.ai-base .ai-price{display:flex;align-items:baseline;gap:.45rem;margin-top:.15rem;}
+.ai-base .ai-price b{font-size:1.15rem;font-weight:900;color:#fff;}
+.ai-base .ai-price b small{font-size:.72rem;font-weight:700;color:#d6d9ff;}
+.ai-base .ai-price span{font-size:.72rem;color:#c2c4dc;font-weight:600;}
+.ai-hint{margin-top:.55rem;display:inline-flex;align-items:center;gap:6px;font-size:.7rem;font-weight:700;letter-spacing:.03em;color:#dfe2ff;}
+.ai-hint svg{width:14px;height:14px;stroke:#dfe2ff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;animation:aiHintBob 1.8s ease-in-out infinite;}
+@keyframes aiHintBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
+
+/* hover reveal (inside clip) — content sized to fit so it never scrolls */
+.ai-reveal{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:3.6rem 1.15rem 1.15rem;text-align:center;background:linear-gradient(180deg,rgba(11,11,20,.94),rgba(11,11,20,.985));backdrop-filter:blur(10px);opacity:0;transform:translateY(101%);transition:transform .55s var(--ease-spring),opacity .4s;overflow:hidden;}
+.ai-card:hover .ai-reveal{opacity:1;transform:translateY(0);}
+
+/* cute BIG robot popping OUT of the card on hover */
+.ai-bot{position:absolute;top:0;left:50%;width:152px;height:152px;object-fit:contain;z-index:20;pointer-events:none;transform-origin:bottom center;transform:translate(-50%,30%) scale(.4);opacity:0;filter:drop-shadow(0 18px 28px rgba(124,108,255,.6)) drop-shadow(0 0 22px rgba(59,130,246,.5));transition:transform .55s var(--ease-spring) .05s,opacity .35s;}
+.ai-card:hover .ai-bot{transform:translate(-50%,-56%) scale(1);opacity:1;animation:aiBotOut 3s ease-in-out .65s infinite;}
+@keyframes aiBotOut{0%,100%{transform:translate(-50%,-56%) scale(1) rotate(-2deg);}50%{transform:translate(-50%,-62%) scale(1.02) rotate(2deg);}}
+
+.ai-reveal .ai-cat{color:#B7C0FF;margin-bottom:-.1rem;}
+.ai-rv-title{font-size:1.06rem;font-weight:800;color:#fff;line-height:1.18;margin-bottom:.05rem;}
+.ai-speech{position:relative;background:rgba(124,108,255,.14);border:1px solid rgba(124,108,255,.36);border-radius:13px;padding:.6rem .8rem;font-size:.78rem;line-height:1.45;color:#eceefb;}
+.ai-speech::before{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:13px;height:13px;background:rgba(124,108,255,.14);border-left:1px solid rgba(124,108,255,.36);border-top:1px solid rgba(124,108,255,.36);}
+
+.ai-chips{display:flex;flex-direction:column;gap:.36rem;width:100%;margin:.15rem 0;text-align:left;}
+.ai-chip{display:flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:600;line-height:1.3;color:#dadcef;background:none;border:none;padding:0;}
+.ai-chip::before{content:'✓';flex-shrink:0;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:.62rem;font-weight:900;color:#fff;background:linear-gradient(145deg,#7C6CFF,#4F46E5);}
+
+.ai-reveal .ai-price{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin-top:auto;padding-top:.5rem;}
+.ai-reveal .ai-price b{font-size:1.4rem;font-weight:900;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.ai-reveal .ai-price b small{font-size:.72rem;font-weight:800;-webkit-text-fill-color:#aeb0c8;}
+.ai-reveal .ai-price span{font-size:.72rem;color:#9b9db5;font-weight:600;}
+
+.ai-actions{display:flex;gap:.55rem;width:100%;margin-top:.55rem;}
+.ai-actions>*{flex:1;justify-content:center;padding:.68rem .55rem;font-size:.83rem;}
+.btn-buy{border:none;border-radius:12px;color:#fff;font-family:var(--font);font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#7C6CFF,#4F46E5);box-shadow:0 12px 26px -12px rgba(124,108,255,.9);transition:filter .15s,transform .12s;}
+.btn-buy:hover{filter:brightness(1.1);transform:translateY(-2px);}
+.ai-card.feat .btn-buy{background:linear-gradient(135deg,#E879F9,#A855F7);}
+.btn-details{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.18);color:#fff;font-family:var(--font);font-weight:700;border-radius:12px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:border-color .2s,background .2s;}
+.btn-details:hover{border-color:#7C6CFF;background:rgba(124,108,255,.16);}
+.btn-details svg{width:15px;height:15px;fill:#fff;}
+
+/* ===== Mystery "coming soon" cards — blank, big ?, countdown ===== */
+.ai-card.mystery .ai-clip{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.7rem;background:radial-gradient(circle at 50% 32%,#1d1740 0%,#120f24 56%,#0a0a12 100%);}
+.ai-card.mystery .ai-clip::before{display:none;}
+.myst-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(124,108,255,.22) 1px,transparent 1px);background-size:22px 22px;opacity:.6;-webkit-mask-image:radial-gradient(circle at 50% 42%,#000,transparent 72%);mask-image:radial-gradient(circle at 50% 42%,#000,transparent 72%);}
+.myst-q{position:relative;z-index:1;font-size:7.5rem;font-weight:900;line-height:1;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 6px 28px rgba(124,108,255,.6));animation:qFloat 3.4s ease-in-out infinite;}
+@keyframes qFloat{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-12px) scale(1.07);}}
+.ai-card.mystery:hover{transform:translateY(-8px);box-shadow:0 40px 90px -34px rgba(0,0,0,.85),0 0 0 1px rgba(124,108,255,.35);}
+.ai-card.mystery:hover .myst-q{animation-duration:1.3s;}
+.ai-timer{position:relative;z-index:1;display:flex;gap:.45rem;}
+.tg{display:flex;flex-direction:column;align-items:center;min-width:52px;padding:.55rem .3rem;border-radius:13px;background:rgba(255,255,255,.045);border:1px solid rgba(124,108,255,.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.06);}
+.tg b{font-size:1.4rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;}
+.tg i{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9b9db5;font-style:normal;margin-top:5px;}
+
+/* touch devices: no hover -> reveal as bottom sheet */
+@media (hover:none){
+  .ai-card:not(.mystery) .ai-reveal{top:auto;bottom:0;height:auto;max-height:84%;transform:none;opacity:1;border-radius:0 0 22px 22px;padding-top:1.3rem;}
+  .ai-card:not(.mystery) .ai-base{display:none;}
+  .ai-bot{display:none;}
+}
+@media(max-width:560px){.ai-actions{flex-direction:row;}}
 </style>
 
 <div class="page" id="page-aiservices">
@@ -1927,144 +2015,134 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     <div class="ph-inner">
       <div class="sl fu">AI Services Marketplace</div>
       <h1 class="fu d1">Ready-to-deploy <span class="gt">AI agents</span> for your business</h1>
-      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Buy a trained AI bot, embed it on your website in minutes, and let it work 24/7. Tap <b>Details</b> on any service to watch a quick demo.</p>
+      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Buy a trained AI bot, embed it on your website in minutes, and let it work 24/7. <b>Hover any card</b> and the AI pops up to explain the service.</p>
     </div>
   </div>
 
   <div class="ai-grid sg">
 
     <!-- 1. Business Chatbot (LIVE) -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <article class="ai-card feat">
+      <div class="ai-clip">
+        <div class="ai-img" style="background-image:url('img/ai-receptionist-card.png');background-position:center top;"></div>
         <span class="ai-badge live"><span class="dot"></span>Live now</span>
+        <span class="ai-pop">Popular</span>
+        <div class="ai-base">
+          <div class="ai-cat">AI Website Receptionist</div>
+          <h3 class="ai-title">Business Chatbot</h3>
+          <div class="ai-price"><b>₹200<small>/month</small></b><span>1000+ chats</span></div>
+          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+        </div>
+        <div class="ai-reveal">
+          <div class="ai-cat">AI Website Receptionist</div>
+          <h3 class="ai-rv-title">Business Chatbot</h3>
+          <div class="ai-speech">A smart AI Receptionist that lives in your website and answers your customers' queries instantly, based on the training you provide.</div>
+          <div class="ai-chips"><span class="ai-chip">Software to fully control the bot</span><span class="ai-chip">Live analytics</span><span class="ai-chip">Full setup &amp; training provided</span><span class="ai-chip">Transparent, lowest price in the industry</span><span class="ai-chip">Priority email, call &amp; chat support</span></div>
+          <div class="ai-price"><b>₹200<small>/month</small></b><span>recharge anytime</span></div>
+          <div class="ai-actions">
+            <button class="btn-buy" data-name="Business Chatbot" data-buy="chatbot.html">Buy Now</button>
+            <button class="btn-details" data-title="Business Chatbot" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="See how the Business Chatbot learns from your files and answers customers 24/7. Upload your documents, pick your colour, and add it to your website — no technical skills needed."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
+        </div>
       </div>
-      <div class="ai-cat">AI Assistant</div>
-      <div class="ai-title">Business Chatbot</div>
-      <div class="ai-desc">A smart assistant that answers your customers instantly from your own files — and you can add it to your website in minutes.</div>
-      <div class="ai-price"><b>₹200<small>/month</small></b><span>1000+ chats included · recharge anytime</span></div>
-      <div class="ai-chips"><span class="ai-chip">Learns your files</span><span class="ai-chip">1000+ chats / month</span><span class="ai-chip">Recharge your AI</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="Business Chatbot" data-buy="chatbot.html">Buy Now</button>
-        <button class="btn-details" data-title="Business Chatbot" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="See how the Business Chatbot learns from your files and answers customers 24/7. Upload your documents, pick your colour, and add it to your website — no technical skills needed."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+      <img class="ai-bot" src="ai-robot.png" alt="">
+    </article>
 
     <!-- 2. Sweep — Local Business / Lead Finder (LIVE) -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    <article class="ai-card">
+      <div class="ai-clip">
+        <div class="ai-img" style="background-image:url('img/ai-sweep.png')"></div>
         <span class="ai-badge live"><span class="dot"></span>Live now</span>
+        <div class="ai-base">
+          <div class="ai-cat">Lead Generation</div>
+          <h3 class="ai-title">Sweep — Local Business Finder</h3>
+          <div class="ai-price"><b>₹100<small> to start</small></b><span>1 search = ₹1</span></div>
+          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+        </div>
+        <div class="ai-reveal">
+          <div class="ai-cat">Lead Generation</div>
+          <h3 class="ai-rv-title">Sweep — Local Business Finder</h3>
+          <div class="ai-speech">Pick a city and a business type — the AI scans the map and pulls phone, website and address, then exports a ready-to-use Excel list.</div>
+          <div class="ai-chips"><span class="ai-chip">Search local business contacts</span><span class="ai-chip">Export as Excel</span><span class="ai-chip">Lowest price in the industry (guaranteed)</span></div>
+          <div class="ai-price"><b>₹100<small> to start</small></b><span>up to 60 leads / search</span></div>
+          <div class="ai-actions">
+            <button class="btn-buy" data-name="Sweep — Local Business Finder" data-buy="sweep.html">Buy Now</button>
+            <button class="btn-details" data-title="Sweep — Local Business Finder" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="Sweep helps you build lead lists fast: pick a location and a business type, and the AI scans the map to pull phone numbers, websites and addresses. Mark who you've contacted and export everything to Excel. Start with ₹100 of wallet credit — each AI search costs just ₹1 and can fetch up to 60 leads."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
+        </div>
       </div>
-      <div class="ai-cat">Lead Generation</div>
-      <div class="ai-title">Sweep — Local Business Finder</div>
-      <div class="ai-desc">Find local businesses anywhere, grab their phone, website and address, mark who you've contacted, and download a ready-to-use Excel list of leads.</div>
-      <div class="ai-price"><b>Pay as you go</b><span>top up your wallet · pay per search</span></div>
-      <div class="ai-chips"><span class="ai-chip">Search any city</span><span class="ai-chip">Phone &amp; website</span><span class="ai-chip">Excel export</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="Sweep — Local Business Finder" data-buy="https://sweep.rockitx.com">Get started</button>
-        <button class="btn-details" data-title="Sweep — Local Business Finder" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="Sweep helps you build lead lists fast: search for any type of business in a location, pull their contact details from Google, track who you've reached out to, and export everything to Excel."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+      <img class="ai-bot" src="ai-robot.png" alt="">
+    </article>
 
-    <!-- 3. WhatsApp AI Auto-Reply -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg></div>
-        <span class="ai-badge soon"><span class="dot"></span>Coming soon</span>
+    <!-- Coming soon — blank mystery cards with a big ? and a 2-week-apart countdown -->
+    <article class="ai-card mystery">
+      <div class="ai-clip">
+        <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="2">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
       </div>
-      <div class="ai-cat">Messaging</div>
-      <div class="ai-title">WhatsApp AI Auto-Reply Bot</div>
-      <div class="ai-desc">An AI agent that replies to your WhatsApp Business chats instantly — answering FAQs, sharing catalogs, and capturing leads even while you sleep.</div>
-      <div class="ai-price"><b>Coming soon</b><span>join the waitlist</span></div>
-      <div class="ai-chips"><span class="ai-chip">WhatsApp Business API</span><span class="ai-chip">Auto FAQ</span><span class="ai-chip">Lead capture</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="WhatsApp AI Auto-Reply Bot" data-buy="contact">Buy Now</button>
-        <button class="btn-details" data-title="WhatsApp AI Auto-Reply Bot" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="See how the WhatsApp AI bot replies to customers instantly, shares your product catalog, and captures leads automatically."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+    </article>
 
-    <!-- 3. AI Voice Assistant -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg></div>
-        <span class="ai-badge soon"><span class="dot"></span>Coming soon</span>
+    <article class="ai-card mystery">
+      <div class="ai-clip">
+        <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="4">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
       </div>
-      <div class="ai-cat">Voice AI</div>
-      <div class="ai-title">AI Voice Assistant</div>
-      <div class="ai-desc">A natural-sounding voice agent that answers calls, books appointments, and handles customer queries — so you never miss a call again.</div>
-      <div class="ai-price"><b>Coming soon</b><span>join the waitlist</span></div>
-      <div class="ai-chips"><span class="ai-chip">Inbound calls</span><span class="ai-chip">Natural voice</span><span class="ai-chip">24/7</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="AI Voice Assistant" data-buy="contact">Buy Now</button>
-        <button class="btn-details" data-title="AI Voice Assistant" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="Hear the AI Voice Assistant answer calls, book appointments, and handle queries in a natural human-like voice."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+    </article>
 
-    <!-- 4. AI Sales / Lead-Gen Agent -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg></div>
-        <span class="ai-badge soon"><span class="dot"></span>Coming soon</span>
+    <article class="ai-card mystery">
+      <div class="ai-clip">
+        <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="6">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
       </div>
-      <div class="ai-cat">Sales AI</div>
-      <div class="ai-title">AI Lead-Gen Sales Agent</div>
-      <div class="ai-desc">Qualifies website visitors, answers product questions, and books demos straight into your calendar — turning traffic into booked sales calls.</div>
-      <div class="ai-price"><b>Coming soon</b><span>join the waitlist</span></div>
-      <div class="ai-chips"><span class="ai-chip">Lead scoring</span><span class="ai-chip">Calendar booking</span><span class="ai-chip">CRM sync</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="AI Lead-Gen Sales Agent" data-buy="contact">Buy Now</button>
-        <button class="btn-details" data-title="AI Lead-Gen Sales Agent" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="Watch the AI Sales Agent qualify visitors, answer questions, and book demos directly into your calendar."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+    </article>
 
-    <!-- 5. AI Appointment Booking Bot -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <span class="ai-badge soon"><span class="dot"></span>Coming soon</span>
+    <article class="ai-card mystery">
+      <div class="ai-clip">
+        <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="8">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
       </div>
-      <div class="ai-cat">Scheduling</div>
-      <div class="ai-title">AI Appointment Booking Bot</div>
-      <div class="ai-desc">Lets clients check availability and book appointments through chat — perfect for clinics, salons, and service businesses. Syncs with your calendar in real time.</div>
-      <div class="ai-price"><b>Coming soon</b><span>join the waitlist</span></div>
-      <div class="ai-chips"><span class="ai-chip">Real-time slots</span><span class="ai-chip">Reminders</span><span class="ai-chip">Reschedule</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="AI Appointment Booking Bot" data-buy="contact">Buy Now</button>
-        <button class="btn-details" data-title="AI Appointment Booking Bot" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="See clients book and reschedule appointments through chat, with automatic reminders and live calendar sync."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+    </article>
 
-    <!-- 6. Custom AI Agent -->
-    <div class="ai-card">
-      <div class="ai-card-top">
-        <div class="iw"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2v1a7 7 0 0 1 5 6.7V17l2 3H3l2-3v-5.3A7 7 0 0 1 10 5V4a2 2 0 0 1 2-2z"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/></svg></div>
-        <span class="ai-badge soon"><span class="dot"></span>Coming soon</span>
+    <article class="ai-card mystery">
+      <div class="ai-clip">
+        <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="10">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
       </div>
-      <div class="ai-cat">Custom Build</div>
-      <div class="ai-title">Custom AI Agent &amp; Automation</div>
-      <div class="ai-desc">Have a unique workflow? We build a tailor-made AI agent that connects to your tools and automates repetitive tasks — designed around your exact business.</div>
-      <div class="ai-price"><b>Custom quote</b><span>built for you</span></div>
-      <div class="ai-chips"><span class="ai-chip">Your tools</span><span class="ai-chip">Automation</span><span class="ai-chip">Bespoke</span></div>
-      <div class="ai-actions">
-        <button class="btn-buy" data-name="Custom AI Agent &amp; Automation" data-buy="contact">Buy Now</button>
-        <button class="btn-details" data-title="Custom AI Agent &amp; Automation" data-yt="PASTE_YOUTUBE_ID"
-          data-desc="Discover how we design bespoke AI agents that plug into your existing tools and automate your specific workflows."
-          onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
-      </div>
-    </div>
+    </article>
 
   </div>
 
@@ -2174,6 +2252,33 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   document.querySelectorAll('#page-aiservices .btn-buy[data-name]').forEach(function(b){
     b.addEventListener('click',function(){buyService(b);});
   });
+})();
+
+/* ── AI SERVICES: mystery "coming soon" countdowns (each 2 weeks apart) ── */
+(function(){
+  var timers=document.querySelectorAll('#page-aiservices .ai-timer');
+  if(!timers.length)return;
+  var DAY=86400000;
+  /* Fixed anchor so the countdowns stay consistent across page reloads. */
+  var BASE=new Date('2026-06-22T00:00:00+05:30').getTime();
+  timers.forEach(function(el){
+    var w=parseInt(el.getAttribute('data-weeks'),10)||2;
+    el.__target=BASE + w*7*DAY;
+  });
+  function pad(n){return String(n).padStart(2,'0');}
+  function set(el,sel,v){var n=el.querySelector(sel);if(n)n.textContent=pad(v);}
+  function tick(){
+    var now=Date.now();
+    timers.forEach(function(el){
+      var diff=el.__target-now; if(diff<0)diff=0;
+      var d=Math.floor(diff/DAY); diff-=d*DAY;
+      var h=Math.floor(diff/3600000); diff-=h*3600000;
+      var m=Math.floor(diff/60000); diff-=m*60000;
+      var s=Math.floor(diff/1000);
+      set(el,'[data-d]',d);set(el,'[data-h]',h);set(el,'[data-m]',m);set(el,'[data-s]',s);
+    });
+  }
+  tick(); setInterval(tick,1000);
 })();
 </script>
 

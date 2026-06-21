@@ -1,0 +1,10 @@
+Your AWS server runs the Docker image, so code changes need a new image. From your PC (C:\ReactClass930):
+
+docker build -t vicky7198/rockitx-backend:latest ./backend
+docker push vicky7198/rockitx-backend:latest
+Then on the AWS server:
+
+cd /opt/rockitx
+sudo docker compose -f docker-compose.aws.yml pull backend
+sudo docker compose -f docker-compose.aws.yml up -d backend
+Refresh the iframe and re-test.
