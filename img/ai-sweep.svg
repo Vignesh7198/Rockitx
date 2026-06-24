@@ -50,7 +50,7 @@
   <circle cx="68" cy="186" r="10" fill="url(#sw-accent)" opacity=".8"/>
   <text x="68" y="190" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="8" font-weight="800" fill="#fff">A</text>
   <text x="86" y="182" font-family="Segoe UI,sans-serif" font-size="8" font-weight="700" fill="#E2E8F0">Smile Dental Clinic</text>
-  <text x="86" y="194" font-family="Segoe UI,sans-serif" font-size="7" fill="#94A3B8">+91 98xxx · website · address</text>
+  <text x="86" y="194" font-family="Segoe UI,sans-serif" font-size="7" fill="#94A3B8">+91 98xxx ï¿½ website ï¿½ address</text>
   <rect x="290" y="176" width="44" height="16" rx="8" fill="rgba(16,185,129,.25)" stroke="rgba(16,185,129,.4)" stroke-width="1"/>
   <text x="302" y="187" font-family="Segoe UI,sans-serif" font-size="6.5" font-weight="800" fill="#6EE7B7">EXPORT</text>
 </svg>

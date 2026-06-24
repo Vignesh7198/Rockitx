@@ -1924,10 +1924,10 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 #page-aiservices{position:relative;overflow:hidden;}
 #page-aiservices .ph,#page-aiservices .ai-grid,#page-aiservices .cta-s{position:relative;z-index:1;}
 
-.ai-grid{grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.6rem;align-items:stretch;}
+.ai-grid{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.3rem;align-items:stretch;}
 
 /* card shell — overflow visible so the robot can pop OUT */
-.ai-card{position:relative;min-height:466px;border-radius:20px;overflow:visible;background:transparent;box-shadow:0 16px 44px -26px rgba(0,0,0,.8);transition:transform .45s var(--ease-spring),box-shadow .45s;}
+.ai-card{position:relative;min-height:390px;border-radius:20px;overflow:visible;background:transparent;box-shadow:0 16px 44px -26px rgba(0,0,0,.8);transition:transform .45s var(--ease-spring),box-shadow .45s;}
 .ai-card:hover{transform:translateY(-8px);box-shadow:0 40px 90px -34px rgba(0,0,0,.85),0 0 0 1px rgba(124,108,255,.3);}
 .ai-card.feat{box-shadow:0 0 0 1px rgba(124,108,255,.4),0 26px 64px -30px rgba(124,108,255,.5);}
 
@@ -1956,7 +1956,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 @keyframes aiHintBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-3px);}}
 
 /* hover reveal (inside clip) — content sized to fit so it never scrolls */
-.ai-reveal{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:3.6rem 1.15rem 1.15rem;text-align:center;background:linear-gradient(180deg,rgba(11,11,20,.94),rgba(11,11,20,.985));backdrop-filter:blur(10px);opacity:0;transform:translateY(101%);transition:transform .55s var(--ease-spring),opacity .4s;overflow:hidden;}
+.ai-reveal{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;gap:.35rem;padding:2.3rem 1.05rem 3.9rem;text-align:center;background:linear-gradient(180deg,rgba(11,11,20,.94),rgba(11,11,20,.985));backdrop-filter:blur(10px);opacity:0;transform:translateY(101%);transition:transform .55s var(--ease-spring),opacity .4s;overflow:hidden;}
 .ai-card:hover .ai-reveal{opacity:1;transform:translateY(0);}
 
 /* cute BIG robot popping OUT of the card on hover */
@@ -1969,16 +1969,16 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 .ai-speech{position:relative;background:rgba(124,108,255,.14);border:1px solid rgba(124,108,255,.36);border-radius:13px;padding:.6rem .8rem;font-size:.78rem;line-height:1.45;color:#eceefb;}
 .ai-speech::before{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:13px;height:13px;background:rgba(124,108,255,.14);border-left:1px solid rgba(124,108,255,.36);border-top:1px solid rgba(124,108,255,.36);}
 
-.ai-chips{display:flex;flex-direction:column;gap:.36rem;width:100%;margin:.15rem 0;text-align:left;}
-.ai-chip{display:flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:600;line-height:1.3;color:#dadcef;background:none;border:none;padding:0;}
+.ai-chips{display:flex;flex-direction:column;gap:.28rem;width:100%;margin:.1rem 0;text-align:left;}
+.ai-chip{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;line-height:1.25;color:#dadcef;background:none;border:none;padding:0;}
 .ai-chip::before{content:'✓';flex-shrink:0;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:.62rem;font-weight:900;color:#fff;background:linear-gradient(145deg,#7C6CFF,#4F46E5);}
 
-.ai-reveal .ai-price{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin-top:auto;padding-top:.5rem;}
+.ai-reveal .ai-price{display:flex;align-items:baseline;justify-content:center;gap:.45rem;margin-top:auto;padding-top:.5rem;flex-shrink:0;}
 .ai-reveal .ai-price b{font-size:1.4rem;font-weight:900;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
 .ai-reveal .ai-price b small{font-size:.72rem;font-weight:800;-webkit-text-fill-color:#aeb0c8;}
 .ai-reveal .ai-price span{font-size:.72rem;color:#9b9db5;font-weight:600;}
 
-.ai-actions{display:flex;gap:.55rem;width:100%;margin-top:.55rem;}
+.ai-actions{position:absolute;left:1.05rem;right:1.05rem;bottom:1.05rem;display:flex;gap:.55rem;margin-top:0;flex-shrink:0;}
 .ai-actions>*{flex:1;justify-content:center;padding:.68rem .55rem;font-size:.83rem;}
 .btn-buy{border:none;border-radius:12px;color:#fff;font-family:var(--font);font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:linear-gradient(135deg,#7C6CFF,#4F46E5);box-shadow:0 12px 26px -12px rgba(124,108,255,.9);transition:filter .15s,transform .12s;}
 .btn-buy:hover{filter:brightness(1.1);transform:translateY(-2px);}
@@ -2037,7 +2037,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="ai-cat">AI Website Receptionist</div>
           <h3 class="ai-rv-title">Business Chatbot</h3>
           <div class="ai-speech">A smart AI Receptionist that lives in your website and answers your customers' queries instantly, based on the training you provide.</div>
-          <div class="ai-chips"><span class="ai-chip">Software to fully control the bot</span><span class="ai-chip">Live analytics</span><span class="ai-chip">Full setup &amp; training provided</span><span class="ai-chip">Transparent, lowest price in the industry</span><span class="ai-chip">Priority email, call &amp; chat support</span></div>
+          <div class="ai-chips"><span class="ai-chip">Software to fully control the bot</span><span class="ai-chip">Full setup &amp; training provided</span><span class="ai-chip">Transparent, lowest price in the industry</span><span class="ai-chip">Priority email, call &amp; chat support</span></div>
           <div class="ai-price"><b>₹200<small>/month</small></b><span>recharge anytime</span></div>
           <div class="ai-actions">
             <button class="btn-buy" data-name="Business Chatbot" data-buy="chatbot.html">Buy Now</button>
@@ -2078,20 +2078,36 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <img class="ai-bot" src="ai-robot.png" alt="">
     </article>
 
-    <!-- Coming soon — blank mystery cards with a big ? and a 2-week-apart countdown -->
-    <article class="ai-card mystery">
+    <!-- 3. AutoGram — AI Instagram Poster (LIVE) -->
+    <article class="ai-card">
       <div class="ai-clip">
-        <div class="myst-dots"></div>
-        <div class="myst-q">?</div>
-        <div class="ai-timer" data-weeks="2">
-          <div class="tg"><b data-d>00</b><i>days</i></div>
-          <div class="tg"><b data-h>00</b><i>hrs</i></div>
-          <div class="tg"><b data-m>00</b><i>min</i></div>
-          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        <div class="ai-img" style="background:linear-gradient(135deg,#F58529 0%,#DD2A7B 48%,#8134AF 100%);"></div>
+        <span class="ai-badge live"><span class="dot"></span>Live now</span>
+        <span class="ai-pop">New</span>
+        <div class="ai-base">
+          <div class="ai-cat">Social Media on Autopilot</div>
+          <h3 class="ai-title">AutoGram — AI Instagram Poster</h3>
+          <div class="ai-price"><b>₹299<small> to start</small></b><span>1 poster = ₹2</span></div>
+          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+        </div>
+        <div class="ai-reveal">
+          <div class="ai-cat">Social Media on Autopilot</div>
+          <h3 class="ai-rv-title">AutoGram — AI Instagram Poster</h3>
+          <div class="ai-speech">Train the AI on your business once. It designs branded posters with your contact details and posts them to your Instagram on a schedule you control — or generate one any time from the admin panel.</div>
+          <div class="ai-chips"><span class="ai-chip">Auto-posts to your Instagram</span><span class="ai-chip">You set times, days &amp; frequency</span><span class="ai-chip">Trained on your business data</span><span class="ai-chip">Every poster shows your contact details</span><span class="ai-chip">Generate on demand anytime</span></div>
+          <div class="ai-price"><b>₹299<small> to start</small></b><span>top up anytime</span></div>
+          <div class="ai-actions">
+            <button class="btn-buy" data-name="AutoGram — AI Instagram Poster" data-buy="autogram.html">Buy Now</button>
+            <button class="btn-details" data-title="AutoGram — AI Instagram Poster" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="AutoGram learns your business, then designs on-brand Instagram posters and writes captions for you. Set how many times a day, which times and which days it should post — and it publishes to your Instagram automatically. Jump into the admin panel any time to generate a poster on demand. Every poster carries your business contact details."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
         </div>
       </div>
+      <img class="ai-bot" src="ai-robot.png" alt="">
     </article>
 
+    <!-- Coming soon — blank mystery cards with a big ? and a 2-week-apart countdown -->
     <article class="ai-card mystery">
       <div class="ai-clip">
         <div class="myst-dots"></div>
