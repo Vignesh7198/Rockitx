@@ -214,15 +214,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .cursor{position:fixed;width:6px;height:6px;border-radius:50%;background:var(--accent);pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .18s,height .18s;opacity:.85;}
 .c-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(79,70,229,.28);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .14s,height .14s,border-color .2s;}
 [data-theme="dark"] .c-ring{border-color:rgba(129,140,248,.35);}
-.wa-float{position:fixed;right:24px;bottom:24px;z-index:9990;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#2BE36B,#1EBE5D);box-shadow:0 14px 34px -8px rgba(37,211,102,.6),inset 0 0 0 1px rgba(255,255,255,.18);cursor:pointer;text-decoration:none;animation:waPulse 2.6s ease-in-out infinite;transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s;}
-.wa-float svg{width:32px;height:32px;fill:#fff;}
-.wa-float:hover{transform:scale(1.09) translateY(-2px);box-shadow:0 22px 44px -10px rgba(37,211,102,.7),inset 0 0 0 1px rgba(255,255,255,.25);}
-.wa-float .wa-tip{position:absolute;right:74px;background:var(--card-s);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:9px 13px;font-size:.82rem;font-weight:800;letter-spacing:.01em;white-space:nowrap;box-shadow:var(--sh);opacity:0;transform:translateX(10px);transition:opacity .26s,transform .26s;pointer-events:none;}
-.wa-float:hover .wa-tip{opacity:1;transform:translateX(0);}
-@keyframes waPulse{0%,100%{box-shadow:0 14px 34px -8px rgba(37,211,102,.6),inset 0 0 0 1px rgba(255,255,255,.18),0 0 0 0 rgba(37,211,102,.5);}50%{box-shadow:0 14px 34px -8px rgba(37,211,102,.6),inset 0 0 0 1px rgba(255,255,255,.18),0 0 0 15px rgba(37,211,102,0);}}
-@media(max-width:600px){.wa-float{right:16px;bottom:16px;width:55px;height:55px;}.wa-float svg{width:29px;height:29px;}}
 
-/* ── Special AI Services flying mascot (hovers above WhatsApp & wanders the page) ── */
+/* ── Special AI Services flying mascot (hovers above chat & wanders the page) ── */
 .ai-float{position:fixed;right:24px;bottom:100px;z-index:9991;width:auto;height:auto;display:flex;align-items:flex-end;justify-content:center;background:none;border:none;padding:0;cursor:pointer;text-decoration:none;opacity:0;transform:translateY(160px);pointer-events:none;transition:opacity .9s ease,transform 1.15s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
 .ai-float.in{opacity:1;transform:translateY(0);pointer-events:auto;}
 .ai-float.flying{animation:aiFly 14s ease-in-out infinite;}
@@ -1064,7 +1057,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .fire-embers{display:none!important;}
   .deal-pill::before{animation:none!important;}
   .rx-blob{animation:none!important;}
-  .wa-float,.ai-float,.ai-float img{animation:none!important;}
+  .ai-float,.ai-float img{animation:none!important;}
   .nav-links a.nav-blink{animation:none!important;color:#7C5CFF;}
   .cd-clock::before,.cd-clock::after,.cd-time i{animation:none!important;}
   .rx-sparks{display:none!important;}
@@ -1239,7 +1232,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 <div class="cursor" id="cursor"></div>
 <div class="c-ring" id="cring"></div>
 
-<!-- Special AI Services flying mascot (above WhatsApp) -->
+<!-- Special AI Services flying mascot (above chat) -->
 <button class="ai-float" id="aiFloat" type="button" onclick="go('aiservices')" aria-label="Explore our Special AI Services">
   <span class="ai-tip">See our Special AI Services</span>
   <img src="assets/ai-robot-mascot.png" alt="RockitX AI assistant mascot" width="88" height="104">
@@ -1260,12 +1253,6 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   setInterval(peek,12000);
 })();
 </script>
-
-<!-- WhatsApp float -->
-<a class="wa-float" href="https://wa.me/919677015116?text=Hi%20RockitX!%20I%20want%20a%20premium%20website%20for%20my%20business." target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-  <span class="wa-tip">Chat with us</span>
-  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 4C9.93 4 5 8.93 5 15.04c0 1.96.51 3.86 1.49 5.55L5 28l7.6-1.99a11 11 0 0 0 3.44.55h.01c6.11 0 11.04-4.93 11.04-11.04C27.09 8.93 22.16 4 16.04 4zm0 20.18h-.01c-1.04 0-2.07-.28-2.97-.81l-.21-.13-4.42 1.16 1.18-4.31-.14-.22a9.13 9.13 0 0 1-1.4-4.87c0-5.05 4.11-9.16 9.17-9.16 2.45 0 4.75.96 6.48 2.69a9.1 9.1 0 0 1 2.68 6.48c0 5.06-4.11 9.17-9.16 9.17zm5.03-6.86c-.28-.14-1.63-.8-1.88-.9-.25-.09-.43-.14-.62.14-.18.27-.71.89-.87 1.08-.16.18-.32.21-.6.07-.28-.14-1.16-.43-2.21-1.36-.82-.73-1.37-1.63-1.53-1.9-.16-.28-.02-.43.12-.56.13-.12.28-.32.41-.48.14-.16.18-.27.28-.46.09-.18.05-.35-.02-.48-.07-.14-.62-1.5-.85-2.05-.22-.54-.45-.46-.62-.47l-.53-.01c-.18 0-.48.07-.73.35-.25.27-.96.94-.96 2.3 0 1.36.99 2.67 1.13 2.85.14.18 1.94 2.96 4.7 4.15.66.28 1.17.45 1.57.58.66.21 1.26.18 1.74.11.53-.08 1.63-.67 1.86-1.31.23-.64.23-1.19.16-1.31-.07-.12-.25-.18-.53-.32z"/></svg>
-</a>
 
 <!-- ═══════════════════════════════════════════ NAV ═ -->
 <nav id="navbar">
@@ -2668,28 +2655,36 @@ function goSection(id){
 })();
 </script>
 
-<!-- TEST: Business Chatbot embed (sunrise-bakery) -->
+<!-- RockitX Business Chatbot — uses admin auto-open settings via launcher.js -->
 <style>
-  #rkChatPanel{position:fixed;right:24px;bottom:96px;width:400px;height:600px;max-width:calc(100vw - 32px);max-height:calc(100vh - 130px);z-index:9995;border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -12px rgba(0,0,0,.5);background:#0b0b12;display:none;}
-  #rkChatPanel.open{display:block;}
-  #rkChatPanel iframe{width:100%;height:100%;border:none;display:block;}
-  #rkChatBtn{position:fixed;right:24px;bottom:24px;z-index:9996;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(145deg,#7C5CFF,#4F46E5);color:#fff;font-size:26px;box-shadow:0 14px 30px -8px rgba(79,70,229,.7);transition:transform .2s;}
-  #rkChatBtn:hover{transform:scale(1.06);}
-  @media(max-width:600px){#rkChatPanel{right:8px;bottom:84px;}}
+  @keyframes rkChatBlink{
+    0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.22),0 0 0 0 rgba(124,92,255,.7);transform:scale(1);}
+    50%{box-shadow:0 4px 16px rgba(0,0,0,.22),0 0 0 18px rgba(124,92,255,0);transform:scale(1.06);}
+  }
+  #rx-chat-root:not(.rx-open)>button{
+    animation:rkChatBlink 2s ease-in-out infinite!important;
+  }
+  @media(prefers-reduced-motion:reduce){
+    #rx-chat-root>button{animation:none!important;}
+  }
 </style>
-<button id="rkChatBtn" type="button" aria-label="Open chat">&#128172;</button>
-<div id="rkChatPanel" role="dialog" aria-label="Business Chatbot">
-  <iframe src="https://api.rockitx.com/embed/sunrise-bakery" width="400" height="600" style="border:none;" title="Business Chatbot"></iframe>
-</div>
 <script>
 (function(){
-  var btn=document.getElementById('rkChatBtn'),panel=document.getElementById('rkChatPanel');
-  if(!btn||!panel)return;
-  btn.addEventListener('click',function(){
-    var open=panel.classList.toggle('open');
-    btn.innerHTML=open?'&#10005;':'&#128172;';
+  var obs=new MutationObserver(function(){
+    var root=document.getElementById('rx-chat-root');
+    if(!root||root.dataset.rxHooked)return;
+    root.dataset.rxHooked='1';
+    var panel=root.firstElementChild;
+    var btn=root.lastElementChild;
+    if(!panel||!btn)return;
+    function syncOpen(){root.classList.toggle('rx-open',panel.style.display==='block');}
+    new MutationObserver(syncOpen).observe(panel,{attributes:true,attributeFilter:['style']});
+    btn.addEventListener('click',function(){setTimeout(syncOpen,0);});
+    syncOpen();
   });
+  obs.observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
+<script src="https://api.rockitx.com/embed/sunrise-bakery/launcher.js" async></script>
 </body>
 </html>
