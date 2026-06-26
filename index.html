@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark light">
 
@@ -235,21 +235,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .ai-float.tip-right .ai-tip{right:auto;left:96px;}
 .ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateY(0);}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
-@media(max-width:600px){
-  .ai-float img{height:72px;}
-  /* Bubble above robot, centered — stays inside viewport on mobile */
-  .ai-float .ai-tip,
-  .ai-float.tip-right .ai-tip{
-    right:auto!important;left:50%!important;bottom:calc(100% + 10px)!important;
-    transform:translateX(-50%) translateY(5px)!important;
-    white-space:normal!important;max-width:min(268px,calc(100vw - 28px))!important;
-    text-align:center;line-height:1.35;font-size:.68rem;padding:8px 12px;
-  }
-  .ai-float:not(.ai-moving).tip-show .ai-tip,
-  .ai-float.tip-right:not(.ai-moving).tip-show .ai-tip{
-    transform:translateX(-50%) translateY(0)!important;
-  }
-}
+
+/* Responsive show/hide helpers */
+.mob-only,.mob-only-block{display:none!important;}
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
 .nav-links a.nav-blink{
@@ -562,17 +550,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.75rem 
   .fg-grid{grid-template-columns:1fr 1fr;}
 }
 @media(max-width:768px){
-  .nav-links{display:none;flex-direction:column;gap:1.1rem;position:fixed;top:84px;left:4%;right:4%;background:var(--nav);backdrop-filter:blur(20px);padding:1.35rem;border-radius:16px;border:1px solid var(--border);z-index:999;box-shadow:var(--sh);}
-  .nav-links a.nav-blink{white-space:normal;text-align:center;justify-content:center;line-height:1.3;padding:.45rem .65rem;}
+  .nav-links{display:none;}
   .nav-links.open{display:flex;}
   .hamburger{display:flex;}
   h1{font-size:2.15rem;}
   .svc-grid,.testi-grid,.trust-grid{grid-template-columns:1fr;}
   .proc-wrap{grid-template-columns:1fr;}
   .form-row{grid-template-columns:1fr;}
-  section{padding:3.75rem 5%;}
-  .sfc-grid{padding:0 5% 3.75rem;}
-  .cta-s{padding:2.75rem 1.35rem;}
   .cursor,.c-ring{display:none;}
   .fg-grid{grid-template-columns:1fr;}
 }
@@ -1064,18 +1048,278 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
   background:var(--accent2);animation:scrollDot 1.7s ease-in-out infinite;}
 @keyframes scrollDot{0%{opacity:0;top:6px;}35%{opacity:1;}75%{opacity:0;top:17px;}100%{opacity:0;}}
 @media(max-width:600px){.fire-scroll{display:none;}}
+
+/* ═══════════════ MOBILE EXPERIENCE (≤768px) — native app feel, not shrunk desktop ═══════════════ */
 @media(max-width:768px){
-  .fire-hero{padding:118px 6% 72px;}
-  .fire-hero .fire-head{
-    font-size:clamp(1.55rem,6.8vw,2.05rem);
-    line-height:1.18;
-    letter-spacing:-.028em;
-    max-width:14em;
-    margin-left:auto;margin-right:auto;
+  .mob-hide{display:none!important;}
+  .mob-only{display:inline!important;}
+  .mob-only-block{display:block!important;}
+
+  html{-webkit-text-size-adjust:100%;touch-action:manipulation;}
+  body{overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  body.nav-open{overflow:hidden;}
+
+  /* Softer background — less "desktop wallpaper" on small screens */
+  .rx-mesh-wrap{opacity:.42;}
+  .rx-sparks,.rx-shoot{display:none;}
+  body::before{opacity:.028;}
+  .hero-watermark{display:none;}
+
+  /* Nav — compact bar + bottom-sheet menu */
+  nav{padding:.45rem max(.85rem,env(safe-area-inset-left)) 0 max(.85rem,env(safe-area-inset-right))!important;}
+  .nav-shell{padding:.42rem .7rem!important;border-radius:13px!important;}
+  .logo{font-size:1.28rem!important;}
+  .hamburger{padding:7px;gap:5px;z-index:1001;}
+  .hamburger span{width:20px;transition:transform .28s ease,opacity .2s;}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  body.nav-open::before{
+    content:'';position:fixed;inset:0;z-index:997;
+    background:rgba(0,0,0,.62);
+    animation:navFadeIn .25s ease;
   }
-  .fire-hero .fire-sub{font-size:.95rem;padding:0 .5rem;}
-  .fire-eyebrow{font-size:.62rem;padding:7px 14px;letter-spacing:.14em;}
-  .fire-actions .btn-p,.fire-actions .btn-s{font-size:.85rem;padding:.85rem 1.2rem;}
+  @keyframes navFadeIn{from{opacity:0}to{opacity:1}}
+  .nav-links{
+    display:flex!important;
+    visibility:hidden;
+    pointer-events:none;
+    flex-direction:column;
+    gap:0;
+    position:fixed;
+    top:auto!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    z-index:999;
+    max-height:min(82vh,560px);
+    padding:1rem 1.1rem max(1.15rem,env(safe-area-inset-bottom))!important;
+    border-radius:22px 22px 0 0!important;
+    border:1px solid var(--border)!important;
+    border-bottom:none!important;
+    background:var(--card-s)!important;
+    box-shadow:0 -24px 80px -20px rgba(0,0,0,.85)!important;
+    transform:translateY(105%);
+    transition:transform .38s var(--ease-spring);
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .nav-links.open{
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0);
+  }
+  .nav-links a{
+    font-size:.92rem;
+    font-weight:600;
+    padding:.72rem 0;
+    border-bottom:1px solid var(--border);
+    width:100%;
+    text-align:center;
+  }
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-links a::after{display:none!important;}
+  .nav-links a.nav-blink{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    white-space:normal;
+    line-height:1.35;
+    margin:.55rem 0 0;
+    padding:.72rem .85rem!important;
+    border-radius:12px;
+    border:1px solid var(--deal-b)!important;
+    border-bottom:1px solid var(--deal-b)!important;
+  }
+  .nav-cta{
+    width:100%!important;
+    justify-content:center!important;
+    text-align:center;
+    margin-top:.55rem!important;
+    padding:.78rem 1rem!important;
+    min-height:48px;
+    border-radius:13px!important;
+  }
+
+  /* Fire opener — app-style bottom hero card */
+  .fire-hero{
+    min-height:100svh;
+    justify-content:flex-end;
+    align-items:stretch;
+    padding:4.5rem 0 max(1.1rem,env(safe-area-inset-bottom));
+  }
+  .fire-hero::after{height:72%;}
+  .fire-hero .fire-inner{
+    width:auto;
+    max-width:none;
+    margin:0 .85rem;
+    text-align:center;
+    padding:1.35rem 1.05rem 1.15rem;
+    border-radius:20px;
+    background:rgba(10,10,18,.78);
+    border:1px solid rgba(255,180,90,.2);
+    box-shadow:0 28px 70px -24px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.04) inset;
+  }
+  .fire-hero .fire-inner::before{display:none;}
+  .fire-eyebrow{font-size:.54rem;padding:5px 10px;margin-bottom:.75rem;letter-spacing:.09em;}
+  .fire-hero .fire-head{
+    font-size:1.52rem;
+    line-height:1.22;
+    letter-spacing:-.02em;
+    max-width:none;
+    animation:fireFlow 3.2s linear infinite!important;
+    filter:drop-shadow(0 0 10px rgba(249,115,22,.5))!important;
+  }
+  .fire-head-l1,.fire-head-l2{display:block;}
+  .fire-head-l2{margin-top:.1rem;font-size:1.42rem;}
+  .fire-hero .fire-sub{
+    font-size:.84rem;
+    line-height:1.52;
+    margin:.7rem auto 0;
+    padding:0;
+    max-width:none;
+    color:var(--text2);
+  }
+  .fire-actions{
+    flex-direction:column;
+    width:100%;
+    gap:.55rem;
+    margin-top:1.1rem;
+  }
+  .fire-actions .btn-p,.fire-actions .btn-s{
+    width:100%;
+    justify-content:center;
+    font-size:.87rem;
+    padding:.86rem 1rem;
+    min-height:48px;
+    border-radius:13px;
+  }
+  .fire-timer{
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:.35rem .55rem;
+    width:100%;
+    margin-top:.85rem;
+    padding:.55rem .65rem;
+    font-size:.54rem;
+    letter-spacing:.05em;
+    border-radius:11px;
+    background:rgba(0,0,0,.35);
+  }
+  .fire-timer .cd-time{font-size:.78rem;padding:3px 8px;}
+  .fire-embers{opacity:.28;}
+
+  /* Main hero — stacked, readable */
+  .hero{min-height:auto;padding:3.5rem 1rem 2rem;}
+  .hero-inner{padding:0!important;}
+  h1{font-size:1.68rem!important;line-height:1.24!important;min-height:auto!important;letter-spacing:-.032em!important;}
+  h2{font-size:1.45rem!important;line-height:1.2!important;letter-spacing:-.03em!important;}
+  .hero-sub{font-size:.88rem!important;line-height:1.56!important;margin:.95rem 0 1.15rem!important;}
+  .hero-badge{font-size:.58rem;padding:6px 10px;margin-bottom:.85rem;}
+  .brand-tagline{font-size:.52rem!important;letter-spacing:.14em!important;margin-bottom:.75rem!important;}
+  .hero-actions{flex-direction:column;width:100%;gap:.55rem;}
+  .hero-actions .btn-p,.hero-actions .btn-s{width:100%;justify-content:center;min-height:48px;font-size:.87rem;border-radius:13px;}
+
+  /* Marquee — tighter strip */
+  .mq-wrap{padding:1rem 0;}
+  .mq-track{gap:1.75rem;}
+  .mq-i{font-size:.56rem;letter-spacing:.14em;gap:.85rem;}
+
+  /* Sections — card-first rhythm */
+  section{padding:2.5rem 1rem!important;}
+  .ph{padding:4.75rem 1rem 1.75rem!important;}
+  #page-aiservices .ph h1{font-size:1.55rem!important;line-height:1.22!important;}
+  #page-aiservices .ph-inner{padding:0!important;}
+  #page-aiservices .hero-sub{font-size:.86rem!important;line-height:1.55!important;}
+  #page-aiservices .mob-only-block{display:block!important;margin-top:.4rem;}
+  .sl{font-size:.6rem;margin-bottom:.7rem;}
+  .ssub{font-size:.86rem!important;line-height:1.54!important;max-width:none!important;}
+  .offer-bar{flex-direction:column;gap:.3rem;padding:.7rem .85rem;margin-top:1rem;border-radius:14px;}
+  .offer-bar .ob-txt,.offer-bar .ob-sub{font-size:.68rem;line-height:1.45;}
+  .guarantee{margin:0 0 1rem;flex-direction:column;gap:.65rem;}
+  .gtee-card{min-width:0;width:100%;padding:1.1rem 1rem;border-radius:16px;}
+  .price-grid{margin-top:1.5rem;gap:.85rem;}
+  .plan{padding:1.25rem 1.05rem;border-radius:18px;}
+  .plan-price{font-size:2.1rem!important;}
+  .cmp-wrap{margin-top:1.5rem;padding:1.15rem .95rem;border-radius:16px;max-width:none;}
+  .cmp-row{
+    grid-template-columns:1fr auto;
+    grid-template-rows:auto auto;
+    gap:.3rem .65rem;
+    margin-bottom:.95rem;
+  }
+  .cmp-row.us-row{margin-left:0;margin-right:0;padding:.55rem .65rem;}
+  .cmp-bar{grid-column:1/-1;height:18px;border-radius:7px;}
+  .cmp-name{font-size:.78rem;}
+  .cmp-val{font-size:.82rem;}
+  .tpl-grid{grid-template-columns:1fr!important;padding:0 1rem!important;gap:.85rem!important;margin-top:1.75rem;}
+  .tpl-card{border-radius:16px;}
+  .ai-grid{grid-template-columns:1fr!important;padding:0 1rem 2.25rem!important;gap:.85rem!important;}
+  .ai-card{min-height:340px;border-radius:18px;}
+  .ai-card-vertical{min-height:400px;}
+  .ai-pop{right:-28px;font-size:.55rem;padding:4px 36px;}
+  .bento{margin-top:2rem;gap:.85rem;}
+  .bento-tile{padding:1.25rem;border-radius:16px;}
+  .svc-grid,.sfc-grid,.testi-grid,.trust-grid,.work-grid{gap:.85rem;margin-top:1.75rem;}
+  .svc-card,.sfc-card,.testi-card,.trust-card{padding:1.35rem 1.15rem;border-radius:16px;}
+  .sfc-grid{padding:0 1rem 2.5rem!important;}
+  .about-grid,.contact-s{padding-left:1rem!important;padding-right:1rem!important;}
+  .contact-s{padding-top:4.75rem!important;padding-bottom:2.5rem!important;}
+  .cg{grid-template-columns:1fr!important;gap:1.75rem!important;}
+  .cf{padding:1.25rem 1rem;border-radius:16px;}
+  .form-row{gap:.65rem;}
+  .faq-item summary{padding:.95rem 1rem;font-size:.88rem;}
+  .faq-a{padding:0 1rem 1.15rem;font-size:.86rem;}
+  .cta-s{margin:0 1rem 2.5rem!important;padding:1.65rem 1rem!important;border-radius:18px;}
+  .cta-s p{font-size:.88rem;}
+  footer{padding:2rem 1rem 1.25rem!important;}
+  .f-bot{flex-direction:column;align-items:flex-start;gap:.65rem;}
+  .fg-grid{gap:1.5rem;}
+  .btn-p,.btn-s{min-height:48px;border-radius:13px;}
+
+  /* Touch — no hover lift / tilt on phones */
+  .svc-card:hover,.sfc-card:hover,.plan:hover,.tpl-card:hover,.bento-tile:hover,
+  .testi-card:hover,.trust-card:hover,.gtee-card:hover,.val-i:hover,.tilt:hover,
+  .float-card:hover,.ai-card:hover,.ai-card.mystery:hover{
+    transform:none!important;
+    box-shadow:inherit;
+  }
+  .svc-card:hover .svc-arrow{opacity:1;transform:none;}
+  .cmp-row.us-row{animation:none!important;transform:none!important;}
+
+  /* Robot — pinned left + bottom toast */
+  .ai-float.ai-mobile{
+    left:max(10px,env(safe-area-inset-left))!important;
+    right:auto!important;
+    bottom:calc(8px + env(safe-area-inset-bottom));
+    transform:none!important;
+    transition:opacity .85s ease!important;
+  }
+  .ai-float.ai-mobile img{height:48px;filter:drop-shadow(0 8px 14px rgba(79,70,229,.4));}
+  .ai-float.ai-mobile .ai-tip,
+  .ai-float.ai-mobile.tip-right .ai-tip{
+    position:fixed;
+    left:max(10px,env(safe-area-inset-left))!important;
+    right:max(10px,env(safe-area-inset-right))!important;
+    bottom:calc(58px + env(safe-area-inset-bottom))!important;
+    top:auto!important;
+    white-space:normal!important;
+    max-width:none!important;
+    width:auto!important;
+    text-align:center;
+    font-size:.7rem;
+    line-height:1.4;
+    padding:9px 12px;
+    border-radius:11px;
+    transform:translateY(5px)!important;
+    box-shadow:0 6px 28px -6px rgba(79,70,229,.8);
+  }
+  .ai-float.ai-mobile:not(.ai-moving).tip-show .ai-tip{
+    transform:translateY(0)!important;
+  }
 }
 
 /* ════════════════════ NO BLUR + FIRE MOTION ════════════════════ */
@@ -1332,6 +1576,22 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   ];
   var idx=0;
 
+  function isMobileView(){return window.innerWidth<=768;}
+
+  function syncBotLayout(){
+    if(!bot)return;
+    var mob=isMobileView();
+    bot.classList.toggle('ai-mobile',mob);
+    if(mob){
+      bot.classList.remove('ai-moving');
+      bot.style.removeProperty('--ai-x');
+      bot.style.removeProperty('--ai-y');
+    }else if(bot.classList.contains('in')&&!bot.classList.contains('ai-hide')){
+      var spot=isChatOpen()?randomSpot(true):chatSpot();
+      place(lastX||spot.x,lastY||spot.y,true);
+    }
+  }
+
   function setPitch(){
     if(!tip)return;
     tip.textContent=pitches[idx];
@@ -1429,6 +1689,10 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     if(!overlapsChat(lastX,lastY,botSize().w,botSize().h))return;
     clearTimeout(waitTimer);
     clearTimeout(pitchTimer);
+    if(isMobileView()){
+      hideTip(function(){schedulePitchAfterLand(PITCH_DELAY_MS);});
+      return;
+    }
     var s=randomSpot(true);
     if(instant){
       bot.classList.remove('ai-moving');
@@ -1505,6 +1769,13 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
     clearTimeout(pitchTimer);
     clearTimeout(waitTimer);
+    if(isMobileView()){
+      hideTip(function(){
+        if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
+        schedulePitchAfterLand(PITCH_DELAY_MS);
+      });
+      return;
+    }
     movedOnce=true;
     var s=randomSpot();
     hideTip(function(){
@@ -1526,15 +1797,18 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 
   function boot(){
     watchChatWidget();
-    var spot=isChatOpen()?randomSpot(true):chatSpot();
-    place(spot.x,spot.y,true);
     bot.classList.add('in');
+    syncBotLayout();
+    if(!isMobileView()){
+      var spot=isChatOpen()?randomSpot(true):chatSpot();
+      place(spot.x,spot.y,true);
+    }
     if(reduced){
-      showTip();
+      showTip(true);
       return;
     }
     schedulePitchAfterLand(FIRST_PITCH_DELAY_MS,true);
-    /* Snap beside chat once launcher injects the widget (if not yet loaded). */
+    if(isMobileView())return;
     if(!document.querySelector('#rx-chat-root>button')){
       var chatObs=new MutationObserver(function(){
         if(movedOnce||isChatOpen()||!document.querySelector('#rx-chat-root>button'))return;
@@ -1547,7 +1821,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   }
 
   window.addEventListener('resize',function(){
+    syncBotLayout();
     if(!bot.classList.contains('in')||bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
+    if(isMobileView())return;
     if(overlapsChat(lastX,lastY,botSize().w,botSize().h))evacuateFromChat(true);
     else tipSide(lastX,botSize().w);
   });
@@ -1597,8 +1873,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <h2 class="fire-head"><span class="fire-head-l1">Rock your business</span><br><span class="fire-head-l2">with our rocking websites.</span></h2>
       <p class="fire-sub">Bold. Fast. Unforgettable — and priced like nothing else in India.</p>
       <div class="fire-actions">
-        <button class="btn-p fire-btn" onclick="go('contact')">Light it up — from ₹100/month <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        <button class="btn-s" onclick="goSection('pricing')">See plans</button>
+        <button class="btn-p fire-btn" onclick="go('contact')"><span class="mob-hide">Light it up — from ₹100/month</span><span class="mob-only">Start from ₹100/mo</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <button class="btn-s" onclick="goSection('pricing')"><span class="mob-hide">See plans</span><span class="mob-only">View pricing</span></button>
       </div>
       <div class="fire-timer"><span class="cd-clock"></span>Limited launch offer ends in <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
     </div>
@@ -2312,7 +2588,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <div class="fu" style="margin-bottom:1.15rem;"><span class="deal-pill">Live now — lowest prices in India</span></div>
       <div class="sl fu" style="justify-content:center;">Special Products</div>
       <h1 class="fu d1">AI that <span class="g-deal">grows your business</span> — without growing your bills</h1>
-      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Chatbots, lead finders &amp; Instagram automation — ready to deploy, priced so <b class="g-deal">everyone can afford them</b>. Pick a tool, plug it in, let it work 24/7. <b>Hover any card</b> — your AI says hello.</p>
+      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Chatbots, lead finders &amp; Instagram automation — ready to deploy, priced so <b class="g-deal">everyone can afford them</b>. Pick a tool, plug it in, let it work 24/7. <span class="mob-hide"><b>Hover any card</b> — your AI says hello.</span><span class="mob-only-block"><b>Tap any card</b> — your AI says hello.</span></p>
       <div class="offer-bar fu d2" style="animation:none;opacity:1;transform:none;">
         <span class="ob-txt"><span class="live-dot"></span>3 tools live today</span>
         <span class="ob-sub">From ₹100 to start · No hidden fees · Cancel anytime</span>
@@ -2332,7 +2608,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="ai-cat">AI Website Receptionist</div>
           <h3 class="ai-title">Business Chatbot</h3>
           <div class="ai-price"><b>₹200<small>/month</small></b><span>1000+ chats</span></div>
-          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-hide"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-only"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Tap to meet your AI</span>
         </div>
         <div class="ai-reveal">
           <div class="ai-cat">AI Website Receptionist</div>
@@ -2360,7 +2637,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="ai-cat">Lead Generation</div>
           <h3 class="ai-title">Sweep — Local Business Finder</h3>
           <div class="ai-price"><b>₹100<small> to start</small></b><span>1 search = ₹1</span></div>
-          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-hide"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-only"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Tap to meet your AI</span>
         </div>
         <div class="ai-reveal">
           <div class="ai-cat">Lead Generation</div>
@@ -2389,7 +2667,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="ai-cat">Social Media on Autopilot</div>
           <h3 class="ai-title">AutoGram — AI Instagram Poster</h3>
           <div class="ai-price"><b>₹299<small> to start</small></b><span>1 poster = ₹2</span></div>
-          <span class="ai-hint"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-hide"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Hover to meet your AI</span>
+          <span class="ai-hint mob-only"><svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>Tap to meet your AI</span>
         </div>
         <div class="ai-reveal">
           <div class="ai-cat">Social Media on Autopilot</div>
@@ -2829,8 +3108,7 @@ function go(n){
   const aiBot=document.getElementById('aiFloat');
   if(aiBot)aiBot.classList.toggle('ai-hide', n==='aiservices');
   window.scrollTo({top:0,behavior:'smooth'});
-  document.getElementById('navLinks').classList.remove('open');
-  /* reset animated elements so they re-animate on next scroll */
+  closeMenu();
   pg.querySelectorAll('.fu,.fl,.fr,.sg,.si,.build').forEach(el=>el.classList.remove('vis'));
   setTimeout(observe,60);
 }
@@ -2855,7 +3133,23 @@ window.addEventListener('scroll',()=>{
 });
 
 /* ── HAMBURGER ── */
-function toggleMenu(){document.getElementById('navLinks').classList.toggle('open');}
+function closeMenu(){
+  document.getElementById('navLinks').classList.remove('open');
+  document.body.classList.remove('nav-open');
+  document.getElementById('hbg').classList.remove('open');
+}
+function toggleMenu(){
+  var nl=document.getElementById('navLinks');
+  if(nl.classList.contains('open')){closeMenu();return;}
+  nl.classList.add('open');
+  document.body.classList.add('nav-open');
+  document.getElementById('hbg').classList.add('open');
+}
+document.addEventListener('click',function(e){
+  if(!document.body.classList.contains('nav-open'))return;
+  if(e.target.closest('#navLinks')||e.target.closest('#hbg'))return;
+  closeMenu();
+});
 
 /* ── COUNT-UP for stats ── */
 function countUp(el,target,suffix){
@@ -2892,13 +3186,14 @@ function goSection(id){
   const home=document.getElementById('page-home');
   if(!home.classList.contains('active')) go('home');
   setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},80);
-  document.getElementById('navLinks').classList.remove('open');
+  closeMenu();
 }
 
 /* ── 3D TILT ON CARDS ── */
 (function(){
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce)return;
+  const coarse=window.matchMedia('(max-width:768px),(hover:none)').matches;
+  if(reduce||coarse)return;
   document.querySelectorAll('[data-tilt],.svc-card,.sfc-card,.gtee-card,.testi-card,.trust-card,.val-i,.ps').forEach(card=>{
     card.addEventListener('mousemove',e=>{
       const r=card.getBoundingClientRect();
@@ -2977,24 +3272,27 @@ function goSection(id){
   @media(prefers-reduced-motion:reduce){
     #rx-chat-root>button{animation:none!important;}
   }
-  /* Mobile — smaller chat launcher & panel (desktop unchanged) */
-  @media(max-width:600px){
+  /* Mobile — compact chat (desktop unchanged) */
+  @media(max-width:768px){
     #rx-chat-root:not(.rx-open)>button{
-      width:50px!important;height:50px!important;
-      min-width:50px!important;min-height:50px!important;
+      width:46px!important;height:46px!important;
+      min-width:46px!important;min-height:46px!important;
       padding:0!important;border-radius:50%!important;
+      right:max(10px,env(safe-area-inset-right))!important;
+      bottom:calc(8px + env(safe-area-inset-bottom))!important;
     }
     #rx-chat-root:not(.rx-open)>button svg,
     #rx-chat-root:not(.rx-open)>button img{
-      width:24px!important;height:24px!important;
+      width:22px!important;height:22px!important;
     }
     #rx-chat-root.rx-open{
+      inset:auto!important;
       right:8px!important;bottom:8px!important;left:8px!important;
-      width:auto!important;max-width:calc(100vw - 16px)!important;
+      width:auto!important;max-width:none!important;
     }
     #rx-chat-root.rx-open>:first-child{
       width:100%!important;max-width:100%!important;
-      max-height:min(520px,calc(100dvh - 72px))!important;
+      max-height:min(480px,calc(100dvh - 64px))!important;
       border-radius:14px!important;
     }
   }
