@@ -236,9 +236,19 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateY(0);}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
 @media(max-width:600px){
-  .ai-float img{height:82px;}
-  .ai-float .ai-tip{right:74px;bottom:26px;font-size:.7rem;padding:8px 12px;}
-  .ai-float.tip-right .ai-tip{left:74px;}
+  .ai-float img{height:72px;}
+  /* Bubble above robot, centered — stays inside viewport on mobile */
+  .ai-float .ai-tip,
+  .ai-float.tip-right .ai-tip{
+    right:auto!important;left:50%!important;bottom:calc(100% + 10px)!important;
+    transform:translateX(-50%) translateY(5px)!important;
+    white-space:normal!important;max-width:min(268px,calc(100vw - 28px))!important;
+    text-align:center;line-height:1.35;font-size:.68rem;padding:8px 12px;
+  }
+  .ai-float:not(.ai-moving).tip-show .ai-tip,
+  .ai-float.tip-right:not(.ai-moving).tip-show .ai-tip{
+    transform:translateX(-50%) translateY(0)!important;
+  }
 }
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
@@ -553,6 +563,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.75rem 
 }
 @media(max-width:768px){
   .nav-links{display:none;flex-direction:column;gap:1.1rem;position:fixed;top:84px;left:4%;right:4%;background:var(--nav);backdrop-filter:blur(20px);padding:1.35rem;border-radius:16px;border:1px solid var(--border);z-index:999;box-shadow:var(--sh);}
+  .nav-links a.nav-blink{white-space:normal;text-align:center;justify-content:center;line-height:1.3;padding:.45rem .65rem;}
   .nav-links.open{display:flex;}
   .hamburger{display:flex;}
   h1{font-size:2.15rem;}
@@ -1032,7 +1043,8 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
   background:radial-gradient(ellipse 52% 42% at 50% 50%,rgba(249,115,22,.18),rgba(239,68,68,.08) 45%,transparent 64%);
   animation:heatPulse 4.5s ease-in-out infinite;}
 @keyframes heatPulse{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.07);}}
-.fire-hero .fire-head{font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:1.04;}
+.fire-hero .fire-head{font-size:clamp(2.6rem,7.4vw,6.4rem);line-height:1.04;text-wrap:balance;}
+.fire-head-l1,.fire-head-l2{display:inline;}
 .fire-hero .fire-sub{font-size:clamp(1rem,1.4vw,1.22rem);max-width:600px;}
 .fire-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:.7rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
   color:#FDBA74;border:1px solid rgba(249,115,22,.42);background:rgba(249,115,22,.1);border-radius:100px;padding:9px 18px;margin-bottom:1.9rem;
@@ -1052,6 +1064,19 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
   background:var(--accent2);animation:scrollDot 1.7s ease-in-out infinite;}
 @keyframes scrollDot{0%{opacity:0;top:6px;}35%{opacity:1;}75%{opacity:0;top:17px;}100%{opacity:0;}}
 @media(max-width:600px){.fire-scroll{display:none;}}
+@media(max-width:768px){
+  .fire-hero{padding:118px 6% 72px;}
+  .fire-hero .fire-head{
+    font-size:clamp(1.55rem,6.8vw,2.05rem);
+    line-height:1.18;
+    letter-spacing:-.028em;
+    max-width:14em;
+    margin-left:auto;margin-right:auto;
+  }
+  .fire-hero .fire-sub{font-size:.95rem;padding:0 .5rem;}
+  .fire-eyebrow{font-size:.62rem;padding:7px 14px;letter-spacing:.14em;}
+  .fire-actions .btn-p,.fire-actions .btn-s{font-size:.85rem;padding:.85rem 1.2rem;}
+}
 
 /* ════════════════════ NO BLUR + FIRE MOTION ════════════════════ */
 /* Remove every frosted-glass backdrop blur across the site */
@@ -1367,11 +1392,14 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   }
 
   function place(x,y,instant){
+    var sz=botSize();
+    var edgePad=window.innerWidth<=600?10:14;
+    x=Math.max(edgePad,Math.min(x,window.innerWidth-sz.w-edgePad));
     lastX=x;lastY=y;
     if(instant)bot.classList.add('ai-instant');
     bot.style.setProperty('--ai-x',Math.round(x)+'px');
     bot.style.setProperty('--ai-y',Math.round(y)+'px');
-    tipSide(x,botSize().w);
+    tipSide(x,sz.w);
     if(instant){
       requestAnimationFrame(function(){
         requestAnimationFrame(function(){bot.classList.remove('ai-instant');});
@@ -1566,7 +1594,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
     <div class="fu fire-inner">
       <div class="fire-eyebrow">🔥 India's Cheapest Price</div>
-      <h2 class="fire-head">Rock your business<br>with our rocking websites.</h2>
+      <h2 class="fire-head"><span class="fire-head-l1">Rock your business</span><br><span class="fire-head-l2">with our rocking websites.</span></h2>
       <p class="fire-sub">Bold. Fast. Unforgettable — and priced like nothing else in India.</p>
       <div class="fire-actions">
         <button class="btn-p fire-btn" onclick="go('contact')">Light it up — from ₹100/month <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
@@ -2948,6 +2976,27 @@ function goSection(id){
   }
   @media(prefers-reduced-motion:reduce){
     #rx-chat-root>button{animation:none!important;}
+  }
+  /* Mobile — smaller chat launcher & panel (desktop unchanged) */
+  @media(max-width:600px){
+    #rx-chat-root:not(.rx-open)>button{
+      width:50px!important;height:50px!important;
+      min-width:50px!important;min-height:50px!important;
+      padding:0!important;border-radius:50%!important;
+    }
+    #rx-chat-root:not(.rx-open)>button svg,
+    #rx-chat-root:not(.rx-open)>button img{
+      width:24px!important;height:24px!important;
+    }
+    #rx-chat-root.rx-open{
+      right:8px!important;bottom:8px!important;left:8px!important;
+      width:auto!important;max-width:calc(100vw - 16px)!important;
+    }
+    #rx-chat-root.rx-open>:first-child{
+      width:100%!important;max-width:100%!important;
+      max-height:min(520px,calc(100dvh - 72px))!important;
+      border-radius:14px!important;
+    }
   }
 </style>
 <script>
