@@ -229,13 +229,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
   white-space:nowrap;max-width:none;text-align:left;
   box-shadow:0 12px 28px -8px rgba(79,70,229,.6);
   opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .22s ease,visibility .22s ease;
+  transform:translateY(5px);
+  transition:opacity .6s ease-in-out,visibility .6s ease-in-out,transform .6s ease-in-out;
 }
 .ai-float.tip-right .ai-tip{right:auto;left:96px;}
-.ai-float.ai-moving .ai-tip,.ai-float.ai-moving.tip-show .ai-tip{
-  opacity:0!important;visibility:hidden!important;
-}
-.ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;}
+.ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateY(0);}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
 @media(max-width:600px){
   .ai-float img{height:82px;}
@@ -1274,6 +1272,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   var WAIT_MS=5800;
   var PITCH_DELAY_MS=6000;
   var FIRST_PITCH_DELAY_MS=2000;
+  var TIP_FADE_MS=600;
   var waitTimer=null;
   var pitchTimer=null;
   var hideTipTimer=null;
@@ -1282,11 +1281,11 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   var firstPitch='Grow your business from ₹100 — click me for Special Products!';
 
   var pitches=[
-    'Your 24/7 salesperson is one click away!',
+    'Help your business shine 24/7 — one click away!',
     'Stop losing customers after hours — click me!',
     'Leads, chat & Instagram — all stupidly affordable!',
     'Big-company AI. Small-business prices. Tap me!',
-    'Why hire when AI works for ₹200/mo?',
+    'AI that supports your team — from just ₹200/mo!',
     'Grow faster — explore our Special Products!',
     '₹1 per lead search. Yes, really. See inside!',
     'AutoGram posts while you sleep. Tap to see!',
@@ -1298,11 +1297,11 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     'Enterprise power. Pocket-change pricing. Go!',
     'Your next revenue boost is hiding in here!',
     'Low cost. High impact. Tap Special Products!',
-    'AI receptionist from ₹200 — explore now!',
-    'More sales, less grind. Click me to see how!',
+    'AI assistant for your website — from ₹200. Explore now!',
+    'More sales, less daily grind. Click me to see how!',
     'Honest tools. Honest prices. No catch. Tap me!',
     'The growth stack SMBs actually afford!',
-    'Work smarter — let AI pitch while you close!',
+    'Work smarter — AI handles chats, you focus on customers!',
     'Special Products = growth without the guilt!',
     'Click me before your competitor does!'
   ];
@@ -1402,7 +1401,6 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     if(!overlapsChat(lastX,lastY,botSize().w,botSize().h))return;
     clearTimeout(waitTimer);
     clearTimeout(pitchTimer);
-    hideTip();
     var s=randomSpot(true);
     if(instant){
       bot.classList.remove('ai-moving');
@@ -1410,8 +1408,10 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       schedulePitchAfterLand();
       return;
     }
-    bot.classList.add('ai-moving');
-    place(s.x,s.y,false);
+    hideTip(function(){
+      if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
+      startMoveTo(s.x,s.y);
+    });
   }
 
   function watchChatWidget(){
@@ -1435,12 +1435,13 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     setTimeout(function(){bootObs.disconnect();},30000);
   }
 
-  function hideTip(){
+  function hideTip(done){
     bot.classList.remove('tip-show');
     clearTimeout(hideTipTimer);
     hideTipTimer=setTimeout(function(){
       if(!bot.classList.contains('tip-show')&&tip)tip.textContent='';
-    },240);
+      if(done)done();
+    },TIP_FADE_MS);
   }
 
   function showTip(useFirst){
@@ -1448,7 +1449,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     clearTimeout(hideTipTimer);
     if(useFirst&&tip)tip.textContent=firstPitch;
     else setPitch();
-    bot.classList.add('tip-show');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){bot.classList.add('tip-show');});
+    });
   }
 
   function scheduleWait(){
@@ -1465,15 +1468,21 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     },delay!=null?delay:PITCH_DELAY_MS);
   }
 
+  function startMoveTo(x,y){
+    bot.classList.add('ai-moving');
+    place(x,y,false);
+  }
+
   function beginMove(){
     if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
     clearTimeout(pitchTimer);
     clearTimeout(waitTimer);
     movedOnce=true;
-    hideTip();
-    bot.classList.add('ai-moving');
     var s=randomSpot();
-    place(s.x,s.y,false);
+    hideTip(function(){
+      if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
+      startMoveTo(s.x,s.y);
+    });
   }
 
   function onArrived(){
