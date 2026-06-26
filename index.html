@@ -228,16 +228,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
   padding:10px 16px;font-size:.78rem;font-weight:800;letter-spacing:.01em;line-height:1.2;
   white-space:nowrap;max-width:none;text-align:left;
   box-shadow:0 12px 28px -8px rgba(79,70,229,.6);
-  opacity:0;visibility:hidden;transform:translateX(8px) scale(.92);
-  transition:opacity .25s,transform .25s,visibility .25s;pointer-events:none;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .22s ease,visibility .22s ease;
 }
-.ai-float.tip-right .ai-tip{right:auto;left:96px;transform:translateX(-8px) scale(.92);}
-.ai-float.ai-moving .ai-tip,.ai-float.ai-moving:hover .ai-tip,.ai-float.ai-moving.tip-show .ai-tip{
-  opacity:0!important;visibility:hidden!important;transform:translateX(8px) scale(.92)!important;
+.ai-float.tip-right .ai-tip{right:auto;left:96px;}
+.ai-float.ai-moving .ai-tip,.ai-float.ai-moving.tip-show .ai-tip{
+  opacity:0!important;visibility:hidden!important;
 }
-.ai-float.tip-right.ai-moving .ai-tip,.ai-float.tip-right.ai-moving:hover .ai-tip{transform:translateX(-8px) scale(.92)!important;}
-.ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateX(0) scale(1);}
-.ai-float.tip-right:not(.ai-moving).tip-show .ai-tip{transform:translateX(0) scale(1);}
+.ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
 @media(max-width:600px){
   .ai-float img{height:82px;}
@@ -245,10 +243,34 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
   .ai-float.tip-right .ai-tip{left:74px;}
 }
 
-/* Blinking yellow text on "Special Products" nav link. */
-.nav-links a.nav-blink{color:var(--deal)!important;font-weight:800;animation:navDealBlink 1.4s ease-in-out infinite;}
-.nav-links a.nav-blink.active{animation:none;}
-@keyframes navDealBlink{0%,100%{opacity:1;}50%{opacity:.4;}}
+/* Highlighted "Check our Special Products" nav link — yellow glow pill. */
+.nav-links a.nav-blink{
+  display:inline-flex;align-items:center;gap:7px;
+  color:var(--deal)!important;font-weight:800;
+  padding:.4rem .78rem;margin:-.4rem -.15rem;
+  border-radius:999px;
+  background:var(--deal-bg);
+  border:1px solid var(--deal-b);
+  animation:navDealBlink 1.15s ease-in-out infinite;
+}
+.nav-links a.nav-blink::before{
+  content:'';flex-shrink:0;width:7px;height:7px;border-radius:50%;
+  background:var(--deal-bri);box-shadow:0 0 10px var(--deal-bri);
+  animation:pulse 1.5s ease-in-out infinite;
+}
+.nav-links a.nav-blink::after{display:none!important;}
+.nav-links a.nav-blink .nav-blink-em{font-weight:900;color:var(--deal-bri);}
+.nav-links a.nav-blink:hover{color:var(--deal)!important;}
+.nav-links a.nav-blink.active{
+  animation:none;
+  text-shadow:0 0 12px var(--deal-bri);
+  box-shadow:0 0 20px -4px var(--deal);
+  border-color:var(--deal-bri);
+}
+@keyframes navDealBlink{
+  0%,100%{text-shadow:none;box-shadow:none;border-color:var(--deal-b);background:var(--deal-bg);filter:brightness(1);}
+  50%{text-shadow:0 0 18px var(--deal-bri),0 0 8px var(--deal);box-shadow:0 0 32px -2px var(--deal-bri);border-color:var(--deal-bri);background:rgba(251,191,36,.24);filter:brightness(1.1);}
+}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.1rem 5% 0;background:transparent!important;border:none;transition:background .3s;}
 [data-theme="dark"] nav{padding-top:1rem;}
@@ -1063,7 +1085,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .deal-pill::before{animation:none!important;}
   .rx-blob{animation:none!important;}
   .ai-float,.ai-float img{animation:none!important;}
-  .nav-links a.nav-blink{animation:none!important;color:var(--deal)!important;}
+  .nav-links a.nav-blink{animation:none!important;color:var(--deal)!important;text-shadow:none!important;box-shadow:none!important;}
+  .nav-links a.nav-blink::before{animation:none!important;}
   .cd-clock::before,.cd-clock::after,.cd-time i{animation:none!important;}
   .rx-sparks{display:none!important;}
   .rx-stars,.rx-shoot{display:none!important;}
@@ -1253,10 +1276,12 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   var FIRST_PITCH_DELAY_MS=2000;
   var waitTimer=null;
   var pitchTimer=null;
+  var hideTipTimer=null;
   var lastX=0,lastY=0,movedOnce=false;
 
+  var firstPitch='Grow your business from ₹100 — click me for Special Products!';
+
   var pitches=[
-    'Psst — Special Products start at ₹100. Tap me!',
     'Your 24/7 salesperson is one click away!',
     'Stop losing customers after hours — click me!',
     'Leads, chat & Instagram — all stupidly affordable!',
@@ -1412,12 +1437,17 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 
   function hideTip(){
     bot.classList.remove('tip-show');
-    if(tip)tip.textContent='';
+    clearTimeout(hideTipTimer);
+    hideTipTimer=setTimeout(function(){
+      if(!bot.classList.contains('tip-show')&&tip)tip.textContent='';
+    },240);
   }
 
-  function showTip(){
+  function showTip(useFirst){
     if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
-    setPitch();
+    clearTimeout(hideTipTimer);
+    if(useFirst&&tip)tip.textContent=firstPitch;
+    else setPitch();
     bot.classList.add('tip-show');
   }
 
@@ -1426,11 +1456,11 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     waitTimer=setTimeout(beginMove,WAIT_MS);
   }
 
-  function schedulePitchAfterLand(delay){
+  function schedulePitchAfterLand(delay,useFirst){
     clearTimeout(pitchTimer);
     pitchTimer=setTimeout(function(){
       if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
-      showTip();
+      showTip(useFirst);
       scheduleWait();
     },delay!=null?delay:PITCH_DELAY_MS);
   }
@@ -1440,8 +1470,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     clearTimeout(pitchTimer);
     clearTimeout(waitTimer);
     movedOnce=true;
-    bot.classList.add('ai-moving');
     hideTip();
+    bot.classList.add('ai-moving');
     var s=randomSpot();
     place(s.x,s.y,false);
   }
@@ -1466,7 +1496,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       showTip();
       return;
     }
-    schedulePitchAfterLand(FIRST_PITCH_DELAY_MS);
+    schedulePitchAfterLand(FIRST_PITCH_DELAY_MS,true);
     /* Snap beside chat once launcher injects the widget (if not yet loaded). */
     if(!document.querySelector('#rx-chat-root>button')){
       var chatObs=new MutationObserver(function(){
@@ -1504,7 +1534,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <a id="nav-work" onclick="goSection('work')">Why Us</a>
         <a id="nav-faq" onclick="goSection('faq')">FAQ</a>
         <a id="nav-services" onclick="go('services')">Services</a>
-        <a id="nav-aiservices" class="nav-blink" onclick="go('aiservices')">Special Products</a>
+        <a id="nav-aiservices" class="nav-blink" onclick="go('aiservices')">Check our <span class="nav-blink-em">Special Products</span></a>
         <a id="nav-about" onclick="go('about')">About</a>
         <a id="nav-contact" onclick="go('contact')" class="nav-cta">From ₹100/mo</a>
       </div>
