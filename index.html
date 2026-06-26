@@ -215,35 +215,40 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .c-ring{position:fixed;width:36px;height:36px;border-radius:50%;border:1px solid rgba(79,70,229,.28);pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .14s,height .14s,border-color .2s;}
 [data-theme="dark"] .c-ring{border-color:rgba(129,140,248,.35);}
 
-/* ── Special AI Services flying mascot (hovers above chat & wanders the page) ── */
-.ai-float{position:fixed;right:24px;bottom:100px;z-index:9991;width:auto;height:auto;display:flex;align-items:flex-end;justify-content:center;background:none;border:none;padding:0;cursor:pointer;text-decoration:none;opacity:0;transform:translateY(160px);pointer-events:none;transition:opacity .9s ease,transform 1.15s cubic-bezier(.22,1,.36,1);will-change:transform,opacity;}
-.ai-float.in{opacity:1;transform:translateY(0);pointer-events:auto;}
-.ai-float.flying{animation:aiFly 14s ease-in-out infinite;}
-.ai-float.ai-hide{opacity:0!important;transform:translateY(160px)!important;pointer-events:none!important;animation:none!important;}
-
-/* Blinking attention effect on the "Special Services" nav link. */
-.nav-links a.nav-blink{color:#7C5CFF;font-weight:800;animation:navBlink 1.3s ease-in-out infinite;}
-.nav-links a.nav-blink.active{animation:none;}
-@keyframes navBlink{0%,100%{opacity:1;text-shadow:0 0 0 rgba(124,92,255,0);}50%{opacity:.5;text-shadow:0 0 12px rgba(124,92,255,.85);}}
+/* ── Special Products flying mascot (wanders viewport + pitches services) ── */
+.ai-float{position:fixed;left:0;top:0;z-index:9991;width:auto;height:auto;display:flex;align-items:flex-end;justify-content:center;background:none;border:none;padding:0;cursor:pointer;text-decoration:none;opacity:0;pointer-events:none;transform:translate(var(--ai-x,24px),var(--ai-y,100vh));transition:transform 3.4s ease-in-out,opacity .85s ease;will-change:transform,opacity;}
+.ai-float.ai-instant{transition:opacity .85s ease;}
+.ai-float.in{opacity:1;pointer-events:auto;}
+.ai-float.ai-hide{opacity:0!important;pointer-events:none!important;transform:translate(var(--ai-x,24px),calc(100vh + 80px))!important;}
 .ai-float img{width:auto;height:104px;display:block;pointer-events:none;filter:drop-shadow(0 14px 16px rgba(79,70,229,.45));animation:aiBob 2.8s ease-in-out infinite;}
-.ai-float:hover{animation-play-state:paused;}
 .ai-float:hover img{animation-play-state:paused;filter:drop-shadow(0 16px 22px rgba(79,70,229,.6)) brightness(1.05);}
-.ai-float .ai-tip{position:absolute;right:96px;bottom:34px;background:linear-gradient(145deg,#7C5CFF,#4F46E5);color:#fff;border-radius:13px;padding:9px 14px;font-size:.8rem;font-weight:800;letter-spacing:.01em;white-space:nowrap;box-shadow:0 12px 28px -8px rgba(79,70,229,.6);opacity:0;transform:translateX(8px) scale(.92);transition:opacity .3s,transform .3s;pointer-events:none;}
-.ai-float .ai-tip::after{content:'';position:absolute;right:-5px;top:50%;width:12px;height:12px;background:#4F46E5;border-radius:2px;transform:translateY(-50%) rotate(45deg);}
-.ai-float:hover .ai-tip,.ai-float.tip-show .ai-tip{opacity:1;transform:translateX(0) scale(1);}
-@keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
-@keyframes aiFly{
-  0%{transform:translate(0,0);}
-  14%{transform:translate(-46px,-34px);}
-  28%{transform:translate(-128px,-14px);}
-  42%{transform:translate(-78px,-66px);}
-  58%{transform:translate(-168px,-30px);}
-  72%{transform:translate(-60px,-48px);}
-  86%{transform:translate(-22px,-16px);}
-  100%{transform:translate(0,0);}
+.ai-float .ai-tip{
+  position:absolute;right:96px;bottom:34px;
+  background:linear-gradient(145deg,#7C5CFF,#4F46E5);color:#fff;border-radius:13px;
+  padding:10px 16px;font-size:.78rem;font-weight:800;letter-spacing:.01em;line-height:1.2;
+  white-space:nowrap;max-width:none;text-align:left;
+  box-shadow:0 12px 28px -8px rgba(79,70,229,.6);
+  opacity:0;visibility:hidden;transform:translateX(8px) scale(.92);
+  transition:opacity .25s,transform .25s,visibility .25s;pointer-events:none;
 }
-@media(max-width:600px){.ai-float{right:14px;bottom:86px;}.ai-float img{height:82px;}.ai-float .ai-tip{right:74px;bottom:26px;font-size:.74rem;}
-@keyframes aiFly{0%{transform:translate(0,0);}20%{transform:translate(-30px,-26px);}40%{transform:translate(-80px,-10px);}60%{transform:translate(-44px,-40px);}80%{transform:translate(-18px,-18px);}100%{transform:translate(0,0);}}}
+.ai-float.tip-right .ai-tip{right:auto;left:96px;transform:translateX(-8px) scale(.92);}
+.ai-float.ai-moving .ai-tip,.ai-float.ai-moving:hover .ai-tip,.ai-float.ai-moving.tip-show .ai-tip{
+  opacity:0!important;visibility:hidden!important;transform:translateX(8px) scale(.92)!important;
+}
+.ai-float.tip-right.ai-moving .ai-tip,.ai-float.tip-right.ai-moving:hover .ai-tip{transform:translateX(-8px) scale(.92)!important;}
+.ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateX(0) scale(1);}
+.ai-float.tip-right:not(.ai-moving).tip-show .ai-tip{transform:translateX(0) scale(1);}
+@keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
+@media(max-width:600px){
+  .ai-float img{height:82px;}
+  .ai-float .ai-tip{right:74px;bottom:26px;font-size:.7rem;padding:8px 12px;}
+  .ai-float.tip-right .ai-tip{left:74px;}
+}
+
+/* Blinking yellow text on "Special Products" nav link. */
+.nav-links a.nav-blink{color:var(--deal)!important;font-weight:800;animation:navDealBlink 1.4s ease-in-out infinite;}
+.nav-links a.nav-blink.active{animation:none;}
+@keyframes navDealBlink{0%,100%{opacity:1;}50%{opacity:.4;}}
 
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.1rem 5% 0;background:transparent!important;border:none;transition:background .3s;}
 [data-theme="dark"] nav{padding-top:1rem;}
@@ -1058,7 +1063,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .deal-pill::before{animation:none!important;}
   .rx-blob{animation:none!important;}
   .ai-float,.ai-float img{animation:none!important;}
-  .nav-links a.nav-blink{animation:none!important;color:#7C5CFF;}
+  .nav-links a.nav-blink{animation:none!important;color:var(--deal)!important;}
   .cd-clock::before,.cd-clock::after,.cd-time i{animation:none!important;}
   .rx-sparks{display:none!important;}
   .rx-stars,.rx-shoot{display:none!important;}
@@ -1232,25 +1237,255 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 <div class="cursor" id="cursor"></div>
 <div class="c-ring" id="cring"></div>
 
-<!-- Special AI Services flying mascot (above chat) -->
-<button class="ai-float" id="aiFloat" type="button" onclick="go('aiservices')" aria-label="Explore our Special AI Services">
-  <span class="ai-tip">See our Special AI Services</span>
+<!-- Special Products flying mascot -->
+<button class="ai-float" id="aiFloat" type="button" onclick="go('aiservices')" aria-label="Explore RockitX Special Products">
+  <span class="ai-tip" aria-live="polite"></span>
   <img src="assets/ai-robot-mascot.png" alt="RockitX AI assistant mascot" width="88" height="104">
 </button>
 <script>
-/* The mascot stays hidden on load, then rises up from the bottom after 3s. */
 (function(){
   var bot=document.getElementById('aiFloat');
   if(!bot)return;
-  setTimeout(function(){
-    bot.classList.add('in');                 // slide up into place
-    setTimeout(function(){ bot.classList.add('flying'); }, 1300); // then start floating
-  }, 6000);
-  // Periodically peek the "Special AI Services" tip to nudge visitors (after it arrives).
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  function peek(){bot.classList.add('tip-show');setTimeout(function(){bot.classList.remove('tip-show');},3200);}
-  setTimeout(peek,8500);
-  setInterval(peek,12000);
+  var tip=bot.querySelector('.ai-tip');
+  var reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var WAIT_MS=5800;
+  var PITCH_DELAY_MS=6000;
+  var FIRST_PITCH_DELAY_MS=2000;
+  var waitTimer=null;
+  var pitchTimer=null;
+  var lastX=0,lastY=0,movedOnce=false;
+
+  var pitches=[
+    'Psst — Special Products start at ₹100. Tap me!',
+    'Your 24/7 salesperson is one click away!',
+    'Stop losing customers after hours — click me!',
+    'Leads, chat & Instagram — all stupidly affordable!',
+    'Big-company AI. Small-business prices. Tap me!',
+    'Why hire when AI works for ₹200/mo?',
+    'Grow faster — explore our Special Products!',
+    '₹1 per lead search. Yes, really. See inside!',
+    'AutoGram posts while you sleep. Tap to see!',
+    'Competitors automate. Don\'t get left behind!',
+    'Built for India. Priced for everyone. Click me!',
+    'One click → tools that pay for themselves!',
+    'Affordable AI that actually moves the needle!',
+    'Turn visitors into buyers — Special Products!',
+    'Enterprise power. Pocket-change pricing. Go!',
+    'Your next revenue boost is hiding in here!',
+    'Low cost. High impact. Tap Special Products!',
+    'AI receptionist from ₹200 — explore now!',
+    'More sales, less grind. Click me to see how!',
+    'Honest tools. Honest prices. No catch. Tap me!',
+    'The growth stack SMBs actually afford!',
+    'Work smarter — let AI pitch while you close!',
+    'Special Products = growth without the guilt!',
+    'Click me before your competitor does!'
+  ];
+  var idx=0;
+
+  function setPitch(){
+    if(!tip)return;
+    tip.textContent=pitches[idx];
+    idx=(idx+1)%pitches.length;
+  }
+
+  function botSize(){
+    return {w:bot.offsetWidth||92,h:bot.offsetHeight||110};
+  }
+
+  function tipSide(x,w){
+    bot.classList.toggle('tip-right',(x+w/2)<window.innerWidth/2);
+  }
+
+  function isChatOpen(){
+    var root=document.getElementById('rx-chat-root');
+    return !!(root&&root.classList.contains('rx-open'));
+  }
+
+  function chatExclusionRect(){
+    var root=document.getElementById('rx-chat-root');
+    if(!root)return null;
+    var pad=isChatOpen()?24:14;
+    var r;
+    if(isChatOpen()){
+      r=root.getBoundingClientRect();
+    }else{
+      var btn=root.querySelector('button');
+      r=btn?btn.getBoundingClientRect():root.getBoundingClientRect();
+    }
+    if(r.width<1&&r.height<1)return null;
+    return{left:r.left-pad,top:r.top-pad,right:r.right+pad,bottom:r.bottom+pad};
+  }
+
+  function overlapsChat(x,y,w,h){
+    var ex=chatExclusionRect();
+    if(!ex)return false;
+    return x+w>ex.left&&x<ex.right&&y+h>ex.top&&y<ex.bottom;
+  }
+
+  function chatSpot(){
+    if(isChatOpen())return randomSpot(true);
+    var sz=botSize();
+    var chat=document.querySelector('#rx-chat-root>button');
+    var x,y;
+    if(chat){
+      var r=chat.getBoundingClientRect();
+      x=Math.round(r.left-sz.w-14);
+      y=Math.round(r.top-sz.h*0.5);
+    }else{
+      x=window.innerWidth-sz.w-88;
+      y=window.innerHeight-sz.h-(window.innerWidth<600?82:96);
+    }
+    x=Math.max(14,Math.min(x,window.innerWidth-sz.w-14));
+    y=Math.max(72,Math.min(y,window.innerHeight-sz.h-50));
+    if(overlapsChat(x,y,sz.w,sz.h))return randomSpot(true);
+    return {x:x,y:y,w:sz.w,h:sz.h};
+  }
+
+  function place(x,y,instant){
+    lastX=x;lastY=y;
+    if(instant)bot.classList.add('ai-instant');
+    bot.style.setProperty('--ai-x',Math.round(x)+'px');
+    bot.style.setProperty('--ai-y',Math.round(y)+'px');
+    tipSide(x,botSize().w);
+    if(instant){
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){bot.classList.remove('ai-instant');});
+      });
+    }
+  }
+
+  function randomSpot(force){
+    var sz=botSize();
+    var pad=14,topBar=72,bottomPad=window.innerWidth<600?82:96;
+    var minX=pad,maxX=Math.max(pad,window.innerWidth-sz.w-pad);
+    var minY=topBar,maxY=Math.max(topBar,window.innerHeight-sz.h-bottomPad);
+    var x,y,tries=0,maxTries=isChatOpen()?36:16;
+    do{
+      x=minX+Math.random()*(maxX-minX);
+      y=minY+Math.random()*(maxY-minY);
+      tries++;
+    }while(tries<maxTries&&(
+      (!force&&Math.abs(x-lastX)<40&&Math.abs(y-lastY)<40)||
+      overlapsChat(x,y,sz.w,sz.h)
+    ));
+    return {x:x,y:y,w:sz.w,h:sz.h};
+  }
+
+  function evacuateFromChat(instant){
+    if(!bot.classList.contains('in')||bot.classList.contains('ai-hide'))return;
+    if(!overlapsChat(lastX,lastY,botSize().w,botSize().h))return;
+    clearTimeout(waitTimer);
+    clearTimeout(pitchTimer);
+    hideTip();
+    var s=randomSpot(true);
+    if(instant){
+      bot.classList.remove('ai-moving');
+      place(s.x,s.y,true);
+      schedulePitchAfterLand();
+      return;
+    }
+    bot.classList.add('ai-moving');
+    place(s.x,s.y,false);
+  }
+
+  function watchChatWidget(){
+    function attach(){
+      var root=document.getElementById('rx-chat-root');
+      if(!root||root.dataset.rxBotWatch)return;
+      root.dataset.rxBotWatch='1';
+      var panel=root.firstElementChild;
+      if(!panel)return;
+      function onChatChange(){
+        setTimeout(function(){
+          if(isChatOpen())evacuateFromChat(false);
+        },0);
+      }
+      new MutationObserver(onChatChange).observe(panel,{attributes:true,attributeFilter:['style']});
+      new MutationObserver(onChatChange).observe(root,{attributes:true,attributeFilter:['class']});
+    }
+    attach();
+    var bootObs=new MutationObserver(attach);
+    bootObs.observe(document.documentElement,{childList:true,subtree:true});
+    setTimeout(function(){bootObs.disconnect();},30000);
+  }
+
+  function hideTip(){
+    bot.classList.remove('tip-show');
+    if(tip)tip.textContent='';
+  }
+
+  function showTip(){
+    if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
+    setPitch();
+    bot.classList.add('tip-show');
+  }
+
+  function scheduleWait(){
+    clearTimeout(waitTimer);
+    waitTimer=setTimeout(beginMove,WAIT_MS);
+  }
+
+  function schedulePitchAfterLand(delay){
+    clearTimeout(pitchTimer);
+    pitchTimer=setTimeout(function(){
+      if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
+      showTip();
+      scheduleWait();
+    },delay!=null?delay:PITCH_DELAY_MS);
+  }
+
+  function beginMove(){
+    if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
+    clearTimeout(pitchTimer);
+    clearTimeout(waitTimer);
+    movedOnce=true;
+    bot.classList.add('ai-moving');
+    hideTip();
+    var s=randomSpot();
+    place(s.x,s.y,false);
+  }
+
+  function onArrived(){
+    bot.classList.remove('ai-moving');
+    hideTip();
+    schedulePitchAfterLand();
+  }
+
+  bot.addEventListener('transitionend',function(e){
+    if(e.propertyName!=='transform'||!bot.classList.contains('ai-moving'))return;
+    onArrived();
+  });
+
+  function boot(){
+    watchChatWidget();
+    var spot=isChatOpen()?randomSpot(true):chatSpot();
+    place(spot.x,spot.y,true);
+    bot.classList.add('in');
+    if(reduced){
+      showTip();
+      return;
+    }
+    schedulePitchAfterLand(FIRST_PITCH_DELAY_MS);
+    /* Snap beside chat once launcher injects the widget (if not yet loaded). */
+    if(!document.querySelector('#rx-chat-root>button')){
+      var chatObs=new MutationObserver(function(){
+        if(movedOnce||isChatOpen()||!document.querySelector('#rx-chat-root>button'))return;
+        var s=chatSpot();
+        place(s.x,s.y,true);
+      });
+      chatObs.observe(document.documentElement,{childList:true,subtree:true});
+      setTimeout(function(){chatObs.disconnect();},15000);
+    }
+  }
+
+  window.addEventListener('resize',function(){
+    if(!bot.classList.contains('in')||bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
+    if(overlapsChat(lastX,lastY,botSize().w,botSize().h))evacuateFromChat(true);
+    else tipSide(lastX,botSize().w);
+  });
+
+  setTimeout(boot,6000);
 })();
 </script>
 
@@ -1269,7 +1504,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <a id="nav-work" onclick="goSection('work')">Why Us</a>
         <a id="nav-faq" onclick="goSection('faq')">FAQ</a>
         <a id="nav-services" onclick="go('services')">Services</a>
-        <a id="nav-aiservices" class="nav-blink" onclick="go('aiservices')">Special Services</a>
+        <a id="nav-aiservices" class="nav-blink" onclick="go('aiservices')">Special Products</a>
         <a id="nav-about" onclick="go('about')">About</a>
         <a id="nav-contact" onclick="go('contact')" class="nav-cta">From ₹100/mo</a>
       </div>
@@ -1848,6 +2083,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 <!-- ══════════════════════════════════ AI SERVICES PAGE ═ -->
 <style>
 /* ===== AI Services marketplace ===== */
+#page-aiservices .ph-inner{max-width:820px;margin:0 auto;text-align:center;}
+#page-aiservices .ph-inner .hero-sub{margin-left:auto;margin-right:auto;}
+#page-aiservices .ph-inner .offer-bar{margin-top:1.8rem;}
 .ai-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.3rem;padding:0 5% 4.5rem;}
 .ai-card{position:relative;background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:1.9rem;display:flex;flex-direction:column;gap:.95rem;overflow:hidden;backdrop-filter:blur(8px);transition:transform .35s var(--ease-spring),border-color .35s,box-shadow .35s;}
 .ai-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease-spring);}
@@ -2004,9 +2242,14 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   <div class="ph">
     <div class="orb orb1" style="opacity:.5;"></div>
     <div class="ph-inner">
-      <div class="sl fu">AI Services Marketplace</div>
-      <h1 class="fu d1">Ready-to-deploy <span class="gt">AI agents</span> for your business</h1>
-      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Buy a trained AI bot, embed it on your website in minutes, and let it work 24/7. <b>Hover any card</b> and the AI pops up to explain the service.</p>
+      <div class="fu" style="margin-bottom:1.15rem;"><span class="deal-pill">Live now — lowest prices in India</span></div>
+      <div class="sl fu" style="justify-content:center;">Special Products</div>
+      <h1 class="fu d1">AI that <span class="g-deal">grows your business</span> — without growing your bills</h1>
+      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Chatbots, lead finders &amp; Instagram automation — ready to deploy, priced so <b class="g-deal">everyone can afford them</b>. Pick a tool, plug it in, let it work 24/7. <b>Hover any card</b> — your AI says hello.</p>
+      <div class="offer-bar fu d2" style="animation:none;opacity:1;transform:none;">
+        <span class="ob-txt"><span class="live-dot"></span>3 tools live today</span>
+        <span class="ob-sub">From ₹100 to start · No hidden fees · Cancel anytime</span>
+      </div>
     </div>
   </div>
 
@@ -2154,16 +2397,16 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   </div>
 
   <div class="cta-s fu" style="margin-bottom:7rem;">
-    <div class="sl" style="justify-content:center;">Not sure which AI fits?</div>
-    <h2>Let's build your <span class="g">AI advantage</span></h2>
-    <p>Tell us about your business and we'll recommend the right AI agent — honestly. Free 30-minute consultation.</p>
-    <button class="btn-p" onclick="go('contact')">Talk to us <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+    <div class="sl" style="justify-content:center;">Not sure which one?</div>
+    <h2>We'll match you to the <span class="g-deal">perfect AI tool — free</span></h2>
+    <p>30-minute call. Zero sales pressure. We'll tell you straight if you don't need AI yet — or exactly which Special Product will move the needle for your business.</p>
+    <button class="btn-p" onclick="go('contact')">Get free advice <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
   </div>
 
   <footer class="build">
     <div class="fg-grid">
       <div class="fb"><span class="brand"><span class="brand-star" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="url(#starG)"/></svg><b class="bs-rx">RX</b></span><span class="logo">Rockit<span>X</span></span></span><p>Bold interfaces, solid engineering, launches built to look sharp in the wild.</p></div>
-      <div class="fc"><h4>AI Services</h4><a onclick="go('aiservices')">AI Document Chatbot</a><a onclick="go('aiservices')">WhatsApp Bot</a><a onclick="go('aiservices')">Voice Assistant</a><a onclick="go('aiservices')">Custom AI Agent</a></div>
+      <div class="fc"><h4>Special Products</h4><a onclick="go('aiservices')">Business Chatbot</a><a onclick="go('aiservices')">Sweep — Lead Finder</a><a onclick="go('aiservices')">AutoGram — Instagram</a><a onclick="go('aiservices')">View all products</a></div>
       <div class="fc"><h4>Company</h4><a onclick="go('about')">About Us</a><a onclick="go('contact')">Contact</a></div>
       <div class="fc"><h4>Contact</h4><a href="mailto:hellorockitx@gmail.com">hellorockitx@gmail.com</a><a href="https://wa.me/919677015116" target="_blank" rel="noopener">+91 96770 15116</a></div>
     </div>
@@ -2515,7 +2758,7 @@ function go(n){
   pg.classList.add('active');
   const na=document.getElementById('nav-'+n);
   if(na)na.classList.add('active');
-  /* Hide the floating mascot while on the Special AI Services page; show elsewhere. */
+  /* Hide the floating mascot on Special Products page; show elsewhere. */
   const aiBot=document.getElementById('aiFloat');
   if(aiBot)aiBot.classList.toggle('ai-hide', n==='aiservices');
   window.scrollTo({top:0,behavior:'smooth'});
