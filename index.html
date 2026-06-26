@@ -1231,10 +1231,6 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
   /* Sections — card-first rhythm */
   section{padding:2.5rem 1rem!important;}
   .ph{padding:4.75rem 1rem 1.75rem!important;}
-  #page-aiservices .ph h1{font-size:1.55rem!important;line-height:1.22!important;}
-  #page-aiservices .ph-inner{padding:0!important;}
-  #page-aiservices .hero-sub{font-size:.86rem!important;line-height:1.55!important;}
-  #page-aiservices .mob-only-block{display:block!important;margin-top:.4rem;}
   .sl{font-size:.6rem;margin-bottom:.7rem;}
   .ssub{font-size:.86rem!important;line-height:1.54!important;max-width:none!important;}
   .offer-bar{flex-direction:column;gap:.3rem;padding:.7rem .85rem;margin-top:1rem;border-radius:14px;}
@@ -1257,10 +1253,6 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
   .cmp-val{font-size:.82rem;}
   .tpl-grid{grid-template-columns:1fr!important;padding:0 1rem!important;gap:.85rem!important;margin-top:1.75rem;}
   .tpl-card{border-radius:16px;}
-  .ai-grid{grid-template-columns:1fr!important;padding:0 1rem 2.25rem!important;gap:.85rem!important;}
-  .ai-card{min-height:340px;border-radius:18px;}
-  .ai-card-vertical{min-height:400px;}
-  .ai-pop{right:-28px;font-size:.55rem;padding:4px 36px;}
   .bento{margin-top:2rem;gap:.85rem;}
   .bento-tile{padding:1.25rem;border-radius:16px;}
   .svc-grid,.sfc-grid,.testi-grid,.trust-grid,.work-grid{gap:.85rem;margin-top:1.75rem;}
@@ -2572,13 +2564,233 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 .tg b{font-size:1.4rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;}
 .tg i{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9b9db5;font-style:normal;margin-top:5px;}
 
-/* touch devices: no hover -> reveal as bottom sheet */
-@media (hover:none){
+/* touch tablets only — desktop uses hover reveal */
+@media (hover:none) and (min-width:769px){
   .ai-card:not(.mystery) .ai-reveal{top:auto;bottom:0;height:auto;max-height:84%;transform:none;opacity:1;border-radius:0 0 22px 22px;padding-top:1.3rem;}
   .ai-card:not(.mystery) .ai-base{display:none;}
   .ai-bot{display:none;}
 }
-@media(max-width:560px){.ai-actions{flex-direction:row;}}
+
+/* ═══ AI Services — MOBILE PRODUCT CARDS (≤768px) — image top, content below ═══ */
+@media (max-width:768px){
+  #page-aiservices .ph{padding:4.25rem .85rem 1.35rem!important;}
+  #page-aiservices .ph h1{font-size:1.42rem!important;line-height:1.26!important;letter-spacing:-.028em!important;}
+  #page-aiservices .hero-sub{font-size:.82rem!important;line-height:1.52!important;max-width:none!important;}
+  #page-aiservices .mob-only-block{display:none!important;}
+  #page-aiservices .deal-pill{font-size:.58rem;padding:6px 11px;}
+  #page-aiservices .offer-bar{margin-top:.85rem!important;padding:.6rem .75rem!important;border-radius:13px;}
+  #page-aiservices .offer-bar .ob-txt,#page-aiservices .offer-bar .ob-sub{font-size:.66rem;}
+
+  #page-aiservices .ai-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,1fr)!important;
+    padding:0 .85rem 1.75rem!important;
+    gap:.75rem!important;
+  }
+  /* Live products — full-width product cards */
+  #page-aiservices .ai-grid>.ai-card:not(.mystery){
+    grid-column:1/-1;
+  }
+
+  #page-aiservices .ai-card{
+    min-height:0!important;
+    height:auto!important;
+    overflow:hidden!important;
+    padding:0!important;
+    border-radius:16px!important;
+    background:var(--card)!important;
+    border:1px solid var(--border)!important;
+    box-shadow:0 10px 36px -14px rgba(0,0,0,.55)!important;
+  }
+  #page-aiservices .ai-card::before{display:none!important;}
+  #page-aiservices .ai-card.feat{
+    border-color:rgba(124,108,255,.42)!important;
+    box-shadow:0 12px 40px -12px rgba(124,108,255,.32)!important;
+  }
+
+  #page-aiservices .ai-clip{
+    position:relative!important;
+    inset:auto!important;
+    display:flex!important;
+    flex-direction:column!important;
+    height:auto!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    border:none!important;
+    border-radius:0!important;
+    background:transparent!important;
+  }
+  #page-aiservices .ai-clip::before{display:none!important;}
+
+  /* Image hero — always fully visible */
+  #page-aiservices .ai-card:not(.mystery) .ai-img{
+    position:relative!important;
+    inset:auto!important;
+    order:1;
+    width:100%!important;
+    height:clamp(175px,48vw,215px)!important;
+    min-height:175px!important;
+    flex-shrink:0;
+    background-color:#0c0c16!important;
+    background-size:cover!important;
+    background-position:center center!important;
+    transform:none!important;
+    filter:none!important;
+  }
+  #page-aiservices .ai-card.feat .ai-img{background-position:center top!important;}
+
+  #page-aiservices .ai-card-vertical .ai-img-photo{
+    position:relative!important;
+    inset:auto!important;
+    order:1;
+    display:block!important;
+    width:100%!important;
+    height:auto!important;
+    max-height:min(260px,52vw)!important;
+    min-height:160px;
+    object-fit:contain!important;
+    object-position:center center!important;
+    transform:none!important;
+    filter:none!important;
+    background:linear-gradient(180deg,#141420 0%,#0a0a12 100%)!important;
+    padding:.65rem .65rem 0;
+    box-sizing:border-box;
+  }
+
+  #page-aiservices .ai-badge{
+    top:9px;left:9px;
+    z-index:4;
+    font-size:.56rem;
+    padding:4px 8px;
+  }
+  #page-aiservices .ai-pop{
+    position:absolute;
+    top:9px;right:9px;
+    left:auto;
+    transform:none!important;
+    border-radius:7px;
+    padding:4px 9px;
+    font-size:.52rem;
+    letter-spacing:.07em;
+    z-index:4;
+  }
+
+  #page-aiservices .ai-base,#page-aiservices .ai-bot{display:none!important;}
+
+  /* Content — static flow, no overlay */
+  #page-aiservices .ai-reveal{
+    position:relative!important;
+    inset:auto!important;
+    top:auto!important;bottom:auto!important;
+    order:2;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+    max-height:none!important;
+    height:auto!important;
+    overflow:visible!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    text-align:left!important;
+    gap:.5rem;
+    padding:.95rem 1rem 1.05rem!important;
+    background:var(--card)!important;
+    backdrop-filter:none!important;
+    border-radius:0!important;
+  }
+  #page-aiservices .ai-reveal .ai-cat{
+    color:var(--accent)!important;
+    font-size:.56rem;
+    margin:0;
+  }
+  #page-aiservices .ai-rv-title{
+    color:var(--text)!important;
+    font-size:1.05rem!important;
+    line-height:1.22!important;
+    margin:0;
+    text-shadow:none!important;
+  }
+  #page-aiservices .ai-speech{
+    background:var(--icon-bg)!important;
+    border:1px solid var(--border)!important;
+    color:var(--text2)!important;
+    font-size:.8rem!important;
+    line-height:1.48!important;
+    padding:.6rem .7rem!important;
+    border-radius:11px!important;
+    text-align:left;
+  }
+  #page-aiservices .ai-speech::before{display:none!important;}
+  #page-aiservices .ai-chips{gap:.32rem;margin:.1rem 0;}
+  #page-aiservices .ai-chip{
+    font-size:.72rem!important;
+    color:var(--text2)!important;
+    line-height:1.32!important;
+  }
+  #page-aiservices .ai-reveal .ai-price{
+    justify-content:flex-start!important;
+    margin:0!important;
+    padding:.15rem 0 0!important;
+    margin-bottom:0!important;
+  }
+  #page-aiservices .ai-reveal .ai-price b{font-size:1.28rem!important;}
+  #page-aiservices .ai-reveal .ai-price b small{-webkit-text-fill-color:var(--text3)!important;}
+  #page-aiservices .ai-reveal .ai-price span{color:var(--text3)!important;font-size:.72rem!important;}
+
+  #page-aiservices .ai-actions{
+    position:relative!important;
+    left:auto!important;right:auto!important;bottom:auto!important;
+    margin-top:.25rem;
+    flex-direction:column!important;
+    gap:.45rem!important;
+  }
+  #page-aiservices .ai-actions>*{
+    flex:none!important;
+    width:100%;
+    min-height:46px;
+    font-size:.84rem!important;
+    border-radius:12px!important;
+    padding:.7rem .85rem!important;
+  }
+  #page-aiservices .btn-buy{
+    animation:none!important;
+    opacity:1!important;
+    box-shadow:0 8px 22px -10px rgba(124,108,255,.85)!important;
+  }
+  #page-aiservices .btn-details{
+    background:transparent!important;
+    border:1px solid var(--border2)!important;
+    color:var(--text)!important;
+  }
+  #page-aiservices .btn-details svg{stroke:currentColor!important;fill:none!important;}
+
+  /* Coming soon — compact 2-up tiles */
+  #page-aiservices .ai-card.mystery .ai-clip{
+    position:relative!important;
+    inset:auto!important;
+    min-height:168px!important;
+    padding:1rem .65rem!important;
+    border-radius:16px!important;
+    border:1px dashed rgba(124,108,255,.32)!important;
+    background:radial-gradient(circle at 50% 28%,#1c1638,#0d0b18 58%,#07070e)!important;
+    justify-content:center;
+    gap:1rem!important;
+  }
+  #page-aiservices .myst-q{font-size:2.75rem!important;}
+  #page-aiservices .ai-timer{gap:.28rem;flex-wrap:wrap;justify-content:center;}
+  #page-aiservices .tg{min-width:38px;padding:.38rem .2rem;border-radius:10px;}
+  #page-aiservices .tg b{font-size:.95rem;}
+  #page-aiservices .tg i{font-size:.48rem;margin-top:3px;}
+
+  #page-aiservices .cta-s{margin:0 .85rem 2rem!important;padding:1.5rem 1rem!important;}
+  #page-aiservices .cta-s h2{font-size:1.35rem!important;}
+  #page-aiservices .cta-s p{font-size:.84rem!important;}
+
+  #page-aiservices .ai-modal{padding:10px;}
+  #page-aiservices .ai-modal-card{max-height:92vh;border-radius:16px;}
+}
+@media(max-width:560px){.ai-actions{flex-direction:column;}}
 </style>
 
 <div class="page" id="page-aiservices">
@@ -2588,7 +2800,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <div class="fu" style="margin-bottom:1.15rem;"><span class="deal-pill">Live now — lowest prices in India</span></div>
       <div class="sl fu" style="justify-content:center;">Special Products</div>
       <h1 class="fu d1">AI that <span class="g-deal">grows your business</span> — without growing your bills</h1>
-      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Chatbots, lead finders &amp; Instagram automation — ready to deploy, priced so <b class="g-deal">everyone can afford them</b>. Pick a tool, plug it in, let it work 24/7. <span class="mob-hide"><b>Hover any card</b> — your AI says hello.</span><span class="mob-only-block"><b>Tap any card</b> — your AI says hello.</span></p>
+      <p class="hero-sub fu d2" style="animation:none;opacity:1;transform:none;">Chatbots, lead finders &amp; Instagram automation — ready to deploy, priced so <b class="g-deal">everyone can afford them</b>. Pick a tool, plug it in, let it work 24/7.</p>
       <div class="offer-bar fu d2" style="animation:none;opacity:1;transform:none;">
         <span class="ob-txt"><span class="live-dot"></span>3 tools live today</span>
         <span class="ob-sub">From ₹100 to start · No hidden fees · Cancel anytime</span>
