@@ -2564,6 +2564,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 .tg b{font-size:1.4rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;}
 .tg i{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9b9db5;font-style:normal;margin-top:5px;}
 
+/* Desktop — mobile cards hidden (web view untouched) */
+.ai-mob-card,.ai-mob-mystery{display:none;}
+
 /* touch tablets only — desktop uses hover reveal */
 @media (hover:none) and (min-width:769px){
   .ai-card:not(.mystery) .ai-reveal{top:auto;bottom:0;height:auto;max-height:84%;transform:none;opacity:1;border-radius:0 0 22px 22px;padding-top:1.3rem;}
@@ -2571,224 +2574,142 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .ai-bot{display:none;}
 }
 
-/* ═══ AI Services — MOBILE PRODUCT CARDS (≤768px) — image top, content below ═══ */
+/* ═══ AI Services — MOBILE-ONLY LAYOUT (≤768px) — separate markup & images ═══ */
 @media (max-width:768px){
-  #page-aiservices .ph{padding:4.25rem .85rem 1.35rem!important;}
-  #page-aiservices .ph h1{font-size:1.42rem!important;line-height:1.26!important;letter-spacing:-.028em!important;}
-  #page-aiservices .hero-sub{font-size:.82rem!important;line-height:1.52!important;max-width:none!important;}
-  #page-aiservices .mob-only-block{display:none!important;}
+  #page-aiservices .ph{padding:4.25rem max(.85rem,env(safe-area-inset-left)) 1.35rem max(.85rem,env(safe-area-inset-right))!important;}
+  #page-aiservices .ph h1{font-size:clamp(1.32rem,5.2vw,1.55rem)!important;line-height:1.26!important;}
+  #page-aiservices .hero-sub{font-size:clamp(.78rem,3.4vw,.88rem)!important;line-height:1.52!important;max-width:none!important;}
   #page-aiservices .deal-pill{font-size:.58rem;padding:6px 11px;}
   #page-aiservices .offer-bar{margin-top:.85rem!important;padding:.6rem .75rem!important;border-radius:13px;}
   #page-aiservices .offer-bar .ob-txt,#page-aiservices .offer-bar .ob-sub{font-size:.66rem;}
 
+  /* Hide desktop hover cards completely */
+  #page-aiservices .ai-clip,#page-aiservices .ai-bot{display:none!important;}
+
   #page-aiservices .ai-grid{
     display:grid!important;
-    grid-template-columns:repeat(2,1fr)!important;
-    padding:0 .85rem 1.75rem!important;
-    gap:.75rem!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    padding:0 max(.85rem,env(safe-area-inset-left)) 1.75rem max(.85rem,env(safe-area-inset-right))!important;
+    gap:clamp(.65rem,2.5vw,.85rem)!important;
   }
-  /* Live products — full-width product cards */
-  #page-aiservices .ai-grid>.ai-card:not(.mystery){
-    grid-column:1/-1;
-  }
+  #page-aiservices .ai-grid>.ai-card:not(.mystery){grid-column:1/-1;}
 
   #page-aiservices .ai-card{
-    min-height:0!important;
-    height:auto!important;
-    overflow:hidden!important;
-    padding:0!important;
-    border-radius:16px!important;
-    background:var(--card)!important;
-    border:1px solid var(--border)!important;
-    box-shadow:0 10px 36px -14px rgba(0,0,0,.55)!important;
+    min-height:0!important;height:auto!important;padding:0!important;margin:0!important;
+    overflow:visible!important;background:transparent!important;border:none!important;
+    box-shadow:none!important;border-radius:0!important;
   }
   #page-aiservices .ai-card::before{display:none!important;}
-  #page-aiservices .ai-card.feat{
-    border-color:rgba(124,108,255,.42)!important;
-    box-shadow:0 12px 40px -12px rgba(124,108,255,.32)!important;
+  #page-aiservices .ai-card.feat{box-shadow:none!important;}
+
+  /* ── Mobile product card shell ── */
+  .ai-mob-card{
+    display:flex;flex-direction:column;width:100%;
+    background:var(--card);border:1px solid var(--border);border-radius:18px;
+    overflow:hidden;box-shadow:0 12px 40px -16px rgba(0,0,0,.55);
+  }
+  .ai-mob-card.amc-feat{border-color:rgba(124,108,255,.4);box-shadow:0 14px 44px -14px rgba(124,108,255,.28);}
+
+  .amc-visual{
+    position:relative;width:100%;aspect-ratio:16/10;min-height:168px;
+    background:linear-gradient(165deg,#161622 0%,#0a0a12 100%);
+    overflow:hidden;
+  }
+  .amc-visual img{
+    width:100%;height:100%;display:block;
+    object-fit:cover;object-position:center center;
+  }
+  .amc-visual.amc-contain img{object-fit:contain;padding:.5rem .65rem;box-sizing:border-box;}
+  .amc-visual.amc-contain{background:linear-gradient(165deg,#141420,#09090f);}
+
+  .amc-badge{
+    position:absolute;top:10px;left:10px;z-index:2;
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    padding:4px 9px;border-radius:100px;
+  }
+  .amc-badge.live{color:#10b981;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);}
+  .amc-badge.live .dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:aiLiveDot 1.6s ease-in-out infinite;}
+  .amc-tag{
+    position:absolute;top:10px;right:10px;z-index:2;
+    font-size:.52rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+    padding:4px 9px;border-radius:7px;color:#fff;
+    background:linear-gradient(135deg,#E879F9,#A855F7);
+    box-shadow:0 4px 14px -4px rgba(168,85,247,.65);
   }
 
-  #page-aiservices .ai-clip{
-    position:relative!important;
-    inset:auto!important;
-    display:flex!important;
-    flex-direction:column!important;
-    height:auto!important;
-    min-height:0!important;
-    overflow:hidden!important;
-    border:none!important;
-    border-radius:0!important;
-    background:transparent!important;
+  .amc-body{padding:1rem 1.05rem 1.1rem;display:flex;flex-direction:column;gap:.55rem;}
+  .amc-cat{font-size:.56rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
+  .amc-title{font-size:clamp(1.02rem,4.2vw,1.14rem);font-weight:800;color:var(--text);line-height:1.22;margin:0;}
+  .amc-desc{font-size:clamp(.78rem,3.3vw,.84rem);color:var(--text2);line-height:1.5;margin:0;}
+  .amc-feats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.32rem;}
+  .amc-feats li{
+    font-size:clamp(.72rem,3.1vw,.78rem);color:var(--text2);line-height:1.35;
+    display:flex;align-items:flex-start;gap:.45rem;
   }
-  #page-aiservices .ai-clip::before{display:none!important;}
+  .amc-feats li::before{
+    content:'✓';flex-shrink:0;width:16px;height:16px;border-radius:50%;
+    display:grid;place-items:center;font-size:.58rem;font-weight:900;color:#fff;
+    background:linear-gradient(145deg,#7C6CFF,#4F46E5);margin-top:1px;
+  }
+  .amc-price{
+    display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .5rem;
+    padding-top:.15rem;margin-top:.1rem;
+  }
+  .amc-price b{font-size:clamp(1.22rem,5vw,1.36rem);font-weight:900;background:var(--brand-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .amc-price b small{font-size:.72rem;font-weight:800;-webkit-text-fill-color:var(--text3);}
+  .amc-price span{font-size:.72rem;color:var(--text3);font-weight:600;}
 
-  /* Image hero — always fully visible */
-  #page-aiservices .ai-card:not(.mystery) .ai-img{
-    position:relative!important;
-    inset:auto!important;
-    order:1;
-    width:100%!important;
-    height:clamp(175px,48vw,215px)!important;
-    min-height:175px!important;
-    flex-shrink:0;
-    background-color:#0c0c16!important;
-    background-size:cover!important;
-    background-position:center center!important;
-    transform:none!important;
-    filter:none!important;
+  .amc-actions{display:flex;flex-direction:column;gap:.45rem;margin-top:.2rem;}
+  .amc-actions .btn-buy,.amc-actions .btn-details{
+    width:100%;min-height:46px;justify-content:center;
+    font-size:clamp(.82rem,3.5vw,.88rem);border-radius:13px;padding:.72rem 1rem;
   }
-  #page-aiservices .ai-card.feat .ai-img{background-position:center top!important;}
-
-  #page-aiservices .ai-card-vertical .ai-img-photo{
-    position:relative!important;
-    inset:auto!important;
-    order:1;
-    display:block!important;
-    width:100%!important;
-    height:auto!important;
-    max-height:min(260px,52vw)!important;
-    min-height:160px;
-    object-fit:contain!important;
-    object-position:center center!important;
-    transform:none!important;
-    filter:none!important;
-    background:linear-gradient(180deg,#141420 0%,#0a0a12 100%)!important;
-    padding:.65rem .65rem 0;
-    box-sizing:border-box;
-  }
-
-  #page-aiservices .ai-badge{
-    top:9px;left:9px;
-    z-index:4;
-    font-size:.56rem;
-    padding:4px 8px;
-  }
-  #page-aiservices .ai-pop{
-    position:absolute;
-    top:9px;right:9px;
-    left:auto;
-    transform:none!important;
-    border-radius:7px;
-    padding:4px 9px;
-    font-size:.52rem;
-    letter-spacing:.07em;
-    z-index:4;
-  }
-
-  #page-aiservices .ai-base,#page-aiservices .ai-bot{display:none!important;}
-
-  /* Content — static flow, no overlay */
-  #page-aiservices .ai-reveal{
-    position:relative!important;
-    inset:auto!important;
-    top:auto!important;bottom:auto!important;
-    order:2;
-    opacity:1!important;
-    visibility:visible!important;
-    transform:none!important;
-    max-height:none!important;
-    height:auto!important;
-    overflow:visible!important;
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:stretch!important;
-    text-align:left!important;
-    gap:.5rem;
-    padding:.95rem 1rem 1.05rem!important;
-    background:var(--card)!important;
-    backdrop-filter:none!important;
-    border-radius:0!important;
-  }
-  #page-aiservices .ai-reveal .ai-cat{
-    color:var(--accent)!important;
-    font-size:.56rem;
-    margin:0;
-  }
-  #page-aiservices .ai-rv-title{
-    color:var(--text)!important;
-    font-size:1.05rem!important;
-    line-height:1.22!important;
-    margin:0;
-    text-shadow:none!important;
-  }
-  #page-aiservices .ai-speech{
-    background:var(--icon-bg)!important;
-    border:1px solid var(--border)!important;
-    color:var(--text2)!important;
-    font-size:.8rem!important;
-    line-height:1.48!important;
-    padding:.6rem .7rem!important;
-    border-radius:11px!important;
-    text-align:left;
-  }
-  #page-aiservices .ai-speech::before{display:none!important;}
-  #page-aiservices .ai-chips{gap:.32rem;margin:.1rem 0;}
-  #page-aiservices .ai-chip{
-    font-size:.72rem!important;
-    color:var(--text2)!important;
-    line-height:1.32!important;
-  }
-  #page-aiservices .ai-reveal .ai-price{
-    justify-content:flex-start!important;
-    margin:0!important;
-    padding:.15rem 0 0!important;
-    margin-bottom:0!important;
-  }
-  #page-aiservices .ai-reveal .ai-price b{font-size:1.28rem!important;}
-  #page-aiservices .ai-reveal .ai-price b small{-webkit-text-fill-color:var(--text3)!important;}
-  #page-aiservices .ai-reveal .ai-price span{color:var(--text3)!important;font-size:.72rem!important;}
-
-  #page-aiservices .ai-actions{
-    position:relative!important;
-    left:auto!important;right:auto!important;bottom:auto!important;
-    margin-top:.25rem;
-    flex-direction:column!important;
-    gap:.45rem!important;
-  }
-  #page-aiservices .ai-actions>*{
-    flex:none!important;
-    width:100%;
-    min-height:46px;
-    font-size:.84rem!important;
-    border-radius:12px!important;
-    padding:.7rem .85rem!important;
-  }
-  #page-aiservices .btn-buy{
-    animation:none!important;
-    opacity:1!important;
+  .amc-actions .btn-buy{
+    animation:none!important;opacity:1!important;
+    background:linear-gradient(135deg,#7C6CFF,#4F46E5)!important;
     box-shadow:0 8px 22px -10px rgba(124,108,255,.85)!important;
   }
-  #page-aiservices .btn-details{
-    background:transparent!important;
-    border:1px solid var(--border2)!important;
-    color:var(--text)!important;
+  .ai-mob-card.amc-feat .amc-actions .btn-buy{background:linear-gradient(135deg,#E879F9,#A855F7)!important;}
+  .amc-actions .btn-details{
+    background:transparent!important;border:1px solid var(--border2)!important;color:var(--text)!important;
   }
-  #page-aiservices .btn-details svg{stroke:currentColor!important;fill:none!important;}
+  .amc-actions .btn-details svg{stroke:currentColor!important;fill:none!important;width:15px;height:15px;}
 
-  /* Coming soon — compact 2-up tiles */
-  #page-aiservices .ai-card.mystery .ai-clip{
-    position:relative!important;
-    inset:auto!important;
-    min-height:168px!important;
-    padding:1rem .65rem!important;
-    border-radius:16px!important;
-    border:1px dashed rgba(124,108,255,.32)!important;
-    background:radial-gradient(circle at 50% 28%,#1c1638,#0d0b18 58%,#07070e)!important;
-    justify-content:center;
-    gap:1rem!important;
+  /* Mystery — mobile-only compact tiles */
+  .ai-mob-mystery{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.85rem;
+    width:100%;min-height:150px;padding:1rem .55rem;
+    border-radius:16px;border:1px dashed rgba(124,108,255,.32);
+    background:radial-gradient(circle at 50% 28%,#1c1638,#0d0b18 58%,#07070e);
+    box-shadow:0 8px 28px -12px rgba(0,0,0,.5);
   }
-  #page-aiservices .myst-q{font-size:2.75rem!important;}
-  #page-aiservices .ai-timer{gap:.28rem;flex-wrap:wrap;justify-content:center;}
-  #page-aiservices .tg{min-width:38px;padding:.38rem .2rem;border-radius:10px;}
-  #page-aiservices .tg b{font-size:.95rem;}
-  #page-aiservices .tg i{font-size:.48rem;margin-top:3px;}
+  .ai-mob-mystery .myst-q{font-size:clamp(2.2rem,9vw,2.75rem)!important;margin:0;}
+  .ai-mob-mystery .ai-timer{gap:.25rem;flex-wrap:wrap;justify-content:center;}
+  .ai-mob-mystery .tg{min-width:36px;padding:.35rem .18rem;border-radius:10px;}
+  .ai-mob-mystery .tg b{font-size:clamp(.88rem,3.8vw,.95rem);}
+  .ai-mob-mystery .tg i{font-size:.46rem;margin-top:2px;}
 
-  #page-aiservices .cta-s{margin:0 .85rem 2rem!important;padding:1.5rem 1rem!important;}
-  #page-aiservices .cta-s h2{font-size:1.35rem!important;}
-  #page-aiservices .cta-s p{font-size:.84rem!important;}
-
+  #page-aiservices .cta-s{margin:0 max(.85rem,env(safe-area-inset-left)) 2rem max(.85rem,env(safe-area-inset-right))!important;padding:1.5rem 1rem!important;}
+  #page-aiservices .cta-s h2{font-size:clamp(1.22rem,5vw,1.38rem)!important;}
   #page-aiservices .ai-modal{padding:10px;}
   #page-aiservices .ai-modal-card{max-height:92vh;border-radius:16px;}
+}
+
+/* Small phones */
+@media (max-width:480px){
+  #page-aiservices .amc-visual{aspect-ratio:4/3;min-height:148px;}
+  #page-aiservices .amc-body{padding:.9rem .9rem 1rem;gap:.48rem;}
+  #page-aiservices .amc-feats li:nth-child(n+4){display:none;}
+  #page-aiservices .ai-mob-mystery{min-height:138px;padding:.85rem .45rem;}
+}
+
+/* Large phones & small tablets (still mobile layout) */
+@media (min-width:481px) and (max-width:768px){
+  #page-aiservices .amc-visual{aspect-ratio:16/9;min-height:190px;}
+  #page-aiservices .amc-body{padding:1.05rem 1.15rem 1.15rem;}
+  #page-aiservices .amc-actions{flex-direction:row;}
+  #page-aiservices .amc-actions .btn-buy,#page-aiservices .amc-actions .btn-details{flex:1;}
 }
 @media(max-width:560px){.ai-actions{flex-direction:column;}}
 </style>
@@ -2838,9 +2759,33 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         </div>
       </div>
       <img class="ai-bot" src="ai-robot.png" alt="">
+      <!-- Mobile-only card (hidden on desktop) -->
+      <div class="ai-mob-card amc-feat">
+        <div class="amc-visual">
+          <img src="img/ai-chatbot.png" alt="Business Chatbot — AI website receptionist" loading="lazy" width="640" height="400">
+          <span class="amc-badge live"><span class="dot"></span>Live now</span>
+          <span class="amc-tag">Popular</span>
+        </div>
+        <div class="amc-body">
+          <span class="amc-cat">AI Website Receptionist</span>
+          <h3 class="amc-title">Business Chatbot</h3>
+          <p class="amc-desc">A smart AI receptionist on your website — answers customer queries instantly, 24/7, trained on your business.</p>
+          <ul class="amc-feats">
+            <li>Full control software included</li>
+            <li>Setup &amp; training provided</li>
+            <li>Lowest price in the industry</li>
+            <li>Priority email, call &amp; chat support</li>
+          </ul>
+          <div class="amc-price"><b>₹200<small>/month</small></b><span>1000+ chats · recharge anytime</span></div>
+          <div class="amc-actions">
+            <button class="btn-buy" data-name="Business Chatbot" data-buy="chatbot.html">Buy Now</button>
+            <button class="btn-details" data-title="Business Chatbot" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="See how the Business Chatbot learns from your files and answers customers 24/7. Upload your documents, pick your colour, and add it to your website — no technical skills needed."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
+        </div>
+      </div>
     </article>
-
-    <!-- 2. Sweep — Local Business / Lead Finder (LIVE) -->
     <article class="ai-card">
       <div class="ai-clip">
         <div class="ai-img" style="background-image:url('img/ai-sweep.png')"></div>
@@ -2867,6 +2812,30 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         </div>
       </div>
       <img class="ai-bot" src="ai-robot.png" alt="">
+      <div class="ai-mob-card">
+        <div class="amc-visual">
+          <img src="img/ai-sweep.png" alt="Sweep — local business lead finder" loading="lazy" width="640" height="400">
+          <span class="amc-badge live"><span class="dot"></span>Live now</span>
+        </div>
+        <div class="amc-body">
+          <span class="amc-cat">Lead Generation</span>
+          <h3 class="amc-title">Sweep — Local Business Finder</h3>
+          <p class="amc-desc">Pick a city and business type — AI scans the map and exports phone, website &amp; address to Excel.</p>
+          <ul class="amc-feats">
+            <li>Search local business contacts</li>
+            <li>Export as Excel instantly</li>
+            <li>Lowest price guaranteed</li>
+            <li>Up to 60 leads per search</li>
+          </ul>
+          <div class="amc-price"><b>₹100<small> to start</small></b><span>1 search = ₹1</span></div>
+          <div class="amc-actions">
+            <button class="btn-buy" data-name="Sweep — Local Business Finder" data-buy="sweep.html">Buy Now</button>
+            <button class="btn-details" data-title="Sweep — Local Business Finder" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="Sweep helps you build lead lists fast: pick a location and a business type, and the AI scans the map to pull phone numbers, websites and addresses. Mark who you've contacted and export everything to Excel. Start with ₹100 of wallet credit — each AI search costs just ₹1 and can fetch up to 60 leads."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
+        </div>
+      </div>
     </article>
 
     <!-- 3. AutoGram — AI Instagram Poster (LIVE) -->
@@ -2897,12 +2866,46 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         </div>
       </div>
       <img class="ai-bot" src="ai-robot.png" alt="">
+      <div class="ai-mob-card amc-feat">
+        <div class="amc-visual amc-contain">
+          <img src="img/ai-autogram.png" alt="AutoGram — AI Instagram poster automation" loading="lazy" width="640" height="400">
+          <span class="amc-badge live"><span class="dot"></span>Live now</span>
+          <span class="amc-tag">New</span>
+        </div>
+        <div class="amc-body">
+          <span class="amc-cat">Social Media on Autopilot</span>
+          <h3 class="amc-title">AutoGram — AI Instagram Poster</h3>
+          <p class="amc-desc">Train the AI on your business once. Branded posters, auto-posted to Instagram on your schedule.</p>
+          <ul class="amc-feats">
+            <li>Auto-posts to your Instagram</li>
+            <li>You set times, days &amp; frequency</li>
+            <li>Trained on your business data</li>
+            <li>1 poster = ₹2 only</li>
+          </ul>
+          <div class="amc-price"><b>₹299<small> to start</small></b><span>1 poster = ₹2</span></div>
+          <div class="amc-actions">
+            <button class="btn-buy" data-name="AutoGram — AI Instagram Poster" data-buy="autogram.html">Buy Now</button>
+            <button class="btn-details" data-title="AutoGram — AI Instagram Poster" data-yt="PASTE_YOUTUBE_ID"
+              data-desc="AutoGram learns your business, designs on-brand Instagram posters, and posts them on the schedule you set."
+              onclick="aiDetails(this)"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Details</button>
+          </div>
+        </div>
+      </div>
     </article>
 
     <!-- Coming soon — blank mystery cards with a big ? and a 2-week-apart countdown -->
     <article class="ai-card mystery">
       <div class="ai-clip">
         <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="4">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
+      </div>
+      <div class="ai-mob-mystery">
         <div class="myst-q">?</div>
         <div class="ai-timer" data-weeks="4">
           <div class="tg"><b data-d>00</b><i>days</i></div>
@@ -2924,6 +2927,15 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="tg"><b data-s>00</b><i>sec</i></div>
         </div>
       </div>
+      <div class="ai-mob-mystery">
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="6">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
+      </div>
     </article>
 
     <article class="ai-card mystery">
@@ -2937,11 +2949,29 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
           <div class="tg"><b data-s>00</b><i>sec</i></div>
         </div>
       </div>
+      <div class="ai-mob-mystery">
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="8">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
+      </div>
     </article>
 
     <article class="ai-card mystery">
       <div class="ai-clip">
         <div class="myst-dots"></div>
+        <div class="myst-q">?</div>
+        <div class="ai-timer" data-weeks="10">
+          <div class="tg"><b data-d>00</b><i>days</i></div>
+          <div class="tg"><b data-h>00</b><i>hrs</i></div>
+          <div class="tg"><b data-m>00</b><i>min</i></div>
+          <div class="tg"><b data-s>00</b><i>sec</i></div>
+        </div>
+      </div>
+      <div class="ai-mob-mystery">
         <div class="myst-q">?</div>
         <div class="ai-timer" data-weeks="10">
           <div class="tg"><b data-d>00</b><i>days</i></div>
@@ -3016,7 +3046,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     descEl.textContent=btn.getAttribute('data-desc')||'';
     /* remember the matching card's purchase target for the top "Get this AI" button */
     var card=btn.closest('.ai-card');
-    var buyBtn=card?card.querySelector('.btn-buy[data-name]'):null;
+    var buyBtn=card?(card.querySelector('.ai-mob-card .btn-buy[data-name]')||card.querySelector('.btn-buy[data-name]')):null;
     current.buy=buyBtn?((buyBtn.getAttribute('data-buy')||'contact').trim()):'contact';
     current.name=buyBtn?(buyBtn.getAttribute('data-name')||'AI service'):'AI service';
     if(yt && yt!==PLACEHOLDER){
