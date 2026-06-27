@@ -3211,15 +3211,85 @@ function goSection(id){
     0%,100%{box-shadow:0 4px 16px rgba(0,0,0,.22),0 0 0 0 rgba(124,92,255,.7);transform:scale(1);}
     50%{box-shadow:0 4px 16px rgba(0,0,0,.22),0 0 0 18px rgba(124,92,255,0);transform:scale(1.06);}
   }
+  @keyframes rkChatGlow{
+    0%,100%{box-shadow:0 6px 22px rgba(124,92,255,.45),0 0 0 0 rgba(124,92,255,.35);}
+    50%{box-shadow:0 8px 32px rgba(124,92,255,.75),0 0 0 14px rgba(124,92,255,0);}
+  }
   #rx-chat-root:not(.rx-open)>button{
     animation:rkChatBlink 2s ease-in-out infinite!important;
   }
+  @media(max-width:768px){
+    #rx-chat-root:not(.rx-open)>button{animation:rkChatGlow 3.5s ease-in-out infinite!important;}
+  }
   @media(prefers-reduced-motion:reduce){
     #rx-chat-root>button{animation:none!important;}
+    .rx-chat-pitch{transition:none!important;}
   }
 </style>
 <script>
 (function(){
+  var PITCH_MS=3000;
+  var chatPitches=[
+    'Websites from ₹100/mo — ask me how!',
+    'Premium site live in 7 days. Chat now!',
+    'Cheaper elsewhere? We build it FREE!',
+    'AI chatbot from ₹200/mo — tap to ask!',
+    'Special AI tools from ₹100 — explore!',
+    'Leads, chat & Instagram — all affordable!',
+    'Get a free design preview in 24 hrs!',
+    'Pay once ₹12,000 — own your site forever!',
+    'Yearly plan: just ₹1,500 first year!',
+    'Stop losing customers after hours!',
+    'Big-brand websites. Small-brand prices!',
+    'Hosting + domain included — ask me!',
+    '₹1 per lead search with Sweep AI!',
+    'AutoGram posts while you sleep!',
+    'Tap me — I\'ll find your perfect plan!'
+  ];
+  var pitchEl=null,pitchIdx=0,pitchTimer=null;
+
+  function isMobileChat(){return window.innerWidth<=768;}
+
+  function ensurePitch(){
+    if(!isMobileChat()){removePitch();return null;}
+    if(pitchEl)return pitchEl;
+    pitchEl=document.createElement('div');
+    pitchEl.className='rx-chat-pitch';
+    pitchEl.setAttribute('aria-live','polite');
+    document.body.appendChild(pitchEl);
+    return pitchEl;
+  }
+
+  function removePitch(){
+    clearInterval(pitchTimer);
+    pitchTimer=null;
+    if(pitchEl){pitchEl.remove();pitchEl=null;}
+  }
+
+  function chatIsOpen(){
+    var root=document.getElementById('rx-chat-root');
+    return !!(root&&root.classList.contains('rx-open'));
+  }
+
+  function showChatPitch(){
+    if(!pitchEl||!isMobileChat())return;
+    if(chatIsOpen()){pitchEl.classList.remove('show');return;}
+    pitchEl.textContent=chatPitches[pitchIdx%chatPitches.length];
+    pitchIdx=(pitchIdx+1)%chatPitches.length;
+    pitchEl.classList.remove('show');
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){pitchEl.classList.add('show');});
+    });
+  }
+
+  function startChatPitches(){
+    clearInterval(pitchTimer);
+    if(!isMobileChat()){removePitch();return;}
+    ensurePitch();
+    showChatPitch();
+    pitchTimer=setInterval(showChatPitch,PITCH_MS);
+  }
+
   var obs=new MutationObserver(function(){
     var root=document.getElementById('rx-chat-root');
     if(!root||root.dataset.rxHooked)return;
@@ -3227,12 +3297,23 @@ function goSection(id){
     var panel=root.firstElementChild;
     var btn=root.lastElementChild;
     if(!panel||!btn)return;
-    function syncOpen(){root.classList.toggle('rx-open',panel.style.display==='block');}
+    function syncOpen(){
+      root.classList.toggle('rx-open',panel.style.display==='block');
+      if(isMobileChat()){
+        if(root.classList.contains('rx-open')&&pitchEl)pitchEl.classList.remove('show');
+        else if(pitchEl)showChatPitch();
+      }
+    }
     new MutationObserver(syncOpen).observe(panel,{attributes:true,attributeFilter:['style']});
     btn.addEventListener('click',function(){setTimeout(syncOpen,0);});
     syncOpen();
+    startChatPitches();
   });
   obs.observe(document.documentElement,{childList:true,subtree:true});
+  window.addEventListener('resize',function(){
+    if(isMobileChat())startChatPitches();
+    else removePitch();
+  });
 })();
 </script>
 <script src="https://api.rockitx.com/embed/sunrise-bakery/launcher.js" async></script>
@@ -3247,7 +3328,20 @@ function goSection(id){
   #rx-chat-root:not(.rx-open)>button{
     width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;
     right:auto!important;bottom:auto!important;border-radius:50%!important;
+    animation:rkChatGlow 3.5s ease-in-out infinite!important;
   }
+  .rx-chat-pitch{
+    position:fixed;z-index:99998;pointer-events:none;
+    right:max(12px,env(safe-area-inset-right));left:max(12px,env(safe-area-inset-left));
+    bottom:calc(78px + env(safe-area-inset-bottom));
+    width:fit-content;max-width:min(290px,calc(100vw - 88px));margin-left:auto;
+    padding:11px 14px;border-radius:14px 14px 4px 14px;
+    font-size:.8125rem;font-weight:600;line-height:1.38;color:#fff;
+    background:linear-gradient(135deg,rgba(67,56,202,.96),rgba(124,92,255,.94));
+    box-shadow:0 10px 36px -8px rgba(79,70,229,.9);
+    opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;
+  }
+  .rx-chat-pitch.show{opacity:1;transform:translateY(0);}
   #rx-chat-root.rx-open{
     inset:max(56px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))!important;
   }
