@@ -51,6 +51,8 @@
 <link rel="dns-prefetch" href="https://api.fontshare.com">
 <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<!-- Mobile-only styles — never loaded on desktop (≥769px) -->
+<link rel="stylesheet" href="mobile-only.css" media="(max-width:768px)">
 <style>
 /* RockitX brand · cinematic · iridescent violet → indigo → sky · Satoshi */
 :root{
@@ -236,8 +238,8 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateY(0);}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
 
-/* Responsive show/hide helpers */
-.mob-only,.mob-only-block{display:none!important;}
+/* Responsive show/hide helpers — desktop hides all mobile-only UI */
+.mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials{display:none!important;}
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
 .nav-links a.nav-blink{
@@ -548,17 +550,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:3.75rem 
 @media(max-width:900px){
   .why-grid,.about-grid,.cg{grid-template-columns:1fr;gap:2.25rem;}
   .fg-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:768px){
-  .nav-links{display:none;}
-  .nav-links.open{display:flex;}
-  .hamburger{display:flex;}
-  h1{font-size:2.15rem;}
-  .svc-grid,.testi-grid,.trust-grid{grid-template-columns:1fr;}
-  .proc-wrap{grid-template-columns:1fr;}
-  .form-row{grid-template-columns:1fr;}
-  .cursor,.c-ring{display:none;}
-  .fg-grid{grid-template-columns:1fr;}
 }
 @media(max-width:500px){
   .svc-grid{grid-template-columns:1fr;}
@@ -1049,271 +1040,6 @@ h2{font-size:clamp(2rem,3.2vw,2.95rem);}
 @keyframes scrollDot{0%{opacity:0;top:6px;}35%{opacity:1;}75%{opacity:0;top:17px;}100%{opacity:0;}}
 @media(max-width:600px){.fire-scroll{display:none;}}
 
-/* ═══════════════ MOBILE EXPERIENCE (≤768px) — native app feel, not shrunk desktop ═══════════════ */
-@media(max-width:768px){
-  .mob-hide{display:none!important;}
-  .mob-only{display:inline!important;}
-  .mob-only-block{display:block!important;}
-
-  html{-webkit-text-size-adjust:100%;touch-action:manipulation;}
-  body{overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
-  body.nav-open{overflow:hidden;}
-
-  /* Softer background — less "desktop wallpaper" on small screens */
-  .rx-mesh-wrap{opacity:.42;}
-  .rx-sparks,.rx-shoot{display:none;}
-  body::before{opacity:.028;}
-  .hero-watermark{display:none;}
-
-  /* Nav — compact bar + bottom-sheet menu */
-  nav{padding:.45rem max(.85rem,env(safe-area-inset-left)) 0 max(.85rem,env(safe-area-inset-right))!important;}
-  .nav-shell{padding:.42rem .7rem!important;border-radius:13px!important;}
-  .logo{font-size:1.28rem!important;}
-  .hamburger{padding:7px;gap:5px;z-index:1001;}
-  .hamburger span{width:20px;transition:transform .28s ease,opacity .2s;}
-  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.open span:nth-child(2){opacity:0;}
-  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  body.nav-open::before{
-    content:'';position:fixed;inset:0;z-index:997;
-    background:rgba(0,0,0,.62);
-    animation:navFadeIn .25s ease;
-  }
-  @keyframes navFadeIn{from{opacity:0}to{opacity:1}}
-  .nav-links{
-    display:flex!important;
-    visibility:hidden;
-    pointer-events:none;
-    flex-direction:column;
-    gap:0;
-    position:fixed;
-    top:auto!important;
-    left:0!important;
-    right:0!important;
-    bottom:0!important;
-    z-index:999;
-    max-height:min(82vh,560px);
-    padding:1rem 1.1rem max(1.15rem,env(safe-area-inset-bottom))!important;
-    border-radius:22px 22px 0 0!important;
-    border:1px solid var(--border)!important;
-    border-bottom:none!important;
-    background:var(--card-s)!important;
-    box-shadow:0 -24px 80px -20px rgba(0,0,0,.85)!important;
-    transform:translateY(105%);
-    transition:transform .38s var(--ease-spring);
-    overflow-y:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-  .nav-links.open{
-    visibility:visible;
-    pointer-events:auto;
-    transform:translateY(0);
-  }
-  .nav-links a{
-    font-size:.92rem;
-    font-weight:600;
-    padding:.72rem 0;
-    border-bottom:1px solid var(--border);
-    width:100%;
-    text-align:center;
-  }
-  .nav-links a:last-child{border-bottom:none;}
-  .nav-links a::after{display:none!important;}
-  .nav-links a.nav-blink{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    white-space:normal;
-    line-height:1.35;
-    margin:.55rem 0 0;
-    padding:.72rem .85rem!important;
-    border-radius:12px;
-    border:1px solid var(--deal-b)!important;
-    border-bottom:1px solid var(--deal-b)!important;
-  }
-  .nav-cta{
-    width:100%!important;
-    justify-content:center!important;
-    text-align:center;
-    margin-top:.55rem!important;
-    padding:.78rem 1rem!important;
-    min-height:48px;
-    border-radius:13px!important;
-  }
-
-  /* Fire opener — app-style bottom hero card */
-  .fire-hero{
-    min-height:100svh;
-    justify-content:flex-end;
-    align-items:stretch;
-    padding:4.5rem 0 max(1.1rem,env(safe-area-inset-bottom));
-  }
-  .fire-hero::after{height:72%;}
-  .fire-hero .fire-inner{
-    width:auto;
-    max-width:none;
-    margin:0 .85rem;
-    text-align:center;
-    padding:1.35rem 1.05rem 1.15rem;
-    border-radius:20px;
-    background:rgba(10,10,18,.78);
-    border:1px solid rgba(255,180,90,.2);
-    box-shadow:0 28px 70px -24px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.04) inset;
-  }
-  .fire-hero .fire-inner::before{display:none;}
-  .fire-eyebrow{font-size:.54rem;padding:5px 10px;margin-bottom:.75rem;letter-spacing:.09em;}
-  .fire-hero .fire-head{
-    font-size:1.52rem;
-    line-height:1.22;
-    letter-spacing:-.02em;
-    max-width:none;
-    animation:fireFlow 3.2s linear infinite!important;
-    filter:drop-shadow(0 0 10px rgba(249,115,22,.5))!important;
-  }
-  .fire-head-l1,.fire-head-l2{display:block;}
-  .fire-head-l2{margin-top:.1rem;font-size:1.42rem;}
-  .fire-hero .fire-sub{
-    font-size:.84rem;
-    line-height:1.52;
-    margin:.7rem auto 0;
-    padding:0;
-    max-width:none;
-    color:var(--text2);
-  }
-  .fire-actions{
-    flex-direction:column;
-    width:100%;
-    gap:.55rem;
-    margin-top:1.1rem;
-  }
-  .fire-actions .btn-p,.fire-actions .btn-s{
-    width:100%;
-    justify-content:center;
-    font-size:.87rem;
-    padding:.86rem 1rem;
-    min-height:48px;
-    border-radius:13px;
-  }
-  .fire-timer{
-    flex-direction:row;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
-    gap:.35rem .55rem;
-    width:100%;
-    margin-top:.85rem;
-    padding:.55rem .65rem;
-    font-size:.54rem;
-    letter-spacing:.05em;
-    border-radius:11px;
-    background:rgba(0,0,0,.35);
-  }
-  .fire-timer .cd-time{font-size:.78rem;padding:3px 8px;}
-  .fire-embers{opacity:.28;}
-
-  /* Main hero — stacked, readable */
-  .hero{min-height:auto;padding:3.5rem 1rem 2rem;}
-  .hero-inner{padding:0!important;}
-  h1{font-size:1.68rem!important;line-height:1.24!important;min-height:auto!important;letter-spacing:-.032em!important;}
-  h2{font-size:1.45rem!important;line-height:1.2!important;letter-spacing:-.03em!important;}
-  .hero-sub{font-size:.88rem!important;line-height:1.56!important;margin:.95rem 0 1.15rem!important;}
-  .hero-badge{font-size:.58rem;padding:6px 10px;margin-bottom:.85rem;}
-  .brand-tagline{font-size:.52rem!important;letter-spacing:.14em!important;margin-bottom:.75rem!important;}
-  .hero-actions{flex-direction:column;width:100%;gap:.55rem;}
-  .hero-actions .btn-p,.hero-actions .btn-s{width:100%;justify-content:center;min-height:48px;font-size:.87rem;border-radius:13px;}
-
-  /* Marquee — tighter strip */
-  .mq-wrap{padding:1rem 0;}
-  .mq-track{gap:1.75rem;}
-  .mq-i{font-size:.56rem;letter-spacing:.14em;gap:.85rem;}
-
-  /* Sections — card-first rhythm */
-  section{padding:2.5rem 1rem!important;}
-  .ph{padding:4.75rem 1rem 1.75rem!important;}
-  .sl{font-size:.6rem;margin-bottom:.7rem;}
-  .ssub{font-size:.86rem!important;line-height:1.54!important;max-width:none!important;}
-  .offer-bar{flex-direction:column;gap:.3rem;padding:.7rem .85rem;margin-top:1rem;border-radius:14px;}
-  .offer-bar .ob-txt,.offer-bar .ob-sub{font-size:.68rem;line-height:1.45;}
-  .guarantee{margin:0 0 1rem;flex-direction:column;gap:.65rem;}
-  .gtee-card{min-width:0;width:100%;padding:1.1rem 1rem;border-radius:16px;}
-  .price-grid{margin-top:1.5rem;gap:.85rem;}
-  .plan{padding:1.25rem 1.05rem;border-radius:18px;}
-  .plan-price{font-size:2.1rem!important;}
-  .cmp-wrap{margin-top:1.5rem;padding:1.15rem .95rem;border-radius:16px;max-width:none;}
-  .cmp-row{
-    grid-template-columns:1fr auto;
-    grid-template-rows:auto auto;
-    gap:.3rem .65rem;
-    margin-bottom:.95rem;
-  }
-  .cmp-row.us-row{margin-left:0;margin-right:0;padding:.55rem .65rem;}
-  .cmp-bar{grid-column:1/-1;height:18px;border-radius:7px;}
-  .cmp-name{font-size:.78rem;}
-  .cmp-val{font-size:.82rem;}
-  .tpl-grid{grid-template-columns:1fr!important;padding:0 1rem!important;gap:.85rem!important;margin-top:1.75rem;}
-  .tpl-card{border-radius:16px;}
-  .bento{margin-top:2rem;gap:.85rem;}
-  .bento-tile{padding:1.25rem;border-radius:16px;}
-  .svc-grid,.sfc-grid,.testi-grid,.trust-grid,.work-grid{gap:.85rem;margin-top:1.75rem;}
-  .svc-card,.sfc-card,.testi-card,.trust-card{padding:1.35rem 1.15rem;border-radius:16px;}
-  .sfc-grid{padding:0 1rem 2.5rem!important;}
-  .about-grid,.contact-s{padding-left:1rem!important;padding-right:1rem!important;}
-  .contact-s{padding-top:4.75rem!important;padding-bottom:2.5rem!important;}
-  .cg{grid-template-columns:1fr!important;gap:1.75rem!important;}
-  .cf{padding:1.25rem 1rem;border-radius:16px;}
-  .form-row{gap:.65rem;}
-  .faq-item summary{padding:.95rem 1rem;font-size:.88rem;}
-  .faq-a{padding:0 1rem 1.15rem;font-size:.86rem;}
-  .cta-s{margin:0 1rem 2.5rem!important;padding:1.65rem 1rem!important;border-radius:18px;}
-  .cta-s p{font-size:.88rem;}
-  footer{padding:2rem 1rem 1.25rem!important;}
-  .f-bot{flex-direction:column;align-items:flex-start;gap:.65rem;}
-  .fg-grid{gap:1.5rem;}
-  .btn-p,.btn-s{min-height:48px;border-radius:13px;}
-
-  /* Touch — no hover lift / tilt on phones */
-  .svc-card:hover,.sfc-card:hover,.plan:hover,.tpl-card:hover,.bento-tile:hover,
-  .testi-card:hover,.trust-card:hover,.gtee-card:hover,.val-i:hover,.tilt:hover,
-  .float-card:hover,.ai-card:hover,.ai-card.mystery:hover{
-    transform:none!important;
-    box-shadow:inherit;
-  }
-  .svc-card:hover .svc-arrow{opacity:1;transform:none;}
-  .cmp-row.us-row{animation:none!important;transform:none!important;}
-
-  /* Robot — pinned left + bottom toast */
-  .ai-float.ai-mobile{
-    left:max(10px,env(safe-area-inset-left))!important;
-    right:auto!important;
-    bottom:calc(8px + env(safe-area-inset-bottom));
-    transform:none!important;
-    transition:opacity .85s ease!important;
-  }
-  .ai-float.ai-mobile img{height:48px;filter:drop-shadow(0 8px 14px rgba(79,70,229,.4));}
-  .ai-float.ai-mobile .ai-tip,
-  .ai-float.ai-mobile.tip-right .ai-tip{
-    position:fixed;
-    left:max(10px,env(safe-area-inset-left))!important;
-    right:max(10px,env(safe-area-inset-right))!important;
-    bottom:calc(58px + env(safe-area-inset-bottom))!important;
-    top:auto!important;
-    white-space:normal!important;
-    max-width:none!important;
-    width:auto!important;
-    text-align:center;
-    font-size:.7rem;
-    line-height:1.4;
-    padding:9px 12px;
-    border-radius:11px;
-    transform:translateY(5px)!important;
-    box-shadow:0 6px 28px -6px rgba(79,70,229,.8);
-  }
-  .ai-float.ai-mobile:not(.ai-moving).tip-show .ai-tip{
-    transform:translateY(0)!important;
-  }
-}
-
 /* ════════════════════ NO BLUR + FIRE MOTION ════════════════════ */
 /* Remove every frosted-glass backdrop blur across the site */
 *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
@@ -1519,6 +1245,15 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 <div class="cursor" id="cursor"></div>
 <div class="c-ring" id="cring"></div>
 
+<!-- Mobile-only sticky Special Products bar (hidden on desktop via CSS) -->
+<div class="mob-deals-bar mob-only-block" id="mobDealsBar">
+  <button type="button" onclick="go('aiservices')" aria-label="Explore Special AI Products">
+    <img src="assets/ai-robot-mascot.png" alt="" width="40" height="40">
+    <span class="mdb-txt"><strong>Special AI Products</strong><small>Chatbot · Leads · Instagram — from ₹100</small></span>
+    <span class="mdb-arrow" aria-hidden="true">→</span>
+  </button>
+</div>
+
 <!-- Special Products flying mascot -->
 <button class="ai-float" id="aiFloat" type="button" onclick="go('aiservices')" aria-label="Explore RockitX Special Products">
   <span class="ai-tip" aria-live="polite"></span>
@@ -1540,6 +1275,18 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   var lastX=0,lastY=0,movedOnce=false;
 
   var firstPitch='Grow your business from ₹100 — click me for Special Products!';
+  var firstPitchMobile='Special AI Products from ₹100 — tap me!';
+
+  var mobilePitches=[
+    'Special AI tools from ₹100 — tap me!',
+    'Chatbot + leads + Instagram — explore now!',
+    'Big-company AI at small-business prices!',
+    'AutoGram posts while you sleep — tap!',
+    '₹1 per lead search. Tap to see Sweep!',
+    'Website chatbot from ₹200/mo — tap me!',
+    'Competitors use AI. Don\'t get left behind!',
+    'One tap → tools that pay for themselves!'
+  ];
 
   var pitches=[
     'Help your business shine 24/7 — one click away!',
@@ -1586,8 +1333,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 
   function setPitch(){
     if(!tip)return;
-    tip.textContent=pitches[idx];
-    idx=(idx+1)%pitches.length;
+    var list=isMobileView()?mobilePitches:pitches;
+    tip.textContent=list[idx%list.length];
+    idx=(idx+1)%list.length;
   }
 
   function botSize(){
@@ -1731,7 +1479,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   function showTip(useFirst){
     if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
     clearTimeout(hideTipTimer);
-    if(useFirst&&tip)tip.textContent=firstPitch;
+    if(useFirst&&tip)tip.textContent=isMobileView()?firstPitchMobile:firstPitch;
     else setPitch();
     requestAnimationFrame(function(){
       requestAnimationFrame(function(){bot.classList.add('tip-show');});
@@ -1843,6 +1591,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <a id="nav-about" onclick="go('about')">About</a>
         <a id="nav-contact" onclick="go('contact')" class="nav-cta">From ₹100/mo</a>
       </div>
+      <button type="button" class="mob-nav-specials" onclick="go('aiservices')"><span class="mns-dot"></span>Special Products</button>
       <div class="hamburger" id="hbg" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -1866,9 +1615,32 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <p class="fire-sub">Bold. Fast. Unforgettable — and priced like nothing else in India.</p>
       <div class="fire-actions">
         <button class="btn-p fire-btn" onclick="go('contact')"><span class="mob-hide">Light it up — from ₹100/month</span><span class="mob-only">Start from ₹100/mo</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <button type="button" class="btn-s mob-btn-deal mob-only-block" onclick="go('aiservices')">✨ Explore AI Tools — from ₹100</button>
         <button class="btn-s" onclick="goSection('pricing')"><span class="mob-hide">See plans</span><span class="mob-only">View pricing</span></button>
       </div>
       <div class="fire-timer"><span class="cd-clock"></span>Limited launch offer ends in <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
+    </div>
+  </section>
+
+  <!-- Mobile-only AI spotlight (drives users to Special Products) -->
+  <section class="mob-ai-spotlight mob-only-block" aria-label="Special AI Products">
+    <div class="mas-head">
+      <h3>✨ New AI Tools — <span style="color:var(--deal)">from ₹100</span></h3>
+      <a href="#" onclick="go('aiservices');return false;">See all →</a>
+    </div>
+    <div class="mas-scroll">
+      <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
+        <img src="img/mob-ai-chatbot.png" alt="Business Chatbot" loading="lazy">
+        <div class="mas-pill-body"><strong>Business Chatbot</strong><span>₹200/mo · Live now</span></div>
+      </a>
+      <a class="mas-pill" href="#" onclick="go('aiservices');return false;">
+        <img src="img/mob-ai-sweep.png" alt="Sweep Lead Finder" loading="lazy">
+        <div class="mas-pill-body"><strong>Sweep Lead Finder</strong><span>From ₹100 · Live now</span></div>
+      </a>
+      <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
+        <img src="img/mob-ai-autogram.png" alt="AutoGram Instagram" loading="lazy">
+        <div class="mas-pill-body"><strong>AutoGram Instagram</strong><span>From ₹299 · New</span></div>
+      </a>
     </div>
   </section>
 
@@ -2564,8 +2336,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 .tg b{font-size:1.4rem;font-weight:900;color:#fff;font-variant-numeric:tabular-nums;line-height:1;}
 .tg i{font-size:.55rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9b9db5;font-style:normal;margin-top:5px;}
 
-/* Desktop — mobile cards hidden (web view untouched) */
-.ai-mob-card,.ai-mob-mystery{display:none;}
+/* Desktop — mobile-only markup hidden (see mobile-only.css for ≤768px) */
 
 /* touch tablets only — desktop uses hover reveal */
 @media (hover:none) and (min-width:769px){
@@ -2573,145 +2344,6 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .ai-card:not(.mystery) .ai-base{display:none;}
   .ai-bot{display:none;}
 }
-
-/* ═══ AI Services — MOBILE-ONLY LAYOUT (≤768px) — separate markup & images ═══ */
-@media (max-width:768px){
-  #page-aiservices .ph{padding:4.25rem max(.85rem,env(safe-area-inset-left)) 1.35rem max(.85rem,env(safe-area-inset-right))!important;}
-  #page-aiservices .ph h1{font-size:clamp(1.32rem,5.2vw,1.55rem)!important;line-height:1.26!important;}
-  #page-aiservices .hero-sub{font-size:clamp(.78rem,3.4vw,.88rem)!important;line-height:1.52!important;max-width:none!important;}
-  #page-aiservices .deal-pill{font-size:.58rem;padding:6px 11px;}
-  #page-aiservices .offer-bar{margin-top:.85rem!important;padding:.6rem .75rem!important;border-radius:13px;}
-  #page-aiservices .offer-bar .ob-txt,#page-aiservices .offer-bar .ob-sub{font-size:.66rem;}
-
-  /* Hide desktop hover cards completely */
-  #page-aiservices .ai-clip,#page-aiservices .ai-bot{display:none!important;}
-
-  #page-aiservices .ai-grid{
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    padding:0 max(.85rem,env(safe-area-inset-left)) 1.75rem max(.85rem,env(safe-area-inset-right))!important;
-    gap:clamp(.65rem,2.5vw,.85rem)!important;
-  }
-  #page-aiservices .ai-grid>.ai-card:not(.mystery){grid-column:1/-1;}
-
-  #page-aiservices .ai-card{
-    min-height:0!important;height:auto!important;padding:0!important;margin:0!important;
-    overflow:visible!important;background:transparent!important;border:none!important;
-    box-shadow:none!important;border-radius:0!important;
-  }
-  #page-aiservices .ai-card::before{display:none!important;}
-  #page-aiservices .ai-card.feat{box-shadow:none!important;}
-
-  /* ── Mobile product card shell ── */
-  .ai-mob-card{
-    display:flex;flex-direction:column;width:100%;
-    background:var(--card);border:1px solid var(--border);border-radius:18px;
-    overflow:hidden;box-shadow:0 12px 40px -16px rgba(0,0,0,.55);
-  }
-  .ai-mob-card.amc-feat{border-color:rgba(124,108,255,.4);box-shadow:0 14px 44px -14px rgba(124,108,255,.28);}
-
-  .amc-visual{
-    position:relative;width:100%;aspect-ratio:16/10;min-height:168px;
-    background:linear-gradient(165deg,#161622 0%,#0a0a12 100%);
-    overflow:hidden;
-  }
-  .amc-visual img{
-    width:100%;height:100%;display:block;
-    object-fit:cover;object-position:center center;
-  }
-  .amc-visual.amc-contain img{object-fit:contain;padding:.5rem .65rem;box-sizing:border-box;}
-  .amc-visual.amc-contain{background:linear-gradient(165deg,#141420,#09090f);}
-
-  .amc-badge{
-    position:absolute;top:10px;left:10px;z-index:2;
-    display:inline-flex;align-items:center;gap:5px;
-    font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
-    padding:4px 9px;border-radius:100px;
-  }
-  .amc-badge.live{color:#10b981;background:rgba(16,185,129,.14);border:1px solid rgba(16,185,129,.35);}
-  .amc-badge.live .dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:aiLiveDot 1.6s ease-in-out infinite;}
-  .amc-tag{
-    position:absolute;top:10px;right:10px;z-index:2;
-    font-size:.52rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
-    padding:4px 9px;border-radius:7px;color:#fff;
-    background:linear-gradient(135deg,#E879F9,#A855F7);
-    box-shadow:0 4px 14px -4px rgba(168,85,247,.65);
-  }
-
-  .amc-body{padding:1rem 1.05rem 1.1rem;display:flex;flex-direction:column;gap:.55rem;}
-  .amc-cat{font-size:.56rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);}
-  .amc-title{font-size:clamp(1.02rem,4.2vw,1.14rem);font-weight:800;color:var(--text);line-height:1.22;margin:0;}
-  .amc-desc{font-size:clamp(.78rem,3.3vw,.84rem);color:var(--text2);line-height:1.5;margin:0;}
-  .amc-feats{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.32rem;}
-  .amc-feats li{
-    font-size:clamp(.72rem,3.1vw,.78rem);color:var(--text2);line-height:1.35;
-    display:flex;align-items:flex-start;gap:.45rem;
-  }
-  .amc-feats li::before{
-    content:'✓';flex-shrink:0;width:16px;height:16px;border-radius:50%;
-    display:grid;place-items:center;font-size:.58rem;font-weight:900;color:#fff;
-    background:linear-gradient(145deg,#7C6CFF,#4F46E5);margin-top:1px;
-  }
-  .amc-price{
-    display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .5rem;
-    padding-top:.15rem;margin-top:.1rem;
-  }
-  .amc-price b{font-size:clamp(1.22rem,5vw,1.36rem);font-weight:900;background:var(--brand-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .amc-price b small{font-size:.72rem;font-weight:800;-webkit-text-fill-color:var(--text3);}
-  .amc-price span{font-size:.72rem;color:var(--text3);font-weight:600;}
-
-  .amc-actions{display:flex;flex-direction:column;gap:.45rem;margin-top:.2rem;}
-  .amc-actions .btn-buy,.amc-actions .btn-details{
-    width:100%;min-height:46px;justify-content:center;
-    font-size:clamp(.82rem,3.5vw,.88rem);border-radius:13px;padding:.72rem 1rem;
-  }
-  .amc-actions .btn-buy{
-    animation:none!important;opacity:1!important;
-    background:linear-gradient(135deg,#7C6CFF,#4F46E5)!important;
-    box-shadow:0 8px 22px -10px rgba(124,108,255,.85)!important;
-  }
-  .ai-mob-card.amc-feat .amc-actions .btn-buy{background:linear-gradient(135deg,#E879F9,#A855F7)!important;}
-  .amc-actions .btn-details{
-    background:transparent!important;border:1px solid var(--border2)!important;color:var(--text)!important;
-  }
-  .amc-actions .btn-details svg{stroke:currentColor!important;fill:none!important;width:15px;height:15px;}
-
-  /* Mystery — mobile-only compact tiles */
-  .ai-mob-mystery{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.85rem;
-    width:100%;min-height:150px;padding:1rem .55rem;
-    border-radius:16px;border:1px dashed rgba(124,108,255,.32);
-    background:radial-gradient(circle at 50% 28%,#1c1638,#0d0b18 58%,#07070e);
-    box-shadow:0 8px 28px -12px rgba(0,0,0,.5);
-  }
-  .ai-mob-mystery .myst-q{font-size:clamp(2.2rem,9vw,2.75rem)!important;margin:0;}
-  .ai-mob-mystery .ai-timer{gap:.25rem;flex-wrap:wrap;justify-content:center;}
-  .ai-mob-mystery .tg{min-width:36px;padding:.35rem .18rem;border-radius:10px;}
-  .ai-mob-mystery .tg b{font-size:clamp(.88rem,3.8vw,.95rem);}
-  .ai-mob-mystery .tg i{font-size:.46rem;margin-top:2px;}
-
-  #page-aiservices .cta-s{margin:0 max(.85rem,env(safe-area-inset-left)) 2rem max(.85rem,env(safe-area-inset-right))!important;padding:1.5rem 1rem!important;}
-  #page-aiservices .cta-s h2{font-size:clamp(1.22rem,5vw,1.38rem)!important;}
-  #page-aiservices .ai-modal{padding:10px;}
-  #page-aiservices .ai-modal-card{max-height:92vh;border-radius:16px;}
-}
-
-/* Small phones */
-@media (max-width:480px){
-  #page-aiservices .amc-visual{aspect-ratio:4/3;min-height:148px;}
-  #page-aiservices .amc-body{padding:.9rem .9rem 1rem;gap:.48rem;}
-  #page-aiservices .amc-feats li:nth-child(n+4){display:none;}
-  #page-aiservices .ai-mob-mystery{min-height:138px;padding:.85rem .45rem;}
-}
-
-/* Large phones & small tablets (still mobile layout) */
-@media (min-width:481px) and (max-width:768px){
-  #page-aiservices .amc-visual{aspect-ratio:16/9;min-height:190px;}
-  #page-aiservices .amc-body{padding:1.05rem 1.15rem 1.15rem;}
-  #page-aiservices .amc-actions{flex-direction:row;}
-  #page-aiservices .amc-actions .btn-buy,#page-aiservices .amc-actions .btn-details{flex:1;}
-}
-@media(max-width:560px){.ai-actions{flex-direction:column;}}
 </style>
 
 <div class="page" id="page-aiservices">
@@ -2762,7 +2394,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <!-- Mobile-only card (hidden on desktop) -->
       <div class="ai-mob-card amc-feat">
         <div class="amc-visual">
-          <img src="img/ai-chatbot.png" alt="Business Chatbot — AI website receptionist" loading="lazy" width="640" height="400">
+          <img src="img/mob-ai-chatbot.png" alt="Business Chatbot — AI website receptionist" loading="lazy" width="600" height="800">
           <span class="amc-badge live"><span class="dot"></span>Live now</span>
           <span class="amc-tag">Popular</span>
         </div>
@@ -2814,7 +2446,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <img class="ai-bot" src="ai-robot.png" alt="">
       <div class="ai-mob-card">
         <div class="amc-visual">
-          <img src="img/ai-sweep.png" alt="Sweep — local business lead finder" loading="lazy" width="640" height="400">
+          <img src="img/mob-ai-sweep.png" alt="Sweep — local business lead finder" loading="lazy" width="600" height="800">
           <span class="amc-badge live"><span class="dot"></span>Live now</span>
         </div>
         <div class="amc-body">
@@ -2867,8 +2499,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       </div>
       <img class="ai-bot" src="ai-robot.png" alt="">
       <div class="ai-mob-card amc-feat">
-        <div class="amc-visual amc-contain">
-          <img src="img/ai-autogram.png" alt="AutoGram — AI Instagram poster automation" loading="lazy" width="640" height="400">
+        <div class="amc-visual">
+          <img src="img/mob-ai-autogram.png" alt="AutoGram — AI Instagram poster automation" loading="lazy" width="600" height="800">
           <span class="amc-badge live"><span class="dot"></span>Live now</span>
           <span class="amc-tag">New</span>
         </div>
@@ -3513,30 +3145,6 @@ function goSection(id){
   }
   @media(prefers-reduced-motion:reduce){
     #rx-chat-root>button{animation:none!important;}
-  }
-  /* Mobile — compact chat (desktop unchanged) */
-  @media(max-width:768px){
-    #rx-chat-root:not(.rx-open)>button{
-      width:46px!important;height:46px!important;
-      min-width:46px!important;min-height:46px!important;
-      padding:0!important;border-radius:50%!important;
-      right:max(10px,env(safe-area-inset-right))!important;
-      bottom:calc(8px + env(safe-area-inset-bottom))!important;
-    }
-    #rx-chat-root:not(.rx-open)>button svg,
-    #rx-chat-root:not(.rx-open)>button img{
-      width:22px!important;height:22px!important;
-    }
-    #rx-chat-root.rx-open{
-      inset:auto!important;
-      right:8px!important;bottom:8px!important;left:8px!important;
-      width:auto!important;max-width:none!important;
-    }
-    #rx-chat-root.rx-open>:first-child{
-      width:100%!important;max-width:100%!important;
-      max-height:min(480px,calc(100dvh - 64px))!important;
-      border-radius:14px!important;
-    }
   }
 </style>
 <script>
