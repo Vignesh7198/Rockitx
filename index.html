@@ -239,7 +239,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 
 /* Responsive show/hide — desktop only (mobile rules at end of file + mobile-only.css) */
 @media(min-width:769px){
-  .mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials{display:none!important;}
+  .mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials,.mob-hub{display:none!important;}
 }
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
@@ -1093,7 +1093,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .mob-only-block{display:block!important;}
   .ai-mob-card{display:flex!important;}
   .ai-mob-mystery{display:flex!important;}
-  .mob-ai-spotlight,.mob-deals-bar{display:block!important;}
+  .mob-ai-spotlight,.mob-deals-bar,.mob-hub{display:block!important;}
+  .mob-skip{display:none!important;}
   .mob-nav-specials{display:inline-flex!important;}
   .hamburger{
     display:flex!important;flex-direction:column!important;gap:5px!important;
@@ -1108,15 +1109,13 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   }
   .nav-links.open{visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important;}
   #page-aiservices .ai-clip,#page-aiservices .ai-bot{display:none!important;}
-  .fire-actions .mob-only-block.btn-s,.fire-actions .mob-btn-deal{
-    display:flex!important;align-items:center;justify-content:center;width:100%;
-    color:var(--text)!important;font-weight:700!important;
-  }
-  .fire-actions .mob-btn-deal{color:#FCD34D!important;font-weight:800!important;}
-  .ai-float.ai-mobile .ai-tip{display:none!important;visibility:hidden!important;}
+  .fire-actions .btn-s,.fire-actions .mob-btn-deal{display:none!important;}
+  .ai-float{display:none!important;}
   .fire-band{padding:0!important;}
-  .fire-hero{min-height:auto!important;justify-content:flex-start!important;padding:4.25rem max(.85rem,env(safe-area-inset-left)) 1rem max(.85rem,env(safe-area-inset-right))!important;}
+  .fire-hero{min-height:auto!important;justify-content:flex-start!important;padding:3.75rem max(.85rem,env(safe-area-inset-left)) .5rem max(.85rem,env(safe-area-inset-right))!important;}
+  .fire-hero .fire-inner{background:none!important;border:none!important;box-shadow:none!important;padding:0!important;}
   .hero{min-height:auto!important;}
+  html,body,.page,#page-home{overflow-x:hidden!important;max-width:100%!important;}
 }
 </style>
 <link rel="stylesheet" href="mobile-only.css" media="(max-width:768px)">
@@ -1644,42 +1643,79 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
     <div class="fu fire-inner">
       <div class="fire-eyebrow">🔥 India's Cheapest Price</div>
-      <h2 class="fire-head"><span class="fire-head-l1">Rock your business</span><br><span class="fire-head-l2">with our rocking websites.</span></h2>
-      <p class="fire-sub">Bold. Fast. Unforgettable — and priced like nothing else in India.</p>
+      <h2 class="fire-head">
+        <span class="mob-hide"><span class="fire-head-l1">Rock your business</span><br><span class="fire-head-l2">with our rocking websites.</span></span>
+        <span class="mob-only mob-fire-line">Rock your business with our rocking websites.</span>
+      </h2>
+      <p class="fire-sub"><span class="mob-hide">Bold. Fast. Unforgettable — and priced like nothing else in India.</span><span class="mob-only">Premium sites from ₹100/mo · Live in 7 days · Hosting included</span></p>
       <div class="fire-actions">
-        <button class="btn-p fire-btn" onclick="go('contact')"><span class="mob-hide">Light it up — from ₹100/month</span><span class="mob-only">Start from ₹100/mo</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        <button type="button" class="btn-s mob-btn-deal mob-only-block" onclick="go('aiservices')">Explore AI Tools — from ₹100</button>
-        <button type="button" class="btn-s mob-only-block" onclick="goSection('pricing')">View pricing</button>
+        <button class="btn-p fire-btn" onclick="go('contact')"><span class="mob-hide">Light it up — from ₹100/month</span><span class="mob-only">Get my website — ₹100/mo</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <button type="button" class="btn-s mob-btn-deal mob-hide" onclick="go('aiservices')">Explore AI Tools — from ₹100</button>
         <button type="button" class="btn-s mob-hide" onclick="goSection('pricing')">See plans</button>
       </div>
-      <div class="fire-timer"><span class="cd-clock"></span>Limited launch offer ends in <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
+      <div class="fire-timer mob-hide"><span class="cd-clock"></span>Limited launch offer ends in <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
     </div>
   </section>
 
-  <!-- Mobile-only AI spotlight (drives users to Special Products) -->
-  <section class="mob-ai-spotlight mob-only-block" aria-label="Special AI Products">
-    <div class="mas-head">
-      <h3>✨ New AI Tools — <span style="color:var(--deal)">from ₹100</span></h3>
-      <a href="#" onclick="go('aiservices');return false;">See all →</a>
+  <!-- Mobile sales hub — websites + AI side by side (scroll) -->
+  <section class="mob-hub mob-only-block" id="mob-hub" aria-label="RockitX offers">
+    <div class="mob-hub-timer"><span class="cd-clock"></span> Launch offer ends <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
+
+    <div class="mob-hub-row">
+      <div class="mob-hub-col">
+        <div class="mhb-head"><h3>Websites</h3><span class="mhb-from">from ₹100/mo</span></div>
+        <div class="mws-scroll">
+          <article class="mws-card" onclick="go('contact')">
+            <span class="mws-tag">Start here</span>
+            <div class="mws-name">Monthly</div>
+            <div class="mws-price">₹100<small>/mo</small></div>
+            <p class="mws-note">+ ₹899 setup · cancel anytime</p>
+            <ul class="mws-feats"><li>Hosting + domain</li><li>WhatsApp leads</li></ul>
+            <span class="mws-cta">Start →</span>
+          </article>
+          <article class="mws-card feat" onclick="go('contact')">
+            <span class="mws-tag hot">Best value</span>
+            <div class="mws-name">Yearly</div>
+            <div class="mws-price">₹1,500<small>/yr</small></div>
+            <p class="mws-note">No setup fee · renews ₹1,000/yr</p>
+            <ul class="mws-feats"><li>SEO setup</li><li>Priority support</li></ul>
+            <span class="mws-cta">Get yearly →</span>
+          </article>
+          <article class="mws-card" onclick="go('contact')">
+            <span class="mws-tag">Own it</span>
+            <div class="mws-name">Forever</div>
+            <div class="mws-price">₹12,000<small> once</small></div>
+            <p class="mws-note">Pay once · zero renewals</p>
+            <ul class="mws-feats"><li>Yours for life</li><li>Best long-term</li></ul>
+            <span class="mws-cta">Own it →</span>
+          </article>
+        </div>
+      </div>
+
+      <div class="mob-hub-col">
+        <div class="mhb-head"><h3>AI Tools</h3><span class="mhb-from deal">from ₹100</span><a href="#" onclick="go('aiservices');return false;" class="mhb-link">All →</a></div>
+        <div class="mas-scroll">
+          <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
+            <img src="img/mob-ai-chatbot.png" alt="Business Chatbot" loading="lazy">
+            <div class="mas-pill-body"><strong>Business Chatbot</strong><span>₹200/mo · Live</span></div>
+          </a>
+          <a class="mas-pill" href="#" onclick="go('aiservices');return false;">
+            <img src="img/mob-ai-sweep.png" alt="Sweep Lead Finder" loading="lazy">
+            <div class="mas-pill-body"><strong>Sweep Lead Finder</strong><span>From ₹100 · Live</span></div>
+          </a>
+          <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
+            <img src="img/mob-ai-autogram.png" alt="AutoGram Instagram" loading="lazy">
+            <div class="mas-pill-body"><strong>AutoGram Instagram</strong><span>From ₹299 · New</span></div>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="mas-scroll">
-      <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
-        <img src="img/mob-ai-chatbot.png" alt="Business Chatbot" loading="lazy">
-        <div class="mas-pill-body"><strong>Business Chatbot</strong><span>₹200/mo · Live now</span></div>
-      </a>
-      <a class="mas-pill" href="#" onclick="go('aiservices');return false;">
-        <img src="img/mob-ai-sweep.png" alt="Sweep Lead Finder" loading="lazy">
-        <div class="mas-pill-body"><strong>Sweep Lead Finder</strong><span>From ₹100 · Live now</span></div>
-      </a>
-      <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
-        <img src="img/mob-ai-autogram.png" alt="AutoGram Instagram" loading="lazy">
-        <div class="mas-pill-body"><strong>AutoGram Instagram</strong><span>From ₹299 · New</span></div>
-      </a>
-    </div>
+
+    <p class="mob-hub-trust">✓ Cheaper elsewhere? We build free &nbsp;·&nbsp; ✓ No hidden fees &nbsp;·&nbsp; ✓ 7-day delivery</p>
   </section>
 
-  <!-- HERO -->
-  <div class="hero">
+  <!-- HERO (desktop — hidden on mobile) -->
+  <div class="hero mob-skip">
     <div class="hero-inner hero-3d-grid">
       <div class="hero-c">
         <div class="hero-badge">India's Cheapest Price · Price-beat guarantee</div>
@@ -1721,8 +1757,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
   </div>
 
-  <!-- MARQUEE -->
-  <div class="mq-wrap build">
+  <!-- MARQUEE (desktop — hidden on mobile) -->
+  <div class="mq-wrap build mob-skip">
     <div class="mq-track">
       <div class="mq-i"><span>★ Lowest Prices in India — Guaranteed</span><div class="mq-dot"></div></div>
       <div class="mq-i"><span>Websites from ₹100/month</span><div class="mq-dot"></div></div>
@@ -1744,8 +1780,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
   </div>
 
-  <!-- GUARANTEE STRIP -->
-  <section style="padding-top:4rem;padding-bottom:1rem;">
+  <!-- GUARANTEE STRIP (desktop — hidden on mobile) -->
+  <section class="mob-skip" style="padding-top:4rem;padding-bottom:1rem;">
     <div class="fu" style="text-align:center;margin-bottom:1.6rem;"><span class="deal-pill">The unbeatable-price promise</span></div>
     <div class="guarantee build">
       <div class="gtee-card">
@@ -1763,8 +1799,8 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
   </section>
 
-  <!-- PRICING -->
-  <section id="pricing">
+  <!-- PRICING (desktop — hidden on mobile; see mob-hub) -->
+  <section id="pricing" class="mob-skip">
     <div class="fu" style="text-align:center;"><div class="sl" style="justify-content:center;">Pricing</div></div>
     <div class="fu d1" style="text-align:center;"><h2>One website. <span class="g-deal">Pick how you pay.</span></h2></div>
     <div class="fu d2" style="text-align:center;"><p class="ssub" style="margin:.85rem auto 0;">The same premium, jaw-dropping website — go monthly, save with yearly, or pay once and own it forever. No hidden fees, ever.</p></div>
@@ -3091,6 +3127,7 @@ function resetForm(){
 
 /* ── JUMP TO A HOME SECTION (works from any page) ── */
 function goSection(id){
+  if(window.innerWidth<=768&&id==='pricing')id='mob-hub';
   const home=document.getElementById('page-home');
   if(!home.classList.contains('active')) go('home');
   setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},80);
@@ -3199,5 +3236,27 @@ function goSection(id){
 })();
 </script>
 <script src="https://api.rockitx.com/embed/sunrise-bakery/launcher.js" async></script>
+<style>
+@media(max-width:768px){
+  #rx-chat-root{
+    position:fixed!important;z-index:99999!important;
+    right:max(12px,env(safe-area-inset-right))!important;left:auto!important;top:auto!important;
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    max-width:calc(100vw - 24px)!important;margin:0!important;
+  }
+  #rx-chat-root:not(.rx-open)>button{
+    width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;
+    right:auto!important;bottom:auto!important;border-radius:50%!important;
+  }
+  #rx-chat-root.rx-open{
+    inset:max(56px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))!important;
+  }
+  #rx-chat-root.rx-open>:first-child{
+    width:100%!important;max-width:100%!important;height:100%!important;max-height:none!important;
+    border-radius:16px!important;overflow:hidden!important;
+  }
+  #rx-chat-root.rx-open iframe,#rx-chat-root.rx-open>div:first-child{width:100%!important;max-width:100%!important;height:100%!important;min-height:260px!important;border:none!important;}
+}
+</style>
 </body>
 </html>
