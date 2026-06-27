@@ -52,7 +52,6 @@
 <link rel="preload" as="style" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
 <!-- Mobile-only styles — never loaded on desktop (≥769px) -->
-<link rel="stylesheet" href="mobile-only.css" media="(max-width:768px)">
 <style>
 /* RockitX brand · cinematic · iridescent violet → indigo → sky · Satoshi */
 :root{
@@ -238,8 +237,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 .ai-float:not(.ai-moving).tip-show .ai-tip{opacity:1;visibility:visible;transform:translateY(0);}
 @keyframes aiBob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-9px) rotate(3deg);}}
 
-/* Responsive show/hide helpers — desktop hides all mobile-only UI */
-.mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials{display:none!important;}
+/* Responsive show/hide — desktop only (mobile rules at end of file + mobile-only.css) */
+@media(min-width:769px){
+  .mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials{display:none!important;}
+}
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
 .nav-links a.nav-blink{
@@ -1084,7 +1085,41 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   body.splash-done #page-home .hero-sub,
   body.splash-done #page-home .hero-actions{transition-delay:0s!important;}
 }
+
+/* ══ MOBILE CRITICAL (inline fallback — works even if mobile-only.css fails to load) ══ */
+@media(max-width:768px){
+  .mob-hide{display:none!important;}
+  .mob-only{display:inline!important;}
+  .mob-only-block{display:block!important;}
+  .ai-mob-card{display:flex!important;}
+  .ai-mob-mystery{display:flex!important;}
+  .mob-ai-spotlight,.mob-deals-bar{display:block!important;}
+  .mob-nav-specials{display:inline-flex!important;}
+  .hamburger{
+    display:flex!important;flex-direction:column!important;gap:5px!important;
+    border:1px solid rgba(255,255,255,.14)!important;border-radius:10px!important;
+    background:rgba(255,255,255,.06)!important;padding:7px!important;flex-shrink:0!important;
+  }
+  .hamburger span{background:#fff!important;}
+  .nav-r{align-items:center!important;gap:.45rem!important;}
+  .nav-r>.nav-links:not(.open){
+    position:fixed!important;left:0!important;right:0!important;bottom:0!important;
+    visibility:hidden!important;pointer-events:none!important;transform:translateY(105%)!important;
+  }
+  .nav-links.open{visibility:visible!important;pointer-events:auto!important;transform:translateY(0)!important;}
+  #page-aiservices .ai-clip,#page-aiservices .ai-bot{display:none!important;}
+  .fire-actions .mob-only-block.btn-s,.fire-actions .mob-btn-deal{
+    display:flex!important;align-items:center;justify-content:center;width:100%;
+    color:var(--text)!important;font-weight:700!important;
+  }
+  .fire-actions .mob-btn-deal{color:#FCD34D!important;font-weight:800!important;}
+  .ai-float.ai-mobile .ai-tip{display:none!important;visibility:hidden!important;}
+  .fire-band{padding:0!important;}
+  .fire-hero{min-height:auto!important;justify-content:flex-start!important;padding:4.25rem max(.85rem,env(safe-area-inset-left)) 1rem max(.85rem,env(safe-area-inset-right))!important;}
+  .hero{min-height:auto!important;}
+}
 </style>
+<link rel="stylesheet" href="mobile-only.css" media="(max-width:768px)">
 
 <!-- ══════════ STRUCTURED DATA (rich results) ══════════ -->
 <script type="application/ld+json">
@@ -1477,6 +1512,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   }
 
   function showTip(useFirst){
+    if(isMobileView())return;
     if(bot.classList.contains('ai-hide')||bot.classList.contains('ai-moving'))return;
     clearTimeout(hideTipTimer);
     if(useFirst&&tip)tip.textContent=isMobileView()?firstPitchMobile:firstPitch;
@@ -1510,10 +1546,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     clearTimeout(pitchTimer);
     clearTimeout(waitTimer);
     if(isMobileView()){
-      hideTip(function(){
-        if(bot.classList.contains('ai-hide')||!bot.classList.contains('in'))return;
-        schedulePitchAfterLand(PITCH_DELAY_MS);
-      });
+      hideTip(function(){/* mobile: mascot only — deals bar handles copy */});
       return;
     }
     movedOnce=true;
@@ -1544,10 +1577,10 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       place(spot.x,spot.y,true);
     }
     if(reduced){
-      showTip(true);
+      if(!isMobileView())showTip(true);
       return;
     }
-    schedulePitchAfterLand(FIRST_PITCH_DELAY_MS,true);
+    if(!isMobileView())schedulePitchAfterLand(FIRST_PITCH_DELAY_MS,true);
     if(isMobileView())return;
     if(!document.querySelector('#rx-chat-root>button')){
       var chatObs=new MutationObserver(function(){
@@ -1615,8 +1648,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
       <p class="fire-sub">Bold. Fast. Unforgettable — and priced like nothing else in India.</p>
       <div class="fire-actions">
         <button class="btn-p fire-btn" onclick="go('contact')"><span class="mob-hide">Light it up — from ₹100/month</span><span class="mob-only">Start from ₹100/mo</span> <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
-        <button type="button" class="btn-s mob-btn-deal mob-only-block" onclick="go('aiservices')">✨ Explore AI Tools — from ₹100</button>
-        <button class="btn-s" onclick="goSection('pricing')"><span class="mob-hide">See plans</span><span class="mob-only">View pricing</span></button>
+        <button type="button" class="btn-s mob-btn-deal mob-only-block" onclick="go('aiservices')">Explore AI Tools — from ₹100</button>
+        <button type="button" class="btn-s mob-only-block" onclick="goSection('pricing')">View pricing</button>
+        <button type="button" class="btn-s mob-hide" onclick="goSection('pricing')">See plans</button>
       </div>
       <div class="fire-timer"><span class="cd-clock"></span>Limited launch offer ends in <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
     </div>
