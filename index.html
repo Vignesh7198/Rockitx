@@ -1677,63 +1677,173 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     <div class="mob-hub-timer"><span class="cd-clock"></span> Launch offer ends <span class="cd-time js-cd">--<i>:</i>--<i>:</i>--</span></div>
 
     <div class="mob-hub-row">
-      <div class="mob-hub-col">
-        <div class="mhb-head"><h3>Websites</h3><span class="mhb-from">from ₹100/mo</span></div>
+      <div class="mob-hub-col mob-web-col">
+        <div class="mhb-head mhb-premium">
+          <div class="mhb-head-main">
+            <span class="mhb-eyebrow">Premium websites</span>
+            <h3>Pick your plan</h3>
+          </div>
+          <span class="mhb-from">From ₹100/mo</span>
+        </div>
         <div class="mws-scroll">
-          <article class="mws-card" onclick="go('contact')">
-            <div class="mws-head">
-              <span class="mws-tag">Start here</span>
-              <span class="mws-name">Monthly</span>
-            </div>
-            <div class="mws-price-block">
-              <div class="mws-price"><span class="mws-cur">₹</span>100<small>/mo</small></div>
+          <article class="mws-card mws-monthly" onclick="go('contact')">
+            <div class="mws-glow" aria-hidden="true"></div>
+            <div class="mws-topline" aria-hidden="true"></div>
+            <div class="mws-content">
+              <p class="mws-plan">Monthly</p>
+              <p class="mws-tagline">Start with zero risk</p>
+              <div class="mws-price-wrap">
+                <div class="mws-price"><span class="mws-currency">₹</span>100<span class="mws-period">/mo</span></div>
+              </div>
               <p class="mws-note">+ ₹899 one-time setup · cancel anytime</p>
+              <ul class="mws-feats">
+                <li>Premium mobile-perfect website</li>
+                <li>Hosting + domain included</li>
+                <li>WhatsApp &amp; lead buttons</li>
+                <li>Live in 7 days</li>
+              </ul>
             </div>
-            <ul class="mws-feats"><li>Hosting + domain included</li><li>WhatsApp &amp; lead buttons</li><li>Live in 7 days</li></ul>
-            <span class="mws-btn">Start monthly →</span>
+            <span class="mws-btn">Get started</span>
           </article>
-          <article class="mws-card feat" onclick="go('contact')">
-            <div class="mws-head">
-              <span class="mws-tag hot">★ Best value</span>
-              <span class="mws-name">Yearly</span>
-            </div>
-            <div class="mws-price-block">
-              <div class="mws-price deal"><span class="mws-cur">₹</span>1,500<small>/yr</small></div>
+
+          <article class="mws-card mws-feat mws-yearly" onclick="go('contact')">
+            <span class="mws-ribbon">Most popular</span>
+            <div class="mws-glow" aria-hidden="true"></div>
+            <div class="mws-topline" aria-hidden="true"></div>
+            <div class="mws-content">
+              <p class="mws-plan">Yearly</p>
+              <p class="mws-tagline">Best value in India</p>
+              <div class="mws-price-wrap">
+                <div class="mws-price mws-price-gold"><span class="mws-currency">₹</span>1,500<span class="mws-period">/yr</span></div>
+              </div>
               <p class="mws-note">No setup fee · renews at ₹1,000/yr</p>
+              <ul class="mws-feats">
+                <li>Everything in Monthly</li>
+                <li>SEO setup + Google boost</li>
+                <li>Priority support &amp; faster edits</li>
+                <li>Save vs paying monthly</li>
+              </ul>
             </div>
-            <ul class="mws-feats"><li>Everything in Monthly</li><li>SEO setup included</li><li>Priority support</li></ul>
-            <span class="mws-btn feat">Get yearly →</span>
+            <span class="mws-btn mws-btn-gold">Get yearly plan</span>
           </article>
-          <article class="mws-card" onclick="go('contact')">
-            <div class="mws-head">
-              <span class="mws-tag">Own forever</span>
-              <span class="mws-name">Forever</span>
+
+          <article class="mws-card mws-forever" onclick="go('contact')">
+            <div class="mws-glow" aria-hidden="true"></div>
+            <div class="mws-topline" aria-hidden="true"></div>
+            <div class="mws-content">
+              <p class="mws-plan">Forever</p>
+              <p class="mws-tagline">Pay once · own for life</p>
+              <div class="mws-price-wrap">
+                <div class="mws-price"><span class="mws-currency">₹</span>12,000<span class="mws-period"> once</span></div>
+              </div>
+              <p class="mws-note">Zero renewals · yours forever</p>
+              <ul class="mws-feats">
+                <li>Everything in Yearly</li>
+                <li>No setup fee, ever</li>
+                <li>Priority support for life</li>
+                <li>Best long-term value</li>
+              </ul>
             </div>
-            <div class="mws-price-block">
-              <div class="mws-price"><span class="mws-cur">₹</span>12,000<small> once</small></div>
-              <p class="mws-note">Pay once · zero renewals ever</p>
-            </div>
-            <ul class="mws-feats"><li>Everything in Yearly</li><li>Yours for life</li><li>Best long-term value</li></ul>
-            <span class="mws-btn">Own it forever →</span>
+            <span class="mws-btn">Own it forever</span>
           </article>
         </div>
       </div>
 
-      <div class="mob-hub-col">
-        <div class="mhb-head"><h3>AI Tools</h3><span class="mhb-from deal">from ₹100</span><a href="#" onclick="go('aiservices');return false;" class="mhb-link">All →</a></div>
-        <div class="mas-scroll">
-          <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
-            <img src="img/mob-ai-chatbot.png" alt="Business Chatbot" loading="lazy">
-            <div class="mas-pill-body"><strong>Business Chatbot</strong><span>₹200/mo · Live</span></div>
-          </a>
-          <a class="mas-pill" href="#" onclick="go('aiservices');return false;">
-            <img src="img/mob-ai-sweep.png" alt="Sweep Lead Finder" loading="lazy">
-            <div class="mas-pill-body"><strong>Sweep Lead Finder</strong><span>From ₹100 · Live</span></div>
-          </a>
-          <a class="mas-pill feat" href="#" onclick="go('aiservices');return false;">
-            <img src="img/mob-ai-autogram.png" alt="AutoGram Instagram" loading="lazy">
-            <div class="mas-pill-body"><strong>AutoGram Instagram</strong><span>From ₹299 · New</span></div>
-          </a>
+      <div class="mob-hub-col mob-ai-col">
+        <div class="mhb-head mhb-premium mhb-ai">
+          <div class="mhb-head-main">
+            <span class="mhb-eyebrow mhb-eyebrow-ai">Intelligent automation</span>
+            <h3>AI that sells for you</h3>
+          </div>
+          <a href="#" onclick="go('aiservices');return false;" class="mhb-link mhb-link-pill">View all tools</a>
+        </div>
+
+        <div class="mas-carousel" id="mas-carousel">
+          <div class="mas-edge mas-edge-l" aria-hidden="true"></div>
+          <div class="mas-edge mas-edge-r" aria-hidden="true"></div>
+
+          <div class="mas-scroll" role="region" aria-label="AI tools carousel" tabindex="0">
+            <article class="mas-card mas-feat mas-chatbot mas-active" tabindex="0" role="button" onclick="go('aiservices')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('aiservices');}">
+              <div class="mas-glow" aria-hidden="true"></div>
+              <div class="mas-topline" aria-hidden="true"></div>
+              <div class="mas-visual">
+                <img src="img/mob-ai-chatbot.png" alt="" loading="lazy" width="600" height="800">
+                <div class="mas-visual-shade" aria-hidden="true"></div>
+                <span class="mas-status live"><span class="mas-pulse"></span>Live now</span>
+                <span class="mas-float-tag">Popular</span>
+              </div>
+              <div class="mas-body">
+                <span class="mas-cat">AI Website Receptionist</span>
+                <h4 class="mas-title">Business Chatbot</h4>
+                <p class="mas-hook">Answers customer questions on your site — 24/7, trained on your business.</p>
+                <div class="mas-chips">
+                  <span>24/7 replies</span><span>Your data only</span><span>Setup included</span>
+                </div>
+                <div class="mas-price-row">
+                  <span class="mas-price">₹200<small>/mo</small></span>
+                  <span class="mas-meta">1000+ chats included</span>
+                </div>
+              </div>
+              <span class="mas-cta">Explore chatbot →</span>
+            </article>
+
+            <article class="mas-card mas-sweep" tabindex="0" role="button" onclick="go('aiservices')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('aiservices');}">
+              <div class="mas-glow" aria-hidden="true"></div>
+              <div class="mas-topline" aria-hidden="true"></div>
+              <div class="mas-visual">
+                <img src="img/mob-ai-sweep.png" alt="" loading="lazy" width="600" height="800">
+                <div class="mas-visual-shade" aria-hidden="true"></div>
+                <span class="mas-status live"><span class="mas-pulse"></span>Live now</span>
+              </div>
+              <div class="mas-body">
+                <span class="mas-cat">Lead Generation</span>
+                <h4 class="mas-title">Sweep Lead Finder</h4>
+                <p class="mas-hook">Pick a city &amp; niche — AI pulls contacts and exports a ready Excel list.</p>
+                <div class="mas-chips">
+                  <span>Map scan</span><span>Excel export</span><span>₹1/search</span>
+                </div>
+                <div class="mas-price-row">
+                  <span class="mas-price">₹100<small> to start</small></span>
+                  <span class="mas-meta">Up to 60 leads / search</span>
+                </div>
+              </div>
+              <span class="mas-cta mas-cta-teal">Find leads now →</span>
+            </article>
+
+            <article class="mas-card mas-feat mas-autogram" tabindex="0" role="button" onclick="go('aiservices')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('aiservices');}">
+              <div class="mas-glow" aria-hidden="true"></div>
+              <div class="mas-topline" aria-hidden="true"></div>
+              <div class="mas-visual">
+                <img src="img/mob-ai-autogram.png" alt="" loading="lazy" width="600" height="800">
+                <div class="mas-visual-shade" aria-hidden="true"></div>
+                <span class="mas-status live"><span class="mas-pulse"></span>Live now</span>
+                <span class="mas-float-tag mas-float-new">New</span>
+              </div>
+              <div class="mas-body">
+                <span class="mas-cat">Social Media Autopilot</span>
+                <h4 class="mas-title">AutoGram Instagram</h4>
+                <p class="mas-hook">Branded posters designed &amp; posted to Instagram on your schedule.</p>
+                <div class="mas-chips">
+                  <span>Auto-post</span><span>Your brand</span><span>₹2/poster</span>
+                </div>
+                <div class="mas-price-row">
+                  <span class="mas-price mas-price-pink">₹299<small> to start</small></span>
+                  <span class="mas-meta">Set days &amp; frequency</span>
+                </div>
+              </div>
+              <span class="mas-cta mas-cta-pink">Try AutoGram →</span>
+            </article>
+          </div>
+
+          <div class="mas-nav" aria-hidden="true">
+            <div class="mas-progress"><div class="mas-progress-fill"></div></div>
+            <div class="mas-dots">
+              <span class="mas-dot-i active"></span>
+              <span class="mas-dot-i"></span>
+              <span class="mas-dot-i"></span>
+            </div>
+            <p class="mas-swipe-hint"><span class="mas-swipe-chevron">‹</span> Swipe to explore <span class="mas-swipe-chevron">›</span></p>
+          </div>
         </div>
       </div>
     </div>
@@ -2947,18 +3057,15 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <div class="fg"><label>Business Email</label><input type="email" id="email" placeholder="john@company.com"></div>
         <div class="fg"><label>Company</label><input type="text" id="company" placeholder="Your Company Name"></div>
         <div class="fg"><label>Service Interested In</label>
-          <select id="service"><option value="">Select a service...</option><option>Website Design (from ₹100/mo)</option><option>Web Application Development</option><option>Mobile App Development</option><option>Product design &amp; UX engineering</option><option>SEO Support</option><option>Social Media Management</option><option>LinkedIn &amp; Instagram Ads</option><option>AI Tools &amp; Chatbots</option><option>Multiple Services</option></select>
-        </div>
-        <div class="fg"><label>Preferred Plan</label>
-          <select id="budget"><option value="">Select a plan...</option><option>Monthly &#8211; &#8377;100/month + &#8377;899 setup</option><option>Yearly &#8211; &#8377;1,500 first year, then &#8377;1,000/year (no setup)</option><option>Forever &#8211; &#8377;12,000 one-time</option><option>Not sure yet</option></select>
+          <select id="service"><option value="">Select a service...</option><option>Website Design</option><option>Web Application Development</option><option>Mobile App Development</option><option>Product design &amp; UX engineering</option><option>SEO Support</option><option>Social Media Management</option><option>LinkedIn &amp; Instagram Ads</option><option>AI Tools &amp; Chatbots</option><option>Multiple Services</option></select>
         </div>
         <div class="fg"><label>Project Brief</label><textarea id="message" placeholder="Tell us about your project, goals, and timeline..."></textarea></div>
-        <button class="btn-p" onclick="submitForm()" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;">Send Message <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <button class="btn-p" id="contactSubmitBtn" type="button" onclick="submitForm()" style="width:100%;justify-content:center;font-size:1rem;padding:1rem;">Send Message <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
       </div>
       <div class="fs" id="formSuccess">
         <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         <h3>Message Sent!</h3>
-        <p>Thanks for reaching out. Our team will review your project brief and get back to you within 24 hours.</p>
+        <p>Thanks for reaching out. We received your message at <b>hellorockitx@gmail.com</b> and will get back to you within 24 hours.</p>
         <button class="btn-s" onclick="resetForm()" style="margin-top:1.5rem;">Send Another</button>
       </div>
     </div>
@@ -3139,15 +3246,39 @@ document.querySelectorAll('.stat-row').forEach(el=>coObs.observe(el));
 
 /* ── FORM ── */
 function submitForm(){
-  const f=document.getElementById('fname').value.trim();
+  const fname=document.getElementById('fname').value.trim();
+  const lname=document.getElementById('lname').value.trim();
   const em=document.getElementById('email').value.trim();
   const sv=document.getElementById('service').value;
-  if(!f||!em||!sv){alert('Please fill in your name, email, and select a service.');return;}
-  const cf=document.getElementById('contactForm'),fs=document.getElementById('formSuccess');
-  cf.style.display='none';fs.style.display='block';
+  const btn=document.getElementById('contactSubmitBtn');
+  if(!fname||!em||!sv){alert('Please fill in your first name, email, and select a service.');return;}
+  if(btn){btn.disabled=true;btn.textContent='Sending…';}
+  const payload={
+    _subject:'New RockitX website inquiry',
+    _template:'table',
+    _captcha:'false',
+    'First Name':fname,
+    'Last Name':lname||'—',
+    'Email':em,
+    'Company':document.getElementById('company').value.trim()||'—',
+    'Service':sv,
+    'Message':document.getElementById('message').value.trim()||'—'
+  };
+  fetch('https://formsubmit.co/ajax/hellorockitx@gmail.com',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify(payload)
+  }).then(function(r){return r.json();}).then(function(){
+    const cf=document.getElementById('contactForm'),fs=document.getElementById('formSuccess');
+    cf.style.display='none';fs.style.display='block';
+  }).catch(function(){
+    alert('Could not send right now. Please email hellorockitx@gmail.com or WhatsApp +91 96770 15116.');
+  }).finally(function(){
+    if(btn){btn.disabled=false;btn.innerHTML='Send Message <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';}
+  });
 }
 function resetForm(){
-  ['fname','lname','email','company','service','budget','message'].forEach(id=>{document.getElementById(id).value='';});
+  ['fname','lname','email','company','service','message'].forEach(id=>{document.getElementById(id).value='';});
   document.getElementById('contactForm').style.display='block';
   document.getElementById('formSuccess').style.display='none';
 }
@@ -3160,6 +3291,50 @@ function goSection(id){
   setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});},80);
   closeMenu();
 }
+
+/* ── MOBILE AI CAROUSEL — focus card + progress ── */
+(function(){
+  var root=document.getElementById('mas-carousel');
+  if(!root)return;
+  var scroll=root.querySelector('.mas-scroll');
+  var fill=root.querySelector('.mas-progress-fill');
+  var dots=root.querySelectorAll('.mas-dot-i');
+  var cards=root.querySelectorAll('.mas-card');
+  if(!scroll||!cards.length)return;
+
+  function activeIndex(){
+    var cx=scroll.scrollLeft+scroll.clientWidth/2;
+    var idx=0,best=Infinity;
+    cards.forEach(function(c,i){
+      var cc=c.offsetLeft+c.offsetWidth/2;
+      var d=Math.abs(cx-cc);
+      if(d<best){best=d;idx=i;}
+    });
+    return idx;
+  }
+
+  function update(){
+    if(window.innerWidth>768)return;
+    var idx=activeIndex();
+    cards.forEach(function(c,i){c.classList.toggle('mas-active',i===idx);});
+    dots.forEach(function(d,i){d.classList.toggle('active',i===idx);});
+    if(fill&&cards.length>1){
+      fill.style.width=(100/cards.length)+'%';
+      fill.style.transform='translateX('+(idx*100)+'%)';
+    }else if(fill){fill.style.width='100%';fill.style.transform='translateX(0)';}
+  }
+
+  scroll.addEventListener('scroll',update,{passive:true});
+  window.addEventListener('resize',update,{passive:true});
+  dots.forEach(function(dot,i){
+    dot.addEventListener('click',function(){
+      var c=cards[i];
+      if(!c)return;
+      scroll.scrollTo({left:c.offsetLeft-(scroll.clientWidth-c.offsetWidth)/2,behavior:'smooth'});
+    });
+  });
+  update();
+})();
 
 /* ── 3D TILT ON CARDS ── */
 (function(){
