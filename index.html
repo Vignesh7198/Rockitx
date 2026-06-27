@@ -239,7 +239,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opa
 
 /* Responsive show/hide — desktop only (mobile rules at end of file + mobile-only.css) */
 @media(min-width:769px){
-  .mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials,.mob-hub{display:none!important;}
+  .mob-only,.mob-only-block,.ai-mob-card,.ai-mob-mystery,.mob-ai-spotlight,.mob-deals-bar,.mob-nav-specials,.mob-hub,.mob-nav-sheet-head,.mob-page-bar{display:none!important;}
 }
 
 /* Highlighted "Check our Special Products" nav link — yellow glow pill. */
@@ -1096,6 +1096,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .mob-ai-spotlight,.mob-deals-bar,.mob-hub{display:block!important;}
   .mob-skip{display:none!important;}
   .mob-nav-specials{display:inline-flex!important;}
+  .mob-nav-sheet-head,.mob-page-bar{display:block!important;}
   .hamburger{
     display:flex!important;flex-direction:column!important;gap:5px!important;
     border:1px solid rgba(255,255,255,.14)!important;border-radius:10px!important;
@@ -1613,7 +1614,11 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
     <div class="nav-r">
       <div class="nav-links" id="navLinks">
-        <a id="nav-home" onclick="go('home')" class="active">Home</a>
+        <div class="mob-nav-sheet-head mob-only-block">
+          <span class="mnsh-title">Menu</span>
+          <button type="button" class="mnsh-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+        </div>
+        <a id="nav-home" onclick="go('home')" class="active mob-nav-home-link">Home</a>
         <a id="nav-pricing" onclick="goSection('pricing')">Pricing</a>
         <a id="nav-templates" onclick="goSection('templates')">Templates</a>
         <a id="nav-work" onclick="goSection('work')">Why Us</a>
@@ -1628,6 +1633,14 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
     </div>
   </div>
 </nav>
+
+<!-- Mobile back-to-home (non-home pages only) -->
+<div class="mob-page-bar mob-only-block" id="mobPageBar">
+  <button type="button" onclick="go('home')" aria-label="Back to Home">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back to Home
+  </button>
+</div>
 
 <!-- ══════════════════════════════════════ HOME PAGE ═ -->
 <div class="page active" id="page-home">
@@ -1666,28 +1679,40 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <div class="mhb-head"><h3>Websites</h3><span class="mhb-from">from ₹100/mo</span></div>
         <div class="mws-scroll">
           <article class="mws-card" onclick="go('contact')">
-            <span class="mws-tag">Start here</span>
-            <div class="mws-name">Monthly</div>
-            <div class="mws-price">₹100<small>/mo</small></div>
-            <p class="mws-note">+ ₹899 setup · cancel anytime</p>
-            <ul class="mws-feats"><li>Hosting + domain</li><li>WhatsApp leads</li></ul>
-            <span class="mws-cta">Start →</span>
+            <div class="mws-head">
+              <span class="mws-tag">Start here</span>
+              <span class="mws-name">Monthly</span>
+            </div>
+            <div class="mws-price-block">
+              <div class="mws-price"><span class="mws-cur">₹</span>100<small>/mo</small></div>
+              <p class="mws-note">+ ₹899 one-time setup · cancel anytime</p>
+            </div>
+            <ul class="mws-feats"><li>Hosting + domain included</li><li>WhatsApp &amp; lead buttons</li><li>Live in 7 days</li></ul>
+            <span class="mws-btn">Start monthly →</span>
           </article>
           <article class="mws-card feat" onclick="go('contact')">
-            <span class="mws-tag hot">Best value</span>
-            <div class="mws-name">Yearly</div>
-            <div class="mws-price">₹1,500<small>/yr</small></div>
-            <p class="mws-note">No setup fee · renews ₹1,000/yr</p>
-            <ul class="mws-feats"><li>SEO setup</li><li>Priority support</li></ul>
-            <span class="mws-cta">Get yearly →</span>
+            <div class="mws-head">
+              <span class="mws-tag hot">★ Best value</span>
+              <span class="mws-name">Yearly</span>
+            </div>
+            <div class="mws-price-block">
+              <div class="mws-price deal"><span class="mws-cur">₹</span>1,500<small>/yr</small></div>
+              <p class="mws-note">No setup fee · renews at ₹1,000/yr</p>
+            </div>
+            <ul class="mws-feats"><li>Everything in Monthly</li><li>SEO setup included</li><li>Priority support</li></ul>
+            <span class="mws-btn feat">Get yearly →</span>
           </article>
           <article class="mws-card" onclick="go('contact')">
-            <span class="mws-tag">Own it</span>
-            <div class="mws-name">Forever</div>
-            <div class="mws-price">₹12,000<small> once</small></div>
-            <p class="mws-note">Pay once · zero renewals</p>
-            <ul class="mws-feats"><li>Yours for life</li><li>Best long-term</li></ul>
-            <span class="mws-cta">Own it →</span>
+            <div class="mws-head">
+              <span class="mws-tag">Own forever</span>
+              <span class="mws-name">Forever</span>
+            </div>
+            <div class="mws-price-block">
+              <div class="mws-price"><span class="mws-cur">₹</span>12,000<small> once</small></div>
+              <p class="mws-note">Pay once · zero renewals ever</p>
+            </div>
+            <ul class="mws-feats"><li>Everything in Yearly</li><li>Yours for life</li><li>Best long-term value</li></ul>
+            <span class="mws-btn">Own it forever →</span>
           </article>
         </div>
       </div>
@@ -2920,7 +2945,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
         <div class="fg"><label>Business Email</label><input type="email" id="email" placeholder="john@company.com"></div>
         <div class="fg"><label>Company</label><input type="text" id="company" placeholder="Your Company Name"></div>
         <div class="fg"><label>Service Interested In</label>
-          <select id="service"><option value="">Select a service...</option><option>Web Application Development</option><option>Mobile App Development</option><option>Product design &amp; UX engineering</option><option>SEO Support</option><option>Social Media Management</option><option>LinkedIn &amp; Instagram Ads</option><option>Multiple Services</option></select>
+          <select id="service"><option value="">Select a service...</option><option>Website Design (from ₹100/mo)</option><option>Web Application Development</option><option>Mobile App Development</option><option>Product design &amp; UX engineering</option><option>SEO Support</option><option>Social Media Management</option><option>LinkedIn &amp; Instagram Ads</option><option>AI Tools &amp; Chatbots</option><option>Multiple Services</option></select>
         </div>
         <div class="fg"><label>Preferred Plan</label>
           <select id="budget"><option value="">Select a plan...</option><option>Monthly &#8211; &#8377;100/month + &#8377;899 setup</option><option>Yearly &#8211; &#8377;1,500 first year, then &#8377;1,000/year (no setup)</option><option>Forever &#8211; &#8377;12,000 one-time</option><option>Not sure yet</option></select>
@@ -3228,7 +3253,8 @@ function goSection(id){
 </style>
 <script>
 (function(){
-  var PITCH_MS=3000;
+  var PITCH_HOLD_MS=4500;
+  var PITCH_FADE_MS=650;
   var chatPitches=[
     'Websites from ₹100/mo — ask me how!',
     'Premium site live in 7 days. Chat now!',
@@ -3246,7 +3272,7 @@ function goSection(id){
     'AutoGram posts while you sleep!',
     'Tap me — I\'ll find your perfect plan!'
   ];
-  var pitchEl=null,pitchIdx=0,pitchTimer=null;
+  var pitchEl=null,pitchIdx=0,pitchTimeout=null;
 
   function isMobileChat(){return window.innerWidth<=768;}
 
@@ -3261,8 +3287,8 @@ function goSection(id){
   }
 
   function removePitch(){
-    clearInterval(pitchTimer);
-    pitchTimer=null;
+    clearTimeout(pitchTimeout);
+    pitchTimeout=null;
     if(pitchEl){pitchEl.remove();pitchEl=null;}
   }
 
@@ -3271,23 +3297,46 @@ function goSection(id){
     return !!(root&&root.classList.contains('rx-open'));
   }
 
-  function showChatPitch(){
-    if(!pitchEl||!isMobileChat())return;
-    if(chatIsOpen()){pitchEl.classList.remove('show');return;}
-    pitchEl.textContent=chatPitches[pitchIdx%chatPitches.length];
-    pitchIdx=(pitchIdx+1)%chatPitches.length;
+  function fadePitch(next){
+    if(!pitchEl)return;
     pitchEl.classList.remove('show');
-    requestAnimationFrame(function(){
-      requestAnimationFrame(function(){pitchEl.classList.add('show');});
-    });
+    pitchEl.classList.add('hide');
+    setTimeout(function(){
+      if(!pitchEl||chatIsOpen())return;
+      if(next)next();
+      pitchEl.classList.remove('hide');
+      pitchEl.classList.add('show');
+    },PITCH_FADE_MS);
+  }
+
+  function scheduleNextPitch(){
+    clearTimeout(pitchTimeout);
+    if(!isMobileChat()||!pitchEl)return;
+    if(chatIsOpen()){
+      pitchEl.classList.remove('show');
+      pitchEl.classList.add('hide');
+      pitchTimeout=setTimeout(scheduleNextPitch,400);
+      return;
+    }
+    pitchTimeout=setTimeout(function(){
+      if(chatIsOpen()){scheduleNextPitch();return;}
+      fadePitch(function(){
+        pitchEl.textContent=chatPitches[pitchIdx%chatPitches.length];
+        pitchIdx=(pitchIdx+1)%chatPitches.length;
+      });
+      scheduleNextPitch();
+    },PITCH_HOLD_MS);
   }
 
   function startChatPitches(){
-    clearInterval(pitchTimer);
     if(!isMobileChat()){removePitch();return;}
     ensurePitch();
-    showChatPitch();
-    pitchTimer=setInterval(showChatPitch,PITCH_MS);
+    pitchIdx=0;
+    pitchEl.textContent=chatPitches[0];
+    pitchEl.classList.remove('hide');
+    pitchEl.classList.add('show');
+    pitchIdx=1;
+    scheduleNextPitch();
   }
 
   var obs=new MutationObserver(function(){
@@ -3300,8 +3349,12 @@ function goSection(id){
     function syncOpen(){
       root.classList.toggle('rx-open',panel.style.display==='block');
       if(isMobileChat()){
-        if(root.classList.contains('rx-open')&&pitchEl)pitchEl.classList.remove('show');
-        else if(pitchEl)showChatPitch();
+        if(root.classList.contains('rx-open')&&pitchEl){
+          pitchEl.classList.remove('show');
+          pitchEl.classList.add('hide');
+        }else if(pitchEl&&!pitchTimeout){
+          scheduleNextPitch();
+        }
       }
     }
     new MutationObserver(syncOpen).observe(panel,{attributes:true,attributeFilter:['style']});
@@ -3339,15 +3392,30 @@ function goSection(id){
     font-size:.8125rem;font-weight:600;line-height:1.38;color:#fff;
     background:linear-gradient(135deg,rgba(67,56,202,.96),rgba(124,92,255,.94));
     box-shadow:0 10px 36px -8px rgba(79,70,229,.9);
-    opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .65s ease,transform .65s ease;
   }
   .rx-chat-pitch.show{opacity:1;transform:translateY(0);}
+  .rx-chat-pitch.hide{opacity:0;transform:translateY(6px);}
   #rx-chat-root.rx-open{
-    inset:max(56px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))!important;
+    position:fixed!important;
+    top:max(56px,env(safe-area-inset-top))!important;
+    right:max(10px,env(safe-area-inset-right))!important;
+    bottom:max(10px,env(safe-area-inset-bottom))!important;
+    left:max(10px,env(safe-area-inset-left))!important;
+    display:block!important;
   }
   #rx-chat-root.rx-open>:first-child{
-    width:100%!important;max-width:100%!important;height:100%!important;max-height:none!important;
+    position:absolute!important;inset:0!important;
+    width:100%!important;height:100%!important;max-height:none!important;
     border-radius:16px!important;overflow:hidden!important;
+  }
+  #rx-chat-root.rx-open>button{
+    position:fixed!important;
+    right:max(14px,env(safe-area-inset-right))!important;left:auto!important;
+    top:auto!important;bottom:max(14px,env(safe-area-inset-bottom))!important;
+    width:52px!important;height:52px!important;z-index:100001!important;
+    border-radius:50%!important;
   }
   #rx-chat-root.rx-open iframe,#rx-chat-root.rx-open>div:first-child{width:100%!important;max-width:100%!important;height:100%!important;min-height:260px!important;border:none!important;}
 }
