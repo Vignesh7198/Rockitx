@@ -123,22 +123,23 @@ body.nav-open::before{
   color:#fff!important;border:none!important;
 }
 
-/* Sticky back-to-home on inner pages */
+/* Sticky back-to-home — inner pages only, never on Home */
 .mob-page-bar{
-  display:none;position:sticky;top:52px;z-index:996;
+  display:none!important;position:sticky;top:52px;z-index:996;
   padding:.45rem max(.85rem,env(safe-area-inset-left)) .45rem max(.85rem,env(safe-area-inset-right));
   background:linear-gradient(180deg,rgba(5,5,9,.92),rgba(5,5,9,.75));
   border-bottom:1px solid var(--border);
 }
+body:has(#page-home.active) .mob-page-bar{display:none!important;}
 body:has(#page-services.active) .mob-page-bar,
 body:has(#page-about.active) .mob-page-bar,
 body:has(#page-contact.active) .mob-page-bar,
 body:has(#page-aiservices.active) .mob-page-bar{display:block!important;}
 .mob-page-bar button{
   display:inline-flex;align-items:center;gap:.45rem;
-  font-family:var(--font);font-size:.82rem;font-weight:800;color:var(--accent);
+  font-family:var(--font);font-size:.78rem;font-weight:800;color:var(--accent);
   background:rgba(124,108,255,.1);border:1px solid rgba(124,108,255,.28);
-  border-radius:999px;padding:.5rem .95rem .5rem .75rem;cursor:pointer;
+  border-radius:999px;padding:.42rem .85rem .42rem .65rem;cursor:pointer;
 }
 
 /* Nav base overrides from index */
@@ -150,34 +151,43 @@ body:has(#page-aiservices.active) .mob-page-bar{display:block!important;}
 .cursor,.c-ring{display:none;}
 .fg-grid{grid-template-columns:1fr;}
 
-/* ══ FIRE OPENER — clean, no box, one CTA ══ */
-.fire-band{padding:0!important;}
+/* ══ FIRE OPENER — centered like web, compact button ══ */
+.fire-band{padding:0!important;text-align:center!important;}
 .fire-hero{
-  min-height:auto!important;justify-content:flex-start!important;align-items:stretch!important;
+  min-height:auto!important;justify-content:flex-start!important;align-items:center!important;
   padding:3.75rem max(.85rem,env(safe-area-inset-left)) .35rem max(.85rem,env(safe-area-inset-right))!important;
+  text-align:center!important;
 }
 .fire-hero::after{height:40%;opacity:.55;}
 .fire-embers{display:none!important;}
 .fire-hero .fire-inner{
-  width:100%;max-width:100%;margin:0;text-align:left;padding:0!important;
+  width:100%;max-width:100%;margin:0 auto;text-align:center!important;padding:0!important;
   background:none!important;border:none!important;box-shadow:none!important;border-radius:0!important;
+  display:flex;flex-direction:column;align-items:center;
 }
 .fire-hero .fire-inner::before{display:none!important;}
-.fire-eyebrow{font-size:.56rem;padding:5px 10px;margin-bottom:.55rem;letter-spacing:.1em;}
+.fire-eyebrow{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.56rem;padding:5px 12px;margin:0 auto .55rem;letter-spacing:.1em;
+}
 .fire-hero .fire-head{
   font-size:clamp(1.45rem,6.2vw,1.72rem)!important;line-height:1.22!important;
   letter-spacing:-.022em!important;max-width:100%!important;text-wrap:balance;
-  animation:fireFlow 3.2s linear infinite!important;
+  animation:fireFlow 3.2s linear infinite!important;text-align:center!important;
 }
-.mob-fire-line{display:block!important;}
+.mob-fire-line{display:block!important;text-align:center!important;}
 .fire-hero .fire-sub{
   font-size:clamp(.82rem,3.5vw,.9rem)!important;line-height:1.48!important;
-  margin:.5rem 0 0!important;max-width:100%!important;color:var(--text2);
+  margin:.5rem auto 0!important;max-width:100%!important;color:var(--text2);text-align:center!important;
 }
-.fire-actions{flex-direction:column;width:100%;gap:0;margin-top:.85rem;}
+.fire-actions{
+  flex-direction:row;flex-wrap:wrap;justify-content:center;width:100%;
+  gap:.5rem;margin-top:.85rem;
+}
 .fire-actions .btn-p{
-  width:100%;justify-content:center;font-size:.9rem;padding:.88rem 1rem;
-  min-height:50px;border-radius:14px;
+  width:auto!important;max-width:92%;
+  display:inline-flex!important;justify-content:center;align-items:center;
+  font-size:.84rem;padding:.62rem 1.35rem;min-height:42px;border-radius:999px;
 }
 .fire-actions .btn-s,.fire-actions .mob-btn-deal{display:none!important;}
 
@@ -274,11 +284,11 @@ body:has(#page-aiservices.active) .mob-page-bar{display:block!important;}
 }
 
 .mws-btn{
-  display:flex;align-items:center;justify-content:center;
-  margin:.25rem .85rem .85rem;padding:.82rem 1rem;border-radius:13px;
-  font-size:.88rem;font-weight:800;color:#fff;
+  display:inline-flex;align-items:center;justify-content:center;align-self:center;
+  margin:.35rem auto .85rem;padding:.58rem 1.15rem;border-radius:999px;
+  font-size:.78rem;font-weight:800;color:#fff;width:auto;max-width:calc(100% - 2rem);
   background:linear-gradient(135deg,#7C6CFF,#4F46E5);
-  box-shadow:0 8px 24px -10px rgba(124,108,255,.8);
+  box-shadow:0 6px 18px -10px rgba(124,108,255,.75);
 }
 .mws-btn.feat{background:linear-gradient(135deg,#FACC15,#F97316);color:#1a1008;box-shadow:0 8px 24px -10px rgba(249,115,22,.65);}
 
@@ -369,7 +379,16 @@ section{padding:1.75rem max(.85rem,env(safe-area-inset-left)) 1.75rem max(.85rem
 footer{padding:1.75rem max(.85rem,env(safe-area-inset-left)) 1.15rem max(.85rem,env(safe-area-inset-right))!important;}
 .f-bot{flex-direction:column;align-items:flex-start;gap:.6rem;}
 .fg-grid{gap:1.35rem;}
-.btn-p,.btn-s{min-height:48px;border-radius:13px;}
+.btn-p,.btn-s{
+  min-height:42px;border-radius:999px;
+  padding:.6rem 1.2rem;font-size:.84rem;width:auto;max-width:100%;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.hero-actions .btn-p,.hero-actions .btn-s{width:auto;}
+.cta-s .btn-p{display:inline-flex!important;width:auto!important;padding:.62rem 1.3rem!important;min-height:42px!important;}
+#templates .btn-p{display:inline-flex!important;width:auto!important;padding:.62rem 1.25rem!important;min-height:42px!important;}
+.nav-cta{min-height:46px!important;padding:.72rem 1rem!important;font-size:.88rem!important;}
+.amc-actions .btn-buy,.amc-actions .btn-details{min-height:42px!important;padding:.58rem 1rem!important;font-size:.82rem!important;border-radius:999px!important;}
 
 .svc-card:hover,.sfc-card:hover,.plan:hover,.tpl-card:hover,.bento-tile:hover,
 .testi-card:hover,.trust-card:hover,.gtee-card:hover,.val-i:hover,.tilt:hover,

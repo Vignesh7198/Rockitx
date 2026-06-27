@@ -1096,7 +1096,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .mob-ai-spotlight,.mob-deals-bar,.mob-hub{display:block!important;}
   .mob-skip{display:none!important;}
   .mob-nav-specials{display:inline-flex!important;}
-  .mob-nav-sheet-head,.mob-page-bar{display:block!important;}
+  .mob-nav-sheet-head{display:block!important;}
   .hamburger{
     display:flex!important;flex-direction:column!important;gap:5px!important;
     border:1px solid rgba(255,255,255,.14)!important;border-radius:10px!important;
@@ -1114,7 +1114,9 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
   .ai-float{display:none!important;}
   .fire-band{padding:0!important;}
   .fire-hero{min-height:auto!important;justify-content:flex-start!important;padding:3.75rem max(.85rem,env(safe-area-inset-left)) .5rem max(.85rem,env(safe-area-inset-right))!important;}
-  .fire-hero .fire-inner{background:none!important;border:none!important;box-shadow:none!important;padding:0!important;}
+  .fire-hero .fire-inner{background:none!important;border:none!important;box-shadow:none!important;padding:0!important;text-align:center!important;}
+  .fire-hero{align-items:center!important;}
+  body:has(#page-home.active) .mob-page-bar{display:none!important;}
   .hero{min-height:auto!important;}
   html,body,.page,#page-home{overflow-x:hidden!important;max-width:100%!important;}
 }
@@ -1635,7 +1637,7 @@ h1 .gt,h2 .g{background-size:220% 220%!important;animation:flameShift 4.5s ease-
 </nav>
 
 <!-- Mobile back-to-home (non-home pages only) -->
-<div class="mob-page-bar mob-only-block" id="mobPageBar">
+<div class="mob-page-bar" id="mobPageBar">
   <button type="button" onclick="go('home')" aria-label="Back to Home">
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     Back to Home
