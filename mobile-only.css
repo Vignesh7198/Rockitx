@@ -806,6 +806,12 @@ footer{padding:1.75rem max(.85rem,env(safe-area-inset-left)) 1.15rem max(.85rem,
   content:'';position:absolute;right:18px;bottom:-6px;
   border:6px solid transparent;border-top-color:rgba(124,92,255,.94);
 }
+.rx-chat-pitch.rx-wa-pitch{
+  background:linear-gradient(135deg,rgba(18,140,126,.96),rgba(37,211,102,.92));
+  border-color:rgba(255,255,255,.12);
+  box-shadow:0 10px 36px -8px rgba(37,211,102,.55);
+}
+.rx-chat-pitch.rx-wa-pitch::after{border-top-color:rgba(37,211,102,.92);}
 #rx-chat-root{
   position:fixed!important;z-index:99999!important;
   right:max(12px,env(safe-area-inset-right))!important;
@@ -859,3 +865,8 @@ footer{padding:1.75rem max(.85rem,env(safe-area-inset-left)) 1.15rem max(.85rem,
 
 #page-home{padding-bottom:max(72px,env(safe-area-inset-bottom))!important;}
 body{padding-bottom:0!important;}
+
+#rx-wa-fallback{
+  right:max(12px,env(safe-area-inset-right))!important;
+  bottom:max(12px,env(safe-area-inset-bottom))!important;
+}
